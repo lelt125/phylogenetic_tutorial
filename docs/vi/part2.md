@@ -305,6 +305,33 @@ Khi cần nhiều trình tự cùng lúc (cả bộ dữ liệu):
 
 Ưu điểm: tái tạo đúng bộ dữ liệu từ danh sách accession trong bài báo.
 
+Danh sách trình tự
+```
+MN613221
+MH087073
+MH087076
+JQ288090
+JQ288091
+EU215532
+LC548742
+EF564578
+EF564577
+EF646366
+EU215531
+AB781693
+AB781694
+AB728191
+KY886335
+KY886328
+JX219442
+JX219441
+ON217794
+ON217795
+ON217796
+ON217797
+ON217798
+```
+
 !!! tip "Mẹo"
     Có thể dán trực tiếp danh sách accession vào ô tìm kiếm Nucleotide;
     nâng cao hơn, dùng EDirect `efetch` trên dòng lệnh.
@@ -343,6 +370,7 @@ và ký tự đặc biệt để tương thích với IQ-TREE & MrBayes.)
 - **Ưu điểm:** giao diện thân thiện, phù hợp giảng dạy.
 - **Bản quyền:** miễn phí cho nghiên cứu & giảng dạy.
 - **Nền tảng:** Windows và macOS.
+- **Link tải xuống:** [MEGA12](https://www.megasoftware.net/)
 
 ### Nhập dữ liệu vào MEGA
 
