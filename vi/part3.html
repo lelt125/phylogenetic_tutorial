@@ -1,0 +1,1672 @@
+
+<!doctype html>
+<html lang="vi" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Hướng dẫn xây dựng cây phát sinh chủng loại / Guide to Phylogenetic tree construction">
+      
+      
+      
+      
+        <link rel="prev" href="part2.html">
+      
+      
+      
+        
+          <link rel="alternate" href="../part3.html" hreflang="en">
+        
+          <link rel="alternate" href="part3.html" hreflang="vi">
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Phần 3 — Phương pháp ML & Bayesian Inference - Hướng dẫn xây dựng cây Phát sinh chủng loại</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="amber">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#phan-3-phuong-phap-maximum-likelihood-bayesian-inference" class="md-skip">
+          Bỏ qua
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Đầu trang">
+    <a href="index.html" title="Hướng dẫn xây dựng cây Phát sinh chủng loại" class="md-header__button md-logo" aria-label="Hướng dẫn xây dựng cây Phát sinh chủng loại" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Hướng dẫn xây dựng cây Phát sinh chủng loại
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Phần 3 — Phương pháp ML & Bayesian Inference
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="amber"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Chọn ngôn ngữ">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="../part3.html" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="part3.html" hreflang="vi" class="md-select__link">
+              Tiếng Việt
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Tìm kiếm" placeholder="Tìm kiếm" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Tìm kiếm">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Xoá" aria-label="Xoá" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="index.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Trang chủ
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="part1.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Phần 1 — Tổng quan lý thuyết
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="part2.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Phần 2 — ChromasPro, BLAST, GenBank, MEGA
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="part3.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Phần 3 — Phương pháp ML & Bayesian Inference
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Thanh điều hướng" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="index.html" title="Hướng dẫn xây dựng cây Phát sinh chủng loại" class="md-nav__button md-logo" aria-label="Hướng dẫn xây dựng cây Phát sinh chủng loại" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Hướng dẫn xây dựng cây Phát sinh chủng loại
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Trang chủ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="part1.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Phần 1 — Tổng quan lý thuyết
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="part2.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Phần 2 — ChromasPro, BLAST, GenBank, MEGA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Phần 3 — Phương pháp ML & Bayesian Inference
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="part3.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Phần 3 — Phương pháp ML & Bayesian Inference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Mục lục">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Mục lục
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#i-mo-hinh-tien-hoa" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        I. Mô hình tiến hóa
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="I. Mô hình tiến hóa">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vi-sao-can-mot-mo-hinh-cho-viec-nay" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vì sao cần một "mô hình" cho việc này?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#khong-phai-moi-kieu-thay-oi-eu-xay-ra-nhu-nhau" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Không phải mọi kiểu thay đổi đều xảy ra như nhau
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tom-lai-mot-mo-hinh-tien-hoa-can-tra-loi-3-cau-hoi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tóm lại: một mô hình tiến hóa cần trả lời 3 câu hỏi
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#vay-lam-sao-biet-nen-dung-mo-hinh-nao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vậy làm sao biết nên dùng mô hình nào?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ii-lam-quen-voi-terminal-powershell-tren-windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        II. Làm quen với Terminal (PowerShell) trên Windows
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="II. Làm quen với Terminal (PowerShell) trên Windows">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cai-at-terminal-au-cuoi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cài đặt Terminal (Đầu cuối)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mo-powershell" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mở PowerShell
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cac-lenh-co-ban-can-biet" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Các lệnh cơ bản cần biết
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dung-phim-tab-e-go-lenh-nhanh-hon" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dùng phím Tab để gõ lệnh nhanh hơn
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#iii-xay-dung-cay-bang-iq-tree-maximum-likelihood" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        III. Xây dựng cây bằng IQ-TREE (Maximum Likelihood)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="III. Xây dựng cây bằng IQ-TREE (Maximum Likelihood)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cai-at-iq-tree-va-mrbayes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cài đặt IQ-TREE và MrBayes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#them-chuong-trinh-vao-bien-moi-truong-path" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Thêm chương trình vào biến môi trường Path
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chuan-bi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chuẩn bị
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lenh-co-ban-chon-mo-hinh-dung-cay-ml-bootstrap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lệnh cơ bản: chọn mô hình + dựng cây ML + bootstrap
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#oc-ket-qua" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Đọc kết quả
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hieu-ten-mo-hinh-ma-modelfinder-vua-chon-cho-ban" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hiểu tên mô hình mà ModelFinder vừa chọn cho bạn
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mo-cay-bang-mega" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mở cây bằng MEGA
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#iv-xay-dung-cay-bang-mrbayes-bayesian-inference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        IV. Xây dựng cây bằng MrBayes (Bayesian Inference)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="IV. Xây dựng cây bằng MrBayes (Bayesian Inference)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#chuan-bi-file-nexus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chuẩn bị file NEXUS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#chay-mrbayes-tu-powershell" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chạy MrBayes từ PowerShell
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#theo-doi-hoi-tu-trong-khi-chay" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Theo dõi hội tụ trong khi chạy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#oc-ket-qua-kiem-tra-bang-tracer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Đọc kết quả &amp; kiểm tra bằng Tracer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#oi-contre-sang-newick-thuan-tuy-bang-trang-web-khi-can" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Đổi .con.tre sang Newick thuần túy bằng trang web (khi cần)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v-xuat-cay-ra-powerpointaffinity-e-hoan-thien-truoc-khi-ang-bao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        V. Xuất cây ra PowerPoint/Affinity để hoàn thiện trước khi đăng báo
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="V. Xuất cây ra PowerPoint/Affinity để hoàn thiện trước khi đăng báo">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vi-sao-khong-chup-man-hinh" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vì sao không chụp màn hình?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#buoc-1-xuat-cay-dang-svg-tu-mega" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bước 1 — Xuất cây dạng SVG từ MEGA
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#buoc-2-chinh-sua-trong-powerpoint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bước 2 — Chỉnh sửa trong PowerPoint
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#buoc-3-dung-affinity-khi-can-o-chinh-xac-cao-hon" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bước 3 — Dùng Affinity khi cần độ chính xác cao hơn
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tong-ket-phan-3" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tổng kết Phần 3
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="phan-3-phuong-phap-maximum-likelihood-bayesian-inference">Phần 3 — Phương pháp Maximum Likelihood &amp; Bayesian Inference<a class="headerlink" href="#phan-3-phuong-phap-maximum-likelihood-bayesian-inference" title="Permanent link">&para;</a></h1>
+<p><strong>Trình bày:</strong> Lê Từ Hoàng Linh &amp; Ninh Thị Hòa</p>
+<p>Phần này gồm hai mảng: (1) lý thuyết về mô hình thay thế nucleotide và cách
+phần mềm chọn mô hình phù hợp, và (2) thực hành dựng cây bằng dòng lệnh với
+<strong>IQ-TREE</strong> (Maximum Likelihood) và <strong>MrBayes</strong> (Bayesian Inference).</p>
+<hr />
+<h2 id="i-mo-hinh-tien-hoa">I. Mô hình tiến hóa<a class="headerlink" href="#i-mo-hinh-tien-hoa" title="Permanent link">&para;</a></h2>
+<h3 id="vi-sao-can-mot-mo-hinh-cho-viec-nay">Vì sao cần một "mô hình" cho việc này?<a class="headerlink" href="#vi-sao-can-mot-mo-hinh-cho-viec-nay" title="Permanent link">&para;</a></h3>
+<p>Hãy tưởng tượng bạn photocopy một trang giấy, rồi lại photocopy bản
+photocopy đó, lặp lại hàng ngàn lần. Mỗi lần sao chép có một xác suất nhỏ
+bị lỗi (mờ, lem mực...) khiến một chữ cái biến thành chữ khác. Càng sao
+chép nhiều lần (càng "xa" bản gốc), số lỗi tích lũy càng nhiều.</p>
+<p>DNA cũng vậy: mỗi lần tế bào sao chép DNA để phân chia, có một xác suất
+rất nhỏ một base (A/T/G/C) bị chép nhầm thành base khác — đây gọi là
+<strong>đột biến thay thế (substitution)</strong>. Hai loài càng "xa" nhau về mặt tiến
+hóa (tách ra từ tổ tiên chung càng lâu) thì trình tự DNA của chúng càng
+tích lũy nhiều khác biệt.</p>
+<p><strong>Mô hình tiến hóa (evolutionary model)</strong> đơn giản là một công thức toán
+mô tả: <em>"nếu một nucleotide thay đổi, nó có xu hướng đổi thành nucleotide nào, và với
+tốc độ ra sao?"</em> — để từ đó phần mềm có thể tính ngược lại: nhìn vào số
+khác biệt hiện có giữa các trình tự, đoán xem cây phát sinh chủng loại
+nào là hợp lý nhất.</p>
+<h3 id="khong-phai-moi-kieu-thay-oi-eu-xay-ra-nhu-nhau">Không phải mọi kiểu thay đổi đều xảy ra như nhau<a class="headerlink" href="#khong-phai-moi-kieu-thay-oi-eu-xay-ra-nhu-nhau" title="Permanent link">&para;</a></h3>
+<p><img alt="Các mô hình thay thế nucleotide: JC69, K80, HKY85, GTR" src="../assets/images/phan3/s02_p01.png" /></p>
+<p>Bốn base chia thành 2 nhóm hóa học: purine (A, G — cấu trúc hai vòng) và
+pyrimidine (C, T — cấu trúc một vòng). Quan sát thực nghiệm cho thấy:</p>
+<ul>
+<li><strong>Đồng hoán (transition)</strong> — đổi trong cùng nhóm (A↔G hoặc C↔T) —
+  xảy ra <strong>thường xuyên hơn</strong>, vì hai base cùng nhóm có hình dạng gần
+  giống nhau nên dễ "chép nhầm" từ base này sang base kia.</li>
+<li><strong>Dị hoán (transversion)</strong> — đổi khác nhóm (A↔C, A↔T, G↔C, G↔T) —
+  <strong>hiếm hơn</strong>, vì hai base khác nhóm có hình dạng khác nhau nhiều hơn.</li>
+</ul>
+<p>Các mô hình <strong>JC69 → K80 → HKY85 → … → GTR</strong> (đi từ trái sang phải trong
+hình) chỉ là các phiên bản ngày càng chi tiết hơn của cùng một ý tưởng:
+mô hình sau cho phép nhiều tham số tự do hơn mô hình trước (ví dụ: cho
+phép transition và transversion có tốc độ khác nhau, cho phép 4 base có
+tỉ lệ khác nhau...). Không có mô hình nào "đúng tuyệt đối" — mục tiêu là
+chọn mô hình đơn giản nhất nhưng vẫn mô tả tốt dữ liệu thật của mình (xem
+phần ModelFinder bên dưới).</p>
+<p>Ngoài <em>loại</em> thay thế (A→G hay A→C...), tên một mô hình đôi khi còn có
+thêm ký hiệu <code>+G</code> hoặc <code>+I</code> — mô tả việc tốc độ thay đổi không đều giữa
+các vị trí trên trình tự. Không cần lo phải tự tính hai tham số này:
+ModelFinder sẽ tự động thử và chọn giúp, và phần thực hành ở Mục III sẽ
+giải thích cụ thể hai ký hiệu này nghĩa là gì ngay khi bạn nhìn thấy
+chúng xuất hiện trong kết quả thật của mình.</p>
+<h3 id="tom-lai-mot-mo-hinh-tien-hoa-can-tra-loi-3-cau-hoi">Tóm lại: một mô hình tiến hóa cần trả lời 3 câu hỏi<a class="headerlink" href="#tom-lai-mot-mo-hinh-tien-hoa-can-tra-loi-3-cau-hoi" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Thay đổi như thế nào?</strong> (mô hình biến đổi / substitution model — ví
+   dụ JC69, HKY85, GTR ở trên).</li>
+<li><strong>Thay đổi có đều giữa các vị trí không?</strong> (<code>+G</code>, <code>+I</code> — chi tiết ở
+   Mục III, ngay sau khi chạy IQ-TREE).</li>
+<li><strong>Thay đổi có đều theo thời gian không?</strong> (đồng hồ phân tử — chỉ cần
+   quan tâm nếu muốn ước tính niên đại của cây, không bắt buộc cho một
+   cây ML/Bayes thông thường).</li>
+</ol>
+<h3 id="vay-lam-sao-biet-nen-dung-mo-hinh-nao">Vậy làm sao biết nên dùng mô hình nào?<a class="headerlink" href="#vay-lam-sao-biet-nen-dung-mo-hinh-nao" title="Permanent link">&para;</a></h3>
+<p>Tin vui: bạn <strong>không cần tự chọn bằng tay</strong>. Có tới hàng chục mô hình
+biến đổi khác nhau, và phần mềm <strong>ModelFinder</strong> (Kalyaanamoorthy et al.,
+2017) — được tích hợp sẵn trong <strong>IQ-TREE</strong> — sẽ tự động thử qua các mô
+hình này trên chính bộ dữ liệu của bạn, rồi chọn ra mô hình "vừa đủ": mô
+tả dữ liệu tốt mà không phức tạp thừa thãi.</p>
+<p><img alt="ModelFinder: fast model selection for accurate phylogenetic estimates (Nature Methods, 2017)" src="../assets/images/phan3/s08_p01.png" /></p>
+<p>Đây chính xác là bước đầu tiên khi bạn gõ lệnh chạy IQ-TREE ở phần thực
+hành bên dưới — bạn sẽ không cần gõ tên một mô hình cụ thể nào, chỉ cần
+báo cho IQ-TREE biết "hãy tự tìm mô hình tốt nhất giúp tôi".</p>
+<hr />
+<h2 id="ii-lam-quen-voi-terminal-powershell-tren-windows">II. Làm quen với Terminal (PowerShell) trên Windows<a class="headerlink" href="#ii-lam-quen-voi-terminal-powershell-tren-windows" title="Permanent link">&para;</a></h2>
+<p>IQ-TREE và MrBayes đều chạy từ dòng lệnh (command line), không có giao
+diện đồ họa như ChromasPro hay MEGA. Trên Windows, dòng lệnh mặc định là
+<strong>PowerShell</strong>.</p>
+<h3 id="cai-at-terminal-au-cuoi">Cài đặt Terminal (Đầu cuối)<a class="headerlink" href="#cai-at-terminal-au-cuoi" title="Permanent link">&para;</a></h3>
+<p>Windows 11 đã có sẵn ứng dụng <strong>Windows Terminal</strong> ("Đầu cuối" trong bản
+tiếng Việt) — đây là cửa sổ dòng lệnh hiện đại, hỗ trợ nhiều tab và hiển
+thị tiếng Việt tốt hơn cửa sổ PowerShell cũ.</p>
+<div class="admonition note">
+<p class="admonition-title">Windows 10 cần tải Terminal riêng</p>
+<p>Nếu máy chạy Windows 10, ứng dụng <strong>Terminal</strong> (Đầu cuối) thường
+<strong>chưa có sẵn</strong> — cần tải miễn phí từ <strong>Microsoft Store</strong> (tìm
+"Terminal" hoặc "Windows Terminal"/"Đầu cuối Windows") rồi cài đặt
+trước khi làm theo hướng dẫn dưới đây. Nếu không cài, bạn vẫn có thể
+dùng cửa sổ <strong>Windows PowerShell</strong> có sẵn, chỉ là giao diện cũ hơn.</p>
+</div>
+<h3 id="mo-powershell">Mở PowerShell<a class="headerlink" href="#mo-powershell" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Nhấn <code>Windows</code> rồi gõ <code>Terminal</code> (hoặc <code>PowerShell</code> nếu chưa cài
+   Terminal) → chọn <strong>Windows PowerShell</strong>.</li>
+<li>Hoặc: giữ <code>Shift</code> + chuột phải vào khoảng trống trong một thư mục trên
+   File Explorer → chọn <strong>Open PowerShell window here</strong> (hoặc <strong>Open in
+   Terminal</strong>, tùy phiên bản Windows) — cách này mở PowerShell ngay tại
+   thư mục đó, khỏi phải <code>cd</code> thủ công.</li>
+</ol>
+<h3 id="cac-lenh-co-ban-can-biet">Các lệnh cơ bản cần biết<a class="headerlink" href="#cac-lenh-co-ban-can-biet" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Việc cần làm</th>
+<th>Lệnh PowerShell</th>
+<th>Ghi chú</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Xem đang ở thư mục nào</td>
+<td><code>pwd</code></td>
+<td>viết tắt của Print Working Directory</td>
+</tr>
+<tr>
+<td>Liệt kê file trong thư mục</td>
+<td><code>ls</code> (hoặc <code>dir</code>)</td>
+<td><code>ls</code> là alias của <code>Get-ChildItem</code></td>
+</tr>
+<tr>
+<td>Di chuyển vào thư mục con</td>
+<td><code>cd ten_thu_muc</code></td>
+<td>dùng <code>cd ..</code> để lùi ra thư mục cha</td>
+</tr>
+<tr>
+<td>Di chuyển đến đường dẫn cụ thể</td>
+<td><code>cd "C:\Users\Ten\Documents\workshop"</code></td>
+<td><strong>để trong ngoặc kép nếu đường dẫn có khoảng trắng</strong></td>
+</tr>
+<tr>
+<td>Tạo thư mục mới</td>
+<td><code>mkdir ten_thu_muc</code></td>
+<td></td>
+</tr>
+<tr>
+<td>Xem nội dung một file text</td>
+<td><code>cat ten_file.txt</code></td>
+<td>hữu ích để xem nhanh file <code>.fasta</code>/<code>.nex</code></td>
+</tr>
+<tr>
+<td>Xem N dòng đầu của file (giống <code>head</code> trên Linux)</td>
+<td><code>Get-Content ten_file.txt -TotalCount 10</code></td>
+<td>có thể viết gọn hơn: <code>gc ten_file.txt -TotalCount 10</code>; muốn xem N dòng cuối (giống <code>tail</code>) thì thêm <code>-Tail 10</code></td>
+</tr>
+<tr>
+<td>Chạy một chương trình trong thư mục hiện tại</td>
+<td><code>.\ten_chuong_trinh.exe</code></td>
+<td>bắt buộc phải có <code>.\</code> ở đầu</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="admonition-title">Lỗi thường gặp: đường dẫn có khoảng trắng hoặc dấu tiếng Việt</p>
+<p>Tên thư mục như <code>Huong_dan_chay_cay</code> hay có dấu cách/dấu tiếng Việt sẽ
+khiến lệnh bị lỗi nếu không để trong ngoặc kép. Luôn bọc đường dẫn
+trong <code>"..."</code> khi gõ lệnh <code>cd</code> hoặc khi truyền tên file cho IQ-TREE/
+MrBayes. Tốt nhất: đặt thư mục làm việc ở một đường dẫn ngắn, không
+dấu, không khoảng trắng (ví dụ <code>C:\workshop\</code>) để tránh rắc rối.</p>
+</div>
+<h3 id="dung-phim-tab-e-go-lenh-nhanh-hon">Dùng phím Tab để gõ lệnh nhanh hơn<a class="headerlink" href="#dung-phim-tab-e-go-lenh-nhanh-hon" title="Permanent link">&para;</a></h3>
+<p>Nhấn <code>Tab</code> khi đang gõ dở tên file, tên thư mục, hoặc tên lệnh để PowerShell
+tự hoàn thành nốt phần còn lại — đỡ phải gõ hết đường dẫn dài hay lo gõ sai
+tên file <code>.fasta</code>/<code>.nex</code>. Nhấn <code>Tab</code> nhiều lần liên tiếp sẽ lần lượt duyệt
+qua từng phương án khớp (khác với Linux/bash vốn hiện luôn cả danh sách,
+nhưng vẫn tiết kiệm gõ phím rất nhiều).</p>
+<hr />
+<h2 id="iii-xay-dung-cay-bang-iq-tree-maximum-likelihood">III. Xây dựng cây bằng IQ-TREE (Maximum Likelihood)<a class="headerlink" href="#iii-xay-dung-cay-bang-iq-tree-maximum-likelihood" title="Permanent link">&para;</a></h2>
+<h3 id="cai-at-iq-tree-va-mrbayes">Cài đặt IQ-TREE và MrBayes<a class="headerlink" href="#cai-at-iq-tree-va-mrbayes" title="Permanent link">&para;</a></h3>
+<p>Cả hai phần mềm đều <strong>không cần "cài đặt" theo kiểu click Next-Next-Finish</strong>
+như ChromasPro hay MEGA — chỉ cần tải một file nén về, giải nén ra một thư
+mục, rồi (ở bước sau) báo cho Windows biết thư mục đó ở đâu.</p>
+<p><strong>IQ-TREE</strong></p>
+<ol>
+<li>Vào trang tải: <a href="https://iqtree.github.io/#download">iqtree.github.io</a>.</li>
+<li>Chọn bản cho <strong>Windows</strong> (ví dụ <code>iqtree-3.1.x-Windows.zip</code>).</li>
+<li>Giải nén file <code>.zip</code> vào một thư mục ngắn gọn, không dấu — ví dụ
+   <code>C:\workshop\iqtree</code>.</li>
+<li>File thực thi nằm trong thư mục con <code>bin\</code>, tên là <strong><code>iqtree3.exe</code></strong>.</li>
+</ol>
+<p><strong>MrBayes</strong></p>
+<ol>
+<li>Vào trang tải: <a href="https://nbisweden.github.io/MrBayes/download.html">nbisweden.github.io/MrBayes</a>.</li>
+<li>Chọn bản Windows đã biên dịch sẵn (hiện tại là
+   <code>MrBayes-3.2.7-WIN.zip</code>).</li>
+<li>Giải nén vào một thư mục ngắn gọn, không dấu — ví dụ
+   <code>C:\workshop\mrbayes</code>.</li>
+<li>Trong mục bin, file thực thi tên là <strong><code>mb.3.2.7-win64.exe</code></strong>.</li>
+<li>Đổi tên file thực thị trên thành <strong><code>mb.exe</code></strong></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Bản Windows của MrBayes chạy tuần tự (serial)</p>
+<p>Bản cài sẵn cho Windows <strong>không đi kèm Beagle/MPI</strong> — nghĩa là chỉ
+chạy trên một luồng CPU, không tăng tốc bằng card đồ họa hay chạy
+song song nhiều máy. Với bộ dữ liệu nhỏ của buổi thực hành (12–16
+taxa, một gen), tốc độ này vẫn đủ nhanh để chạy xong trong một buổi
+học. Nếu sau này cần phân tích dữ liệu lớn hơn nhiều, có thể cân nhắc
+cài qua Homebrew trên WSL/macOS/Linux để có bản MPI.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Không nhất thiết phải để đúng đường dẫn ví dụ ở trên</p>
+<p>Đường dẫn <code>C:\workshop\iqtree</code> và <code>C:\workshop\mrbayes</code> chỉ là ví dụ.
+Bạn có thể đặt ở bất kỳ đâu, miễn là <strong>đường dẫn ngắn, không dấu,
+không khoảng trắng</strong> (xem lại cảnh báo ở mục "Các lệnh cơ bản" bên
+trên) — và nhớ chính xác đường dẫn đó để dùng ở bước tiếp theo.</p>
+</div>
+<p>Sau khi giải nén xong cả hai chương trình, bước tiếp theo là thêm hai
+thư mục <code>bin</code>/thư mục chứa file <code>.exe</code> này vào biến môi trường Path, để
+có thể gõ thẳng <code>iqtree3</code> hoặc <code>mb</code> từ bất kỳ đâu.</p>
+<h3 id="them-chuong-trinh-vao-bien-moi-truong-path">Thêm chương trình vào biến môi trường Path<a class="headerlink" href="#them-chuong-trinh-vao-bien-moi-truong-path" title="Permanent link">&para;</a></h3>
+<p>Để có thể gõ thẳng <code>iqtree3</code> hoặc <code>mb</code> từ bất kỳ thư mục nào (thay vì gõ
+đường dẫn đầy đủ tới file <code>.exe</code> mỗi lần), cần thêm thư mục chứa chương
+trình vào <strong>biến môi trường Path</strong> (environment variable) của Windows:</p>
+<ol>
+<li>Nhấn nút hình logo của <code>Windows</code>, gõ <strong>"biến môi trường"</strong> (hoặc "environment variables")
+   → chọn <strong>Edit the system environment variables</strong> (hoặc <strong>Edit
+   environment variables for your account</strong> nếu không có quyền quản trị
+   máy).
+<img alt="Windows Edit Environment Variables" src="../assets/images/phan3/s03.png" /></li>
+<li>Trong cửa sổ <strong>System Properties</strong>, nhấn nút <strong>Environment Variables...</strong>
+<img alt="Windows System Properties" src="../assets/images/phan3/s04.png" /></li>
+<li>Ở mục <strong>User variables</strong>, chọn dòng <strong>Path</strong> → <strong>Edit...</strong>
+<img alt="Windows System Variables" src="../assets/images/phan3/s05.png" /></li>
+<li>Nhấn <strong>New</strong> → dán vào đường dẫn thư mục chứa file <code>.exe</code> của IQ-TREE
+   hoặc MrBayes, ví dụ <code>C:\workshop\iqtree-3.1\bin</code>.</li>
+<li>Nhấn <strong>OK</strong> ở tất cả các cửa sổ để lưu lại.</li>
+<li><strong>Đóng và mở lại</strong> cửa sổ PowerShell/Terminal để biến môi trường mới
+   có hiệu lực.</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Kiểm tra đã cài đặt đúng chưa</p>
+<p>Mở một cửa sổ PowerShell <strong>mới</strong> rồi gõ <code>iqtree3 --version</code> hoặc
+<code>mb --version</code> — nếu PowerShell báo lỗi "not recognized", nghĩa là
+thư mục chương trình chưa được thêm đúng vào biến môi trường Path,
+hoặc bạn quên mở lại cửa sổ PowerShell sau khi chỉnh.</p>
+</div>
+<h3 id="chuan-bi">Chuẩn bị<a class="headerlink" href="#chuan-bi" title="Permanent link">&para;</a></h3>
+<ul>
+<li>File input: bản alignment đã xuất từ MEGA ở Phần 2, định dạng FASTA,
+  PHYLIP hoặc NEXUS (IQ-TREE đọc được cả ba).</li>
+<li>Đặt file alignment vào một thư mục làm việc riêng, đường dẫn ngắn,
+  không dấu (xem cảnh báo ở trên).</li>
+<li>Mở PowerShell tại thư mục đó (Shift + chuột phải → <em>Open PowerShell
+  window here</em>).</li>
+</ul>
+<h3 id="lenh-co-ban-chon-mo-hinh-dung-cay-ml-bootstrap">Lệnh cơ bản: chọn mô hình + dựng cây ML + bootstrap<a class="headerlink" href="#lenh-co-ban-chon-mo-hinh-dung-cay-ml-bootstrap" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="n">iqtree3</span> <span class="n">-s</span> <span class="n">alignment</span><span class="p">.</span><span class="n">fasta</span> <span class="n">-m</span> <span class="n">MFP</span> <span class="n">-B</span> <span class="n">1000</span> <span class="n">-T</span> <span class="n">AUTO</span> <span class="p">-</span><span class="n">-prefix</span> <span class="n">cayML</span> <span class="n">-seed</span> <span class="n">12345</span>
+</code></pre></div>
+<p>Giải thích từng tùy chọn (option):</p>
+<table>
+<thead>
+<tr>
+<th>Tùy chọn</th>
+<th>Ý nghĩa</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-s alignment.fasta</code></td>
+<td>file alignment đầu vào (<strong>bắt buộc</strong>)</td>
+</tr>
+<tr>
+<td><code>-m MFP</code></td>
+<td>chạy <strong>ModelFinder Plus</strong>: tự động chọn mô hình thay thế tốt nhất rồi dựng cây bằng mô hình đó</td>
+</tr>
+<tr>
+<td><code>-B 1000</code></td>
+<td>chạy <strong>ultrafast bootstrap</strong> với 1000 lần lặp (tối thiểu khuyến nghị)</td>
+</tr>
+<tr>
+<td><code>-T AUTO</code></td>
+<td>để IQ-TREE tự chọn số luồng CPU tối ưu</td>
+</tr>
+<tr>
+<td><code>--prefix cayML</code></td>
+<td>mọi file kết quả sẽ có tên bắt đầu bằng <code>cayML.*</code> thay vì trùng tên file input</td>
+</tr>
+<tr>
+<td><code>-seed 12345</code></td>
+<td>đặt <strong>hạt giống (seed)</strong> cho bộ sinh số ngẫu nhiên — có thể thay <code>12345</code> bằng bất kỳ số nguyên nào bạn thích; nếu bỏ qua, IQ-TREE tự lấy seed từ đồng hồ hệ thống</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Máy tính không thực sự \"ngẫu nhiên\" — vì sao cần đặt seed (hạt giống)?</p>
+<p>Máy tính không tạo ra số ngẫu nhiên "thật" — nó dùng một thuật toán
+tất định (deterministic) gọi là <strong>bộ sinh số giả ngẫu nhiên</strong>
+(pseudo-random number generator), xuất ra một chuỗi số <em>trông có vẻ</em>
+ngẫu nhiên nhưng thực chất được tính hoàn toàn từ một giá trị khởi
+đầu duy nhất gọi là <strong>seed</strong>. Cùng một seed → luôn cho ra đúng cùng
+một chuỗi số đó, dù chạy lại bao nhiêu lần, trên máy nào.</p>
+<p>Cả IQ-TREE (khi tìm cây ML, chạy bootstrap) và MrBayes (khi lấy mẫu
+MCMC, xem Mục IV) đều dùng số ngẫu nhiên ở rất nhiều bước. Nếu không
+tự đặt seed, phần mềm sẽ tự lấy seed từ đồng hồ hệ thống — nghĩa là
+mỗi lần chạy lại sẽ cho một kết quả hơi khác (dù không khác biệt về
+mặt thống kê). Tự đặt một seed cụ thể giúp:</p>
+<ul>
+<li><strong>Tái lập kết quả (reproducibility)</strong>: chạy lại đúng lệnh, đúng
+  seed → ra đúng cùng một cây y hệt lần trước — hữu ích khi cần kiểm
+  tra lại kết quả, hoặc khi viết bài báo (một số tạp chí yêu cầu ghi
+  rõ seed đã dùng để người đọc có thể tái lập phân tích).</li>
+<li><strong>Debug</strong>: nếu gặp lỗi hoặc kết quả bất thường, chạy lại với cùng
+  seed để tái hiện chính xác vấn đề.</li>
+</ul>
+<p>Bạn <em>không</em> cần đặt seed để có một cây "đúng hơn" — với bộ dữ liệu đủ
+thông tin, các seed khác nhau vẫn hội tụ về cùng một kết quả. Đặt
+seed chỉ để đảm bảo có thể tái lập lại đúng lần chạy đó khi cần.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Chạy lại từ đầu</p>
+<p>Nếu chạy dở rồi muốn chạy lại toàn bộ (ghi đè kết quả cũ), thêm tùy
+chọn <code>-redo</code> vào cuối lệnh (đây là dạng tùy chọn không kèm giá trị —
+chỉ cần có mặt là bật tính năng, nên cũng thường được gọi riêng là
+"flag"). Nếu không, IQ-TREE mặc định sẽ tiếp tục từ
+điểm dừng trước đó nhờ file checkpoint <code>.ckp.gz</code>.</p>
+</div>
+<h3 id="oc-ket-qua">Đọc kết quả<a class="headerlink" href="#oc-ket-qua" title="Permanent link">&para;</a></h3>
+<p>Sau khi chạy xong, IQ-TREE tạo ra nhiều file cùng tiền tố (<code>cayML.*</code>):</p>
+<ul>
+<li><strong><code>cayML.iqtree</code></strong> — báo cáo chính, đọc được bằng mắt: mô hình được
+  chọn, cây dạng văn bản kèm giá trị hỗ trợ, log-likelihood...</li>
+<li><strong><code>cayML.treefile</code></strong> — cây ML ở định dạng Newick, dùng để mở bằng MEGA
+  (xem bên dưới) hoặc các phần mềm xem cây khác như FigTree/iTOL.</li>
+<li><strong><code>cayML.contree</code></strong> — cây đồng thuận (consensus) kèm giá trị hỗ trợ đã
+  gán, với độ dài nhánh tối ưu lại trên alignment gốc.</li>
+<li><strong><code>cayML.log</code></strong> — nhật ký toàn bộ quá trình chạy.</li>
+</ul>
+<p>Trong file <code>.treefile</code>, mỗi nhánh sẽ có hai con số dạng <code>(SH-aLRT/UFBoot)</code>,
+ví dụ <code>(98.2/99)</code> — càng cao càng đáng tin (xem lại ngưỡng đọc giá trị hỗ
+trợ ở Phần 1).</p>
+<h3 id="hieu-ten-mo-hinh-ma-modelfinder-vua-chon-cho-ban">Hiểu tên mô hình mà ModelFinder vừa chọn cho bạn<a class="headerlink" href="#hieu-ten-mo-hinh-ma-modelfinder-vua-chon-cho-ban" title="Permanent link">&para;</a></h3>
+<p>Mở file <code>cayML.iqtree</code> (xem lại mục "Đọc kết quả" ở trên), tìm dòng ghi
+tên mô hình được ModelFinder chọn — thường có dạng gần giống
+<code>GTR+F+I+G4</code>. Đây chính là lúc lý thuyết ở Mục I trở nên cụ thể:</p>
+<div class="admonition note">
+<p class="admonition-title">Vì sao đôi khi thấy thêm <code>+G</code> hoặc <code>+I</code> phía sau tên mô hình?</p>
+<p>Không phải vị trí nào trên trình tự cũng đột biến nhanh như nhau. Có
+vị trí gần như "đóng băng" suốt hàng triệu năm (vì đột biến ở đó gây
+hại), có vị trí đổi liên tục.</p>
+<ul>
+<li><code>+G</code> (gamma, thường kèm số như <code>G4</code> = 4 lớp tốc độ) = mô hình có
+  thêm tham số mô tả sự khác biệt tốc độ này giữa các vị trí.</li>
+<li><code>+I</code> (invariant) = mô hình giả định có một tỉ lệ vị trí gần như
+  không bao giờ đổi.</li>
+</ul>
+<p>Bạn không cần tự tính hai tham số này — ModelFinder đã tự động thử và
+chọn giúp bạn ngay trong lệnh vừa chạy.</p>
+</div>
+<p>Để hình dung mô hình <code>GTR+F+I+G4</code> này phức tạp đến đâu, hãy so sánh với
+mô hình <strong>đơn giản nhất có thể tồn tại</strong>:</p>
+<div class="grid">
+<p><img alt="Mô hình JC69: mọi tốc độ thay thế μ bằng nhau" src="../assets/images/phan3/s07_p01.png" /></p>
+<p><strong>JC69</strong> (Jukes &amp; Cantor, 1969) — mô hình đơn giản nhất, thường sẽ <em>không</em>
+phải là mô hình ModelFinder chọn cho dữ liệu thật của bạn, nhưng là điểm
+khởi đầu tốt để hiểu ý tưởng:</p>
+<ul>
+<li>Giả định 4 base A, G, C, T xuất hiện với tỉ lệ <strong>bằng nhau</strong> (mỗi loại
+  1/4) — còn <code>GTR</code> (mô hình có thể ModelFinder vừa chọn) thì cho phép 4
+  base có tỉ lệ khác nhau (đây là ý nghĩa của <code>+F</code> trong tên mô hình).</li>
+<li>Giả định <strong>mọi kiểu thay thế đều có cùng một tốc độ</strong> μ duy nhất, không
+  phân biệt transition/transversion — còn <code>GTR</code> (<code>nst=6</code>) cho phép cả 6
+  tốc độ thay thế khác nhau.</li>
+</ul>
+</div>
+<p>Hai mảnh ghép còn lại — <strong>đồng hồ phân tử</strong> và <strong>vị trí codon</strong> — không
+ảnh hưởng trực tiếp đến lệnh bạn vừa chạy, nhưng đáng biết khi đọc và
+diễn giải kết quả:</p>
+<div class="admonition note">
+<p class="admonition-title">Đồng hồ phân tử: dùng đột biến để đoán thời gian (không bắt buộc cho hôm nay)</p>
+<p>Nếu tốc độ đột biến ở một vùng DNA tương đối ổn định theo thời gian,
+ta có thể dùng nó như một chiếc "đồng hồ": càng nhiều khác biệt tích
+lũy giữa hai trình tự, hai dòng tiến hóa đó càng tách nhau lâu rồi —
+khá giống cách các nhà cổ sinh vật học dùng đồng vị phóng xạ để ước
+tính tuổi hóa thạch. Tốc độ "đồng hồ" này không giống nhau ở mọi vùng
+hệ gen (DNA ty thể nhanh hơn khoảng 10 lần so với DNA nhân tế bào —
+Brown et al., 1982), nên chỉ nên so sánh trong <strong>cùng một vùng gen</strong>,
+không so sánh giữa các gen khác nhau. Mục III/IV hôm nay không cần
+ước tính niên đại, nên có thể bỏ qua phần này nếu chỉ muốn dựng cây.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Với gen mã hóa protein: không phải vị trí nào trong bộ ba cũng 'bình đẳng'</p>
+<p>Một bộ ba mã (codon) gồm 3 vị trí, mã hóa cho 1 amino acid. Vị trí
+thứ 3 đổi thoải mái nhất (~70% thay đổi ở đây không làm đổi amino
+acid — đột biến <strong>đồng nghĩa</strong>), trong khi vị trí 1 và 2 gần như mọi
+thay đổi đều làm đổi amino acid nên chịu áp lực chọn lọc mạnh hơn,
+ít biến đổi hơn. Đây là lý do một số phân tích chia alignment thành 3
+"phân vùng" theo vị trí codon, mỗi phân vùng dùng một mô hình/tốc độ
+riêng — nhưng với bộ dữ liệu nhỏ hôm nay, dùng chung một mô hình cho
+cả gen (như lệnh <code>-m MFP</code> ở trên) là đủ.</p>
+</div>
+<h3 id="mo-cay-bang-mega">Mở cây bằng MEGA<a class="headerlink" href="#mo-cay-bang-mega" title="Permanent link">&para;</a></h3>
+<p>Vì cả lớp đã quen giao diện MEGA từ Phần 2, có thể dùng luôn MEGA để xem
+cây do IQ-TREE dựng, khỏi cần cài thêm phần mềm:</p>
+<ol>
+<li>Mở <strong>MEGA</strong> → <code>File → Open A File/Session...</code> → chọn <code>cayML.treefile</code>.</li>
+<li>MEGA sẽ tự nhận diện đây là một cây Newick và mở ngay trong <strong>Tree
+   Explorer</strong>.</li>
+<li>Trong Tree Explorer, tick ô hiện giá trị hỗ trợ nhánh (thường ở mục
+   <strong>Branch/Options</strong> hoặc biểu tượng hình số trên thanh công cụ) để thấy
+   cả hai giá trị SH-aLRT/UFBoot tại mỗi nút.</li>
+<li>Chọn nhánh chứa nhóm ngoài (outgroup) → nhấp chuột phải → chọn <strong>Place
+   Root on Branch</strong> để đặt gốc cây đúng vị trí sinh học.</li>
+</ol>
+<div class="admonition warning">
+<p class="admonition-title">IQ-TREE luôn xuất cây không gốc (unrooted)</p>
+<p>IQ-TREE không biết thông tin sinh học về nhóm ngoài, nên luôn vẽ cây
+tại điểm xuất phát là taxon đầu tiên trong alignment. Bạn <strong>phải</strong> tự
+đặt gốc lại bằng outgroup khi mở cây trong MEGA.</p>
+</div>
+<hr />
+<h2 id="iv-xay-dung-cay-bang-mrbayes-bayesian-inference">IV. Xây dựng cây bằng MrBayes (Bayesian Inference)<a class="headerlink" href="#iv-xay-dung-cay-bang-mrbayes-bayesian-inference" title="Permanent link">&para;</a></h2>
+<h3 id="chuan-bi-file-nexus">Chuẩn bị file NEXUS<a class="headerlink" href="#chuan-bi-file-nexus" title="Permanent link">&para;</a></h3>
+<p>MrBayes cần file dữ liệu ở định dạng <strong>NEXUS</strong> (<code>.nex</code>), khác với FASTA
+IQ-TREE dùng. Dùng MEGA để mở lại trình tự đã được gióng hàng trước đó và
+ xuất alignment ra <code>.nex</code>.</p>
+<p>Tệp NEXUS đầy đủ gồm khối dữ liệu (<code>begin data; ... end;</code>) và một khối
+lệnh MrBayes ngay bên dưới (<code>begin mrbayes; ... end;</code>).</p>
+<div class="admonition example">
+<p class="admonition-title">Ví dụ một file NEXUS nhỏ, đầy đủ</p>
+<p>Đây là toàn bộ nội dung một file <code>.nex</code> tối giản với 4 taxon (chỉ để
+minh họa cấu trúc — bộ dữ liệu thật của lớp sẽ có nhiều taxon và
+trình tự dài hơn nhiều):</p>
+<div class="highlight"><pre><span></span><code>#NEXUS
+
+begin data;
+    dimensions ntax=4 nchar=20;
+    format datatype=dna missing=? gap=-;
+    matrix
+    Loai_A            ATGCTAGCTAGCTTAGGCTA
+    Loai_B            ATGCTAGCTAGCTTAGGCTG
+    Loai_C            ATGCTTGCTAGCTTAGCCTA
+    Loai_ngoai_nhom   ATCCTAGGTAGATTAGGATA
+    ;
+end;
+
+begin mrbayes;
+    outgroup Loai_ngoai_nhom;
+    lset nst=6 rates=invgamma;
+    mcmc ngen=100000 samplefreq=100 nchains=4 nruns=2;
+    sump burnin=25;
+    sumt burnin=25;
+end;
+</code></pre></div>
+<p>Dòng <code>#NEXUS</code> <strong>bắt buộc</strong> phải là dòng đầu tiên của file. Khối
+<code>data</code> khai báo số taxon (<code>ntax</code>), độ dài trình tự (<code>nchar</code>), rồi tới
+bảng trình tự (<code>matrix</code>) — mỗi dòng là tên taxon và trình tự, cách
+nhau bằng khoảng trắng, không dấu, không khoảng trắng trong tên
+taxon.</p>
+</div>
+<p>Dán phần sau vào cuối file NEXUS được xuất ra từ MEGA:</p>
+<div class="highlight"><pre><span></span><code>begin mrbayes;
+    lset applyto=(all) NucModel=4by4 Nst=6 Rates=Invgamma NGammaCat=8;
+    prset applyto=(all) StateFreqPr=Dirichlet(1,1,1,1);
+    set autoclose=no seed=12345 swapseed=12345;
+    mcmcp ngen=10000000 printfreq=1000 samplefreq=100 nchain=4 nrun=2 temp=0.2 savebrlens=yes;
+    mcmc diagnfreq=3000000;
+    sump burnin=25000;
+    sumt burnin=25000 contype=allcompat conformat=simple;
+end;
+</code></pre></div>
+<p>Giải thích một số lệnh chính:</p>
+<table>
+<thead>
+<tr>
+<th>Lệnh</th>
+<th>Ý nghĩa</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>outgroup</code></td>
+<td>chỉ định taxon nào là nhóm ngoài để đặt gốc cây</td>
+</tr>
+<tr>
+<td><code>lset nst=6 rates=invgamma</code></td>
+<td>mô hình GTR (<code>nst=6</code> = 6 tốc độ thay thế khác nhau) kèm <code>+I+G</code> (<code>invgamma</code>) — tương đương mô hình ModelFinder hay chọn cho dữ liệu ty thể</td>
+</tr>
+<tr>
+<td><code>NucModel=4by4</code></td>
+<td>xử lý dữ liệu theo kiểu <strong>4 trạng thái</strong> nucleotide chuẩn (A/C/G/T) — khác với kiểu <code>Codon</code> nếu muốn phân tích theo bộ ba mã</td>
+</tr>
+<tr>
+<td><code>NGammaCat=8</code></td>
+<td>số lớp rời rạc dùng để xấp xỉ phân phối gamma của <code>+G</code>; 8 là giá trị phổ biến — càng nhiều lớp càng chính xác nhưng càng chậm</td>
+</tr>
+<tr>
+<td><code>prset</code></td>
+<td>đặt tiên nghiệm (prior) cho các tham số của mô hình</td>
+</tr>
+<tr>
+<td><code>set autoclose=no</code></td>
+<td>không tự đóng chương trình sau khi hoàn thành các lệnh — để có thể xem lại kết quả/nhập lệnh tiếp trong cùng cửa sổ</td>
+</tr>
+<tr>
+<td><code>seed=12345</code></td>
+<td>hạt giống (seed) cho bộ sinh số ngẫu nhiên chính, dùng khi lấy mẫu MCMC — cùng lý do cần đặt seed như đã giải thích ở Mục III (xem lại "Máy tính không thực sự 'ngẫu nhiên'")</td>
+</tr>
+<tr>
+<td><code>swapseed=12345</code></td>
+<td>hạt giống <strong>riêng</strong> cho bước hoán đổi (swap) giữa các chuỗi "nóng"/"lạnh" (<code>nchain</code>) — MrBayes dùng hai bộ sinh số ngẫu nhiên độc lập nên cần đặt cả hai nếu muốn tái lập chính xác toàn bộ lượt chạy</td>
+</tr>
+<tr>
+<td><code>mcmcp ngen=...</code></td>
+<td><strong>đặt trước</strong> các tham số cho lượt chạy MCMC (không chạy ngay) — dùng khi muốn kiểm tra lại cấu hình trước khi thực sự bắt đầu</td>
+</tr>
+<tr>
+<td><code>mcmc</code></td>
+<td><strong>bắt đầu chạy</strong> MCMC bằng các tham số đã đặt ở <code>mcmcp</code> (có thể ghi đè/bổ sung thêm tham số ngay trên dòng <code>mcmc</code>, ví dụ <code>diagnfreq</code> ở đây)</td>
+</tr>
+<tr>
+<td><code>ngen=...</code></td>
+<td>số <strong>thế hệ</strong> (generations) MCMC sẽ chạy — càng nhiều càng dễ hội tụ nhưng càng lâu</td>
+</tr>
+<tr>
+<td><code>printfreq=1000</code></td>
+<td>cứ bao nhiêu thế hệ thì in tiến trình (log-likelihood, độ lệch chuẩn tần suất phân tách...) ra màn hình một lần</td>
+</tr>
+<tr>
+<td><code>samplefreq</code></td>
+<td>cứ bao nhiêu thế hệ thì lấy mẫu một cây/tham số</td>
+</tr>
+<tr>
+<td><code>nchain=4</code></td>
+<td>số <strong>chuỗi</strong> MCMCMC chạy song song trong mỗi run (1 chuỗi "lạnh" dùng để lấy mẫu + 3 chuỗi "nóng" hỗ trợ khám phá không gian cây, tránh bị kẹt ở một đỉnh likelihood cục bộ)</td>
+</tr>
+<tr>
+<td><code>nrun=2</code></td>
+<td>chạy 2 lượt độc lập cùng lúc để so sánh hội tụ</td>
+</tr>
+<tr>
+<td><code>temp=0.2</code></td>
+<td>mức chênh nhiệt độ giữa các chuỗi "nóng" và chuỗi "lạnh" — giá trị nhỏ hơn giúp các chuỗi dễ hoán đổi (swap) cho nhau hơn, hỗ trợ khám phá không gian cây tốt hơn</td>
+</tr>
+<tr>
+<td><code>savebrlens=yes</code></td>
+<td>lưu lại độ dài nhánh của từng cây được lấy mẫu (cần thiết nếu muốn xem cây đồng thuận với độ dài nhánh)</td>
+</tr>
+<tr>
+<td><code>diagnfreq=3000000</code></td>
+<td>cứ bao nhiêu thế hệ thì tính lại các chỉ số chẩn đoán hội tụ (độ lệch chuẩn tần suất phân tách giữa các run) một lần</td>
+</tr>
+<tr>
+<td><code>sump</code> / <code>sumt</code></td>
+<td>tóm tắt tham số / tóm tắt cây sau khi bỏ <strong>giai đoạn khởi động</strong> (<code>burnin</code>)</td>
+</tr>
+<tr>
+<td><code>contype=allcompat</code></td>
+<td>kiểu cây đồng thuận: <code>allcompat</code> giữ lại <strong>tất cả</strong> các nhóm tương thích → cây đầy đủ, phân giải tối đa, <strong>không</strong> bị gộp (collapse) các nhánh hỗ trợ thấp thành đa phân — khác với mặc định <code>halfcompat</code> (chỉ giữ nhóm có hỗ trợ ≥ 50%)</td>
+</tr>
+<tr>
+<td><code>conformat=simple</code></td>
+<td>xuất file cây đồng thuận (<code>.con.tre</code>) ở định dạng Newick/NEXUS <strong>đơn giản</strong> — khác với <code>figtree</code> (kèm thêm khối lệnh định dạng riêng cho phần mềm FigTree)</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Chọn số thế hệ (ngen) thế nào?</p>
+<p>Với bộ dữ liệu nhỏ (12–16 taxa, một gen) dùng trong buổi thực hành,
+vài trăm nghìn đến 1 triệu thế hệ thường đã hội tụ trong một buổi
+học. Với dữ liệu lớn hơn hoặc nhiều gen, có thể cần hàng chục triệu
+thế hệ — nên chuẩn bị sẵn một lượt chạy dài hơn đã tính toán trước
+làm phương án dự phòng.</p>
+</div>
+<h3 id="chay-mrbayes-tu-powershell">Chạy MrBayes từ PowerShell<a class="headerlink" href="#chay-mrbayes-tu-powershell" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="n">mb</span> <span class="n">bo_du_lieu</span><span class="p">.</span><span class="n">nex</span>
+</code></pre></div>
+<p>MrBayes sẽ đọc và thực thi khối lệnh <code>mrbayes</code> có sẵn trong file <code>.nex</code>
+rồi tự động bắt đầu chạy MCMC. Ngoài ra bạn cũng có thể mở MrBayes trước
+(gõ <code>mb</code>) rồi gõ <code>execute bo_du_lieu.nex</code> ngay trong giao diện dòng lệnh
+của nó.</p>
+<h3 id="theo-doi-hoi-tu-trong-khi-chay">Theo dõi hội tụ trong khi chạy<a class="headerlink" href="#theo-doi-hoi-tu-trong-khi-chay" title="Permanent link">&para;</a></h3>
+<p>Trong lúc chạy, MrBayes liên tục in ra <strong>độ lệch chuẩn của tần suất phân
+tách</strong> (standard deviation of split frequencies) giữa các run — đây là
+cách kiểm tra hội tụ nhanh nhất, ngay trong lúc chạy:</p>
+<div class="admonition tip">
+<p class="admonition-title">Đọc độ lệch chuẩn của tần suất phân tách</p>
+<p>Giá trị này càng gần 0 càng tốt. Quy ước thường dùng: <strong>dưới 0.01</strong> là
+dấu hiệu tốt cho thấy hai (hay nhiều) run độc lập đang hội tụ về cùng
+một vùng không gian cây. Nếu sau khi chạy xong giá trị này vẫn cao
+(&gt; 0.05), cần chạy thêm thế hệ (tăng <code>ngen</code>) trước khi tin vào kết
+quả.</p>
+</div>
+<h3 id="oc-ket-qua-kiem-tra-bang-tracer">Đọc kết quả &amp; kiểm tra bằng Tracer<a class="headerlink" href="#oc-ket-qua-kiem-tra-bang-tracer" title="Permanent link">&para;</a></h3>
+<p>Tải <strong>Tracer</strong> (miễn phí) tại:
+<a href="https://github.com/beast-dev/tracer/releases/latest" target="_blank">github.com/beast-dev/tracer/releases</a>
+— chọn bản <code>.zip</code> cho Windows, <code>.dmg</code> cho macOS, hoặc <code>.tgz</code> cho Linux.</p>
+<p>Sau khi chạy xong, MrBayes tạo ra (với <code>nruns=2</code>) các file như:</p>
+<ul>
+<li><code>bo_du_lieu.nex.run1.p</code>, <code>.run2.p</code> — giá trị tham số (log-likelihood,
+  tốc độ thay thế...) theo từng thế hệ đã lấy mẫu.</li>
+<li><code>bo_du_lieu.nex.run1.t</code>, <code>.run2.t</code> — các cây đã lấy mẫu (định dạng
+  Newick, có thể mở bằng MEGA hoặc FigTree).</li>
+<li>
+<p><code>bo_du_lieu.nex.con.tre</code> — cây đồng thuận (consensus) cuối cùng, kèm
+  <strong>xác suất hậu nghiệm (PP)</strong> ở mỗi nhánh.</p>
+</li>
+<li>
+<p>Mở <strong>Tracer</strong> → <code>File → Import Trace File</code> → chọn cả hai file <code>.p</code>.</p>
+</li>
+<li>Kiểm tra cột <strong>ESS</strong> (Effective Sample Size) của mỗi tham số — nên
+   <strong>trên 200</strong>; nếu thấp hơn, cần chạy thêm thế hệ.</li>
+<li>Xem biểu đồ vết (trace plot) của <code>LnL</code> (log-likelihood) — nếu hình
+   dạng giống "bãi cỏ dày" (hairy caterpillar) dao động quanh một giá trị
+   ổn định, đó là dấu hiệu chuỗi đã hội tụ; nếu vẫn còn xu hướng tăng/giảm
+   rõ rệt, chưa nên tin kết quả.</li>
+<li>Mở <code>bo_du_lieu.nex.con.tre</code> bằng MEGA (<code>File → Open A File/Session...</code>,
+   giống bước mở cây IQ-TREE ở trên) để xem cây đồng thuận kèm xác suất
+   hậu nghiệm tại mỗi nút.</li>
+</ul>
+<h3 id="oi-contre-sang-newick-thuan-tuy-bang-trang-web-khi-can">Đổi <code>.con.tre</code> sang Newick thuần túy bằng trang web (khi cần)<a class="headerlink" href="#oi-contre-sang-newick-thuan-tuy-bang-trang-web-khi-can" title="Permanent link">&para;</a></h3>
+<p>File <code>.con.tre</code> MrBayes xuất ra thực chất là một cây ở định dạng
+<strong>NEXUS</strong> (có khối <code>translate</code> gán số thứ tự cho từng taxon), không phải
+Newick thuần túy như file <code>.treefile</code> của IQ-TREE. MEGA đọc trực tiếp
+được file này nên bình thường bạn không cần chuyển đổi gì — nhưng một số
+công cụ khác (iTOL, các gói R như <code>ape</code>/<code>phytools</code>, hoặc một số trình xem
+cây trực tuyến khác) chỉ nhận Newick thuần túy. Lúc đó, thay vì cài thêm
+phần mềm, có thể dùng một trang web chuyển đổi định dạng miễn phí:</p>
+<ol>
+<li>Vào trang chuyển đổi định dạng của Phylogeny.fr:
+   <a href="http://phylogeny.lirmm.fr/phylo_cgi/data_converter.cgi" target="_blank">phylogeny.lirmm.fr/phylo_cgi/data_converter.cgi</a>.</li>
+<li>Dán toàn bộ nội dung file <code>.con.tre</code> vào ô dữ liệu (hoặc tải file lên
+   trực tiếp bằng nút <strong>Upload</strong>) — trang web tự nhận diện đây là một
+   cây NEXUS.</li>
+<li>Ở mục <strong>Output format</strong>, chọn <strong>Newick Tree</strong>.</li>
+<li>Nhấn nút chuyển đổi → tải về hoặc copy kết quả: một dòng cây Newick
+   thuần túy (dạng <code>(...);</code>), vẫn giữ đúng tên taxon gốc nhờ trang web tự
+   tra khối <code>translate</code>.</li>
+</ol>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Có thể dùng cách này cho bất kỳ cây NEXUS nào cần chuyển sang Newick,
+không chỉ riêng file của MrBayes — kể cả file <code>.nex</code>/<code>.tre</code> xuất ra
+từ MEGA hay các phần mềm khác.</p>
+</div>
+<hr />
+<h2 id="v-xuat-cay-ra-powerpointaffinity-e-hoan-thien-truoc-khi-ang-bao">V. Xuất cây ra PowerPoint/Affinity để hoàn thiện trước khi đăng báo<a class="headerlink" href="#v-xuat-cay-ra-powerpointaffinity-e-hoan-thien-truoc-khi-ang-bao" title="Permanent link">&para;</a></h2>
+<p>Cây do MEGA/IQ-TREE/MrBayes vẽ ra rất tốt để <strong>xem và diễn giải</strong>, nhưng
+hầu như không đạt yêu cầu trình bày của một hình trên tạp chí khoa học
+(font chữ mặc định, tên loài chưa in nghiêng, không có thanh tỉ lệ rõ
+ràng, dày đặc nhãn số không cần thiết...). Bước cuối cùng này là đưa cây
+vào một phần mềm thiết kế để "làm đẹp" thành hình hoàn chỉnh.</p>
+<h3 id="vi-sao-khong-chup-man-hinh">Vì sao không chụp màn hình?<a class="headerlink" href="#vi-sao-khong-chup-man-hinh" title="Permanent link">&para;</a></h3>
+<div class="admonition warning">
+<p class="admonition-title">Đừng chụp màn hình (screenshot) cây để làm hình bài báo</p>
+<p>Ảnh chụp màn hình là ảnh <strong>raster</strong> (bitmap) — phóng to lên sẽ bị vỡ
+nét, chữ mờ, không đạt độ phân giải tối thiểu tạp chí yêu cầu (thường
+300–600 dpi). Nên <strong>xuất cây ở định dạng vector</strong> (SVG) — dạng file
+ này lưu các đường nét và chữ dưới dạng công thức toán
+học, có thể phóng to tùy ý mà không vỡ hình, và quan trọng nhất: vẫn
+<strong>chỉnh sửa được từng chi tiết</strong> (di chuyển nhãn, đổi màu một nhánh...)
+khi mở trong PowerPoint hay Affinity.</p>
+</div>
+<h3 id="buoc-1-xuat-cay-dang-svg-tu-mega">Bước 1 — Xuất cây dạng SVG từ MEGA<a class="headerlink" href="#buoc-1-xuat-cay-dang-svg-tu-mega" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Trong <strong>Tree Explorer</strong> (nơi bạn đang xem file newick từ cây IQ-TREE/MrBayes), vào
+   menu <code>Image</code> → <strong>Save as SVG File...</strong> (hoặc tùy phiên bản MEGA có thể
+   ghi là <strong>Export Current View to SVG</strong>).</li>
+<li>Lưu file <code>.svg</code> — đây chính là bản vector, giữ nguyên mọi đường nét và
+   chữ ở dạng có thể chỉnh sửa được.</li>
+</ol>
+<h3 id="buoc-2-chinh-sua-trong-powerpoint">Bước 2 — Chỉnh sửa trong PowerPoint<a class="headerlink" href="#buoc-2-chinh-sua-trong-powerpoint" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Insert file SVG vào một slide: <code>Insert → Pictures → This Device...</code>
+   (PowerPoint bản mới hỗ trợ chèn SVG trực tiếp).</li>
+<li>Nhấp phải vào hình → <strong>Convert to Shape</strong> → xác nhận. Lặp lại
+   <strong>Ungroup</strong> một hoặc hai lần nữa cho đến khi mỗi đường nhánh, mỗi nhãn
+   taxon trở thành một đối tượng có thể chọn và chỉnh riêng lẻ.</li>
+<li>Việc thường làm ở bước này:<ul>
+<li>In nghiêng tên loài (<code>Genus species</code> — Newick không tự động lưu
+    định dạng chữ nghiêng, phải tự bôi đen và nhấn <code>Ctrl+I</code>).</li>
+<li>Xóa bớt nhãn/số không cần thiết (ví dụ chỉ giữ giá trị hỗ trợ ở
+    những nhánh quan trọng).</li>
+<li>Tô màu/đóng khung một nhánh đơn ngành (clade) đang muốn nhấn
+    mạnh.</li>
+<li>Thêm chú thích, mũi tên, hoặc ảnh mẫu vật bên cạnh cây.</li>
+<li>Căn chỉnh lại thanh tỉ lệ (scale bar) cho rõ ràng, có ghi đơn vị
+    (ví dụ "0.02 substitutions/site").</li>
+</ul>
+</li>
+<li>Sau khi xong, chọn lại toàn bộ các đối tượng → nhấp phải → <strong>Group</strong>,
+   rồi <code>File → Save As</code> → chọn định dạng ảnh (<code>.png</code>/<code>.tiff</code>) hoặc giữ
+   <code>.pptx</code> để chỉnh sửa tiếp sau này.</li>
+</ol>
+<h3 id="buoc-3-dung-affinity-khi-can-o-chinh-xac-cao-hon">Bước 3 — Dùng Affinity khi cần độ chính xác cao hơn<a class="headerlink" href="#buoc-3-dung-affinity-khi-can-o-chinh-xac-cao-hon" title="Permanent link">&para;</a></h3>
+<p>PowerPoint đủ dùng cho hầu hết trường hợp, nhưng nếu tạp chí yêu cầu kích
+thước hình chính xác theo cm/inch, hệ màu CMYK, hoặc độ phân giải xuất
+file cao hơn, <strong>Affinity</strong> (phần mềm chỉnh sửa ảnh và vẽ vector, miễn phí
+từ Canva) phù hợp hơn. Tải tại:
+<a href="https://www.affinity.studio/download" target="_blank">affinity.studio/download</a>
+(cần đăng nhập bằng tài khoản Canva, miễn phí, để tải và sử dụng):</p>
+<ol>
+<li>Mở file <code>.svg</code> xuất từ MEGA bằng Affinity, chuyển sang chế độ
+   <strong>Vector</strong> (Vector persona) — đây là chế độ dùng để chỉnh chính cây
+   phát sinh chủng loại (đường nét, chữ, hình khối).</li>
+<li>Affinity tự tách các đối tượng thành từng lớp (layer) riêng — chọn
+   từng nhánh/nhãn để chỉnh y như bước 2 ở trên (in nghiêng, đổi màu, xóa
+   nhãn thừa...).</li>
+<li>Tạo <strong>artboard</strong> đúng kích thước tạp chí yêu cầu (ví dụ cột đơn ~8.3 cm
+   hoặc cột đôi ~17.3 cm — xem mục "Instructions for Authors" của tạp chí
+   định gửi bài).</li>
+<li><code>File → Export</code> → chọn định dạng và độ phân giải theo đúng yêu cầu
+   (thường TIFF hoặc PNG, 300–600 dpi cho hình raster; hoặc giữ nguyên SVG
+   vector nếu tạp chí chấp nhận).</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Ba chế độ trong Affinity</p>
+<p>Affinity hiện là <strong>một phần mềm duy nhất</strong> với ba chế độ (persona) có
+thể chuyển qua lại ngay trong cùng một file, thay vì ba ứng dụng
+riêng như trước:</p>
+<ul>
+<li><strong>Vector</strong> — dùng để chỉnh chính cây phát sinh chủng loại (đường
+  nét, chữ, hình khối); đây là chế độ chính cho công việc trong mục
+  này.</li>
+<li><strong>Ảnh</strong> (Pixel/Image) — chế độ raster (giống Photoshop), dùng khi
+  cần chỉnh ảnh chụp mẫu vật thật (ảnh động vật/thực vật) sẽ ghép
+  cùng hình cây, ví dụ cắt nền, chỉnh sáng/tương phản.</li>
+<li><strong>Bố cục</strong> (Layout) — dùng khi cần dàn trang nhiều hình/nhiều
+  phần (ví dụ ghép hình cây với bảng số liệu, chú thích) thành một
+  trang hoàn chỉnh trước khi xuất, tương tự InDesign.
+<br>
+<img alt="Affinity Modes" src="../assets/images/phan3/s11.png" /></li>
+</ul>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Danh sách kiểm tra trước khi gửi hình cho tạp chí</p>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Tên loài (genus, species) đã in nghiêng.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Font chữ đồng nhất, đủ lớn để đọc được khi hình bị thu nhỏ.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Có thanh tỉ lệ (scale bar) kèm đơn vị.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Nhóm ngoài (outgroup) được đánh dấu/ghi chú rõ ràng.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Chỉ giữ giá trị hỗ trợ cần thiết, không để dày đặc gây rối mắt.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Đã kiểm tra lại kích thước &amp; định dạng file theo đúng yêu cầu
+  "Instructions for Authors" của tạp chí định gửi.</li>
+</ul>
+</div>
+<hr />
+<h2 id="tong-ket-phan-3">Tổng kết Phần 3<a class="headerlink" href="#tong-ket-phan-3" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>Chọn mô hình (ModelFinder) → IQ-TREE: cây ML + SH-aLRT + UFBoot
+                            → MrBayes: MCMC + kiểm tra hội tụ → cây Bayes + PP
+                            → So sánh cây ML và cây Bayes (Phần 6)
+                            → Xuất vector (MEGA) → hoàn thiện bằng
+                              PowerPoint/Affinity → hình cho bài báo
+</code></pre></div>
+<p>Ở đây bạn đã có cả một cây Maximum Likelihood (kèm hai loại giá trị hỗ
+trợ) và một cây Bayesian (kèm xác suất hậu nghiệm) từ cùng một bộ dữ liệu
+alignment. Bước tiếp theo là so sánh song song hai cây này, diễn giải
+đúng ý nghĩa của từng loại giá trị hỗ trợ, và khi đã chọn được cây cuối
+cùng muốn công bố, dùng PowerPoint hoặc Affinity để hoàn thiện nó thành
+một hình đạt chuẩn đăng tạp chí.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Trở lại mục lục
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.top", "content.code.copy", "toc.integrate"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u0110\u00e3 sao ch\u00e9p", "clipboard.copy": "Sao ch\u00e9p v\u00e0o b\u1ed9 nh\u1edb t\u1ea1m", "search.result.more.one": "1 t\u1eeb kh\u00e1c trong trang", "search.result.more.other": "# t\u1eeb kh\u00e1c trong trang", "search.result.none": "Kh\u00f4ng t\u00ecm th\u1ea5y t\u00e0i li\u1ec7u li\u00ean quan", "search.result.one": "1 t\u00e0i li\u1ec7u li\u00ean quan", "search.result.other": "# t\u00e0i li\u1ec7u li\u00ean quan", "search.result.placeholder": "Nh\u1eadp \u0111\u1ec3 b\u1eaft \u0111\u1ea7u t\u00ecm ki\u1ebfm", "search.result.term.missing": "Kh\u00f4ng", "select.version": "Ch\u1ecdn phi\u00ean b\u1ea3n"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../assets/extra.js"></script>
+      
+    
+  </body>
+</html>

@@ -1,0 +1,1450 @@
+
+<!doctype html>
+<html lang="vi" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Hướng dẫn xây dựng cây phát sinh chủng loại / Guide to Phylogenetic tree construction">
+      
+      
+      
+      
+        <link rel="prev" href="part1.html">
+      
+      
+        <link rel="next" href="part3.html">
+      
+      
+        
+          <link rel="alternate" href="../part2.html" hreflang="en">
+        
+          <link rel="alternate" href="part2.html" hreflang="vi">
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Phần 2 — ChromasPro, BLAST, GenBank, MEGA - Hướng dẫn xây dựng cây Phát sinh chủng loại</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="amber">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#phan-2-oc-thu-thap-va-can-chinh-trinh-tu" class="md-skip">
+          Bỏ qua
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Đầu trang">
+    <a href="index.html" title="Hướng dẫn xây dựng cây Phát sinh chủng loại" class="md-header__button md-logo" aria-label="Hướng dẫn xây dựng cây Phát sinh chủng loại" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Hướng dẫn xây dựng cây Phát sinh chủng loại
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Phần 2 — ChromasPro, BLAST, GenBank, MEGA
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="amber"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Chọn ngôn ngữ">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="../part2.html" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="part2.html" hreflang="vi" class="md-select__link">
+              Tiếng Việt
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Tìm kiếm" placeholder="Tìm kiếm" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Tìm kiếm">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Xoá" aria-label="Xoá" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="index.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Trang chủ
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="part1.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Phần 1 — Tổng quan lý thuyết
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="part2.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Phần 2 — ChromasPro, BLAST, GenBank, MEGA
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="part3.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Phần 3 — Phương pháp ML & Bayesian Inference
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Thanh điều hướng" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="index.html" title="Hướng dẫn xây dựng cây Phát sinh chủng loại" class="md-nav__button md-logo" aria-label="Hướng dẫn xây dựng cây Phát sinh chủng loại" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Hướng dẫn xây dựng cây Phát sinh chủng loại
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Trang chủ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="part1.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Phần 1 — Tổng quan lý thuyết
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Phần 2 — ChromasPro, BLAST, GenBank, MEGA
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="part2.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Phần 2 — ChromasPro, BLAST, GenBank, MEGA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Mục lục">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Mục lục
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#i-chromaspro-oc-lap-rap-chromatogram" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        I. ChromasPro — Đọc &amp; lắp ráp chromatogram
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="I. ChromasPro — Đọc &amp; lắp ráp chromatogram">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#trinh-tu-sanger-ra-oi-nhu-the-nao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Trình tự Sanger ra đời như thế nào
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#file-ab1-va-chromatogram-la-gi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        File .ab1 và chromatogram là gì
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cach-oc-mot-chromatogram" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cách đọc một chromatogram
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iem-chat-luong-quality-value-phred" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Điểm chất lượng (Quality Value / Phred)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#gioi-thieu-chromaspro" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Giới thiệu ChromasPro
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cat-tia-va-giu-oan-oc-chat-luong-tot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cắt tỉa và giữ đoạn đọc chất lượng tốt
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lap-rap-contig-consensus-xuat-fasta" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lắp ráp contig, consensus &amp; xuất FASTA
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ii-ncbi-blast-inh-danh-trinh-tu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        II. NCBI &amp; BLAST — Định danh trình tự
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="II. NCBI &amp; BLAST — Định danh trình tự">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ncbi-la-gi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        NCBI là gì
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#genbank-la-gi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        GenBank là gì
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#blast-vi-sao-can-nguyen-ly" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BLAST: vì sao cần &amp; nguyên lý
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#thao-tac-chay-blast-tren-web" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Thao tác chạy BLAST trên web
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Thao tác chạy BLAST trên web">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cac-loai-chuong-trinh-blast" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Các loại chương trình BLAST
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cach-chay-blast-nucleotide" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cách chạy BLAST Nucleotide
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#oc-ket-qua-blast" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Đọc kết quả BLAST
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dien-giai-ket-qua-canh-bao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Diễn giải kết quả &amp; cảnh báo
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#iii-genbank-thu-thap-trinh-tu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        III. GenBank — Thu thập trình tự
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="III. GenBank — Thu thập trình tự">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#chien-luoc-xay-dung-bo-du-lieu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Chiến lược xây dựng bộ dữ liệu
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tim-kiem-tren-ncbi-nucleotide" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tìm kiếm trên NCBI Nucleotide
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#oc-mot-ban-ghi-genbank" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Đọc một bản ghi GenBank
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cach-chon-trinh-tu-tham-chieu-va-thong-tin-ghi-lai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cách chọn trình tự tham chiếu và thông tin ghi lại
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tai-trinh-tu-on-le" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tải trình tự đơn lẻ
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#batch-entrez-tai-hang-loat-tu-danh-sach-accession" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Batch Entrez: tải hàng loạt từ danh sách accession
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quan-ly-at-ten-kiem-tra-bo-du-lieu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quản lý, đặt tên &amp; kiểm tra bộ dữ liệu
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#iv-mega-can-chinh-phan-tich-tham-do" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        IV. MEGA — Căn chỉnh &amp; phân tích thăm dò
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="IV. MEGA — Căn chỉnh &amp; phân tích thăm dò">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#gioi-thieu-mega" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Giới thiệu MEGA
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nhap-du-lieu-vao-mega" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Nhập dữ liệu vào MEGA
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#can-chinh-trinh-tu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Căn chỉnh trình tự
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kiem-tra-chinh-sua-alignment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Kiểm tra &amp; chỉnh sửa alignment
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bang-khoang-cach-di-truyen-p-distance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bảng khoảng cách di truyền (p-distance)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xay-dung-cay-trong-mega" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Xây dựng cây trong MEGA
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#xem-cay-duoi-dang-newick" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Xem cây dưới dạng Newick
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#luu-xuat-alignment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lưu &amp; xuất alignment
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tong-ket-phan-2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tổng kết Phần 2
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="part3.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Phần 3 — Phương pháp ML & Bayesian Inference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="phan-2-oc-thu-thap-va-can-chinh-trinh-tu">Phần 2 — Đọc, thu thập và căn chỉnh trình tự<a class="headerlink" href="#phan-2-oc-thu-thap-va-can-chinh-trinh-tu" title="Permanent link">&para;</a></h1>
+<p><strong>ChromasPro · BLAST · GenBank · MEGA</strong></p>
+<p><strong>Trình bày:</strong> Lê Từ Hoàng Linh &amp; Ninh Thị Hòa</p>
+<p>Nội dung của phần này: kiểm tra chất lượng &amp; lắp ráp trình tự, định danh
+bằng BLAST, thu thập trình tự tham chiếu từ GenBank, và căn chỉnh bằng
+MEGA — tạo ra bộ dữ liệu sẵn sàng cho việc dựng cây. Đây là bước 1–4 trong
+quy trình tổng quát đã giới thiệu ở Phần 1 (kiểm tra chất lượng → giải
+trình tự → căn chỉnh → chọn mô hình).</p>
+<hr />
+<h2 id="i-chromaspro-oc-lap-rap-chromatogram">I. ChromasPro — Đọc &amp; lắp ráp chromatogram<a class="headerlink" href="#i-chromaspro-oc-lap-rap-chromatogram" title="Permanent link">&para;</a></h2>
+<p><em>Từ file thô <code>.ab1</code> đến trình tự đồng thuận (consensus) sạch dạng FASTA.</em></p>
+<h3 id="trinh-tu-sanger-ra-oi-nhu-the-nao">Trình tự Sanger ra đời như thế nào<a class="headerlink" href="#trinh-tu-sanger-ra-oi-nhu-the-nao" title="Permanent link">&para;</a></h3>
+<p><img alt="Nguyên lý giải trình tự Sanger" src="../assets/images/phan2/s04_p01.png" /></p>
+<ul>
+<li><strong>Nguyên lý:</strong> phương pháp dideoxy làm dừng chuỗi DNA một cách ngẫu
+  nhiên tại từng base.</li>
+<li><strong>Đọc tín hiệu:</strong> máy phát hiện 4 màu huỳnh quang tương ứng A, T, G, C.</li>
+<li><strong>Kết quả thô:</strong> một <strong>chromatogram</strong> — biểu đồ các đỉnh tín hiệu theo
+  vị trí.</li>
+</ul>
+<h3 id="file-ab1-va-chromatogram-la-gi">File <code>.ab1</code> và chromatogram là gì<a class="headerlink" href="#file-ab1-va-chromatogram-la-gi" title="Permanent link">&para;</a></h3>
+<p><img alt="Ví dụ một chromatogram" src="../assets/images/phan2/s05_p01.png" /></p>
+<p><code>.ab1</code> (hoặc <code>.scf</code>) là file thô từ máy giải trình tự Sanger, chứa dấu vết
+huỳnh quang (trace), base máy gọi, và điểm chất lượng của từng base.
+Chromatogram là biểu đồ 4 màu đỉnh tín hiệu dọc theo trình tự — mỗi màu
+một base (A, C, G, T; quy ước màu tùy phần mềm).</p>
+<h3 id="cach-oc-mot-chromatogram">Cách đọc một chromatogram<a class="headerlink" href="#cach-oc-mot-chromatogram" title="Permanent link">&para;</a></h3>
+<div class="grid">
+<p><img alt="Tín hiệu tốt: đỉnh cao, tách biệt rõ" src="../assets/images/phan2/s06_p01.png" />
+<img alt="Tín hiệu nhiễu: đỉnh chồng lấn, có N" src="../assets/images/phan2/s06_p02.png" /></p>
+</div>
+<ul>
+<li><strong>Tín hiệu tốt:</strong> đỉnh cao, nhọn, tách biệt rõ ràng.</li>
+<li><strong>Tín hiệu kém:</strong> đỉnh thấp, chồng lấn, nhiễu nền.</li>
+<li><strong>Base "N":</strong> máy không xác định được — cần xem lại bằng mắt.</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Nguyên tắc</p>
+<p>Chỉ tin base khi trace tại vị trí đó rõ ràng.</p>
+</div>
+<h3 id="iem-chat-luong-quality-value-phred">Điểm chất lượng (Quality Value / Phred)<a class="headerlink" href="#iem-chat-luong-quality-value-phred" title="Permanent link">&para;</a></h3>
+<p>Công thức: <strong>QV = −10 · log₁₀(xác suất gọi sai)</strong>. QV càng cao, base càng
+đáng tin. ChromasPro hiển thị QV ở mỗi base — dùng làm căn cứ để cắt tỉa
+và quyết định base tại vị trí đó là gì.</p>
+<table>
+<thead>
+<tr>
+<th>Ngưỡng</th>
+<th>Xác suất sai</th>
+<th>Diễn giải</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Q20</td>
+<td>1%</td>
+<td>1 base sai trên 100</td>
+</tr>
+<tr>
+<td>Q30</td>
+<td>0,1%</td>
+<td>1 base sai trên 1000</td>
+</tr>
+</tbody>
+</table>
+<h3 id="gioi-thieu-chromaspro">Giới thiệu ChromasPro<a class="headerlink" href="#gioi-thieu-chromaspro" title="Permanent link">&para;</a></h3>
+<div class="grid">
+<p><img alt="Giao diện ChromasPro" src="../assets/images/phan2/s08_p01.png" />
+<img alt="ChromasPro" src="../assets/images/phan2/s08_p02.png" /></p>
+</div>
+<ul>
+<li><strong>Vai trò:</strong> xem, kiểm tra chất lượng, cắt tỉa và lắp ráp các read Sanger
+  thành contig, rồi xuất consensus.</li>
+<li><strong>Phiên bản mới nhất:</strong> 2.x; chạy gốc trên Windows.</li>
+<li><strong>Nguồn tải:</strong> technelysium.com.au (Technelysium).</li>
+<li><strong>Đầu ra:</strong> trình tự đồng thuận sạch dạng FASTA.</li>
+</ul>
+<h3 id="cat-tia-va-giu-oan-oc-chat-luong-tot">Cắt tỉa và giữ đoạn đọc chất lượng tốt<a class="headerlink" href="#cat-tia-va-giu-oan-oc-chat-luong-tot" title="Permanent link">&para;</a></h3>
+<p><img alt="Cắt tỉa vùng chất lượng thấp" src="../assets/images/phan2/s09_p01.png" /></p>
+<p>Hai đầu read thường có chất lượng thấp (nhiễu, nhiều N). Cắt vùng QV thấp
+— tự động theo ngưỡng (ví dụ Q20) hoặc thủ công — để chỉ giữ lại vùng lõi
+tin cậy.</p>
+<h3 id="lap-rap-contig-consensus-xuat-fasta">Lắp ráp contig, consensus &amp; xuất FASTA<a class="headerlink" href="#lap-rap-contig-consensus-xuat-fasta" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>Forward  →                      &gt;Loai_A_Mau01
+                                 ATGCTAGCTAGCTTAGGCTAACGT
+←  Reverse (reverse-complement)  TAGCCGATCGTAGCTAGGCTA...
+
+↓  lắp ráp thành contig
+CONTIG → CONSENSUS
+</code></pre></div>
+<ul>
+<li><strong>Sửa base:</strong> chỉnh "N"/base gọi nhầm khi trace rõ ràng.</li>
+<li><strong>Read ngược:</strong> có thể cần reverse-complement trước khi ghép.</li>
+<li><strong>Lắp ráp:</strong> căn read xuôi + ngược thành contig, bù trừ lỗi hai đầu.</li>
+<li><strong>Xung đột:</strong> nơi hai read bất đồng → xem trace để chọn base đúng.</li>
+<li><strong>Consensus → FASTA:</strong> xuất trình tự đồng thuận, đặt tên rõ ràng.</li>
+</ul>
+<hr />
+<h2 id="ii-ncbi-blast-inh-danh-trinh-tu">II. NCBI &amp; BLAST — Định danh trình tự<a class="headerlink" href="#ii-ncbi-blast-inh-danh-trinh-tu" title="Permanent link">&para;</a></h2>
+<p><em>Xác định trình tự của bạn là loài gì bằng cách so với ngân hàng dữ liệu.</em></p>
+<h3 id="ncbi-la-gi">NCBI là gì<a class="headerlink" href="#ncbi-la-gi" title="Permanent link">&para;</a></h3>
+<p><img alt="Trang chủ NCBI" src="../assets/images/phan2/s12_p01.jpg" /></p>
+<p>NCBI (Trung tâm Thông tin Công nghệ Sinh học Quốc gia — Hoa Kỳ) truy cập
+miễn phí qua web, lưu trữ và cung cấp dữ liệu trình tự cùng các công cụ
+phân tích:</p>
+<ul>
+<li><strong>GenBank / Nucleotide, Protein</strong> — trình tự DNA/RNA và protein.</li>
+<li><strong>SRA</strong> — dữ liệu giải trình tự thô.</li>
+<li><strong>PubMed</strong> — tài liệu khoa học.</li>
+<li><strong>Taxonomy</strong> — phân loại sinh vật.</li>
+<li><strong>BLAST</strong> — tìm tương đồng.</li>
+</ul>
+<h3 id="genbank-la-gi">GenBank là gì<a class="headerlink" href="#genbank-la-gi" title="Permanent link">&para;</a></h3>
+<p><img alt="Cấu trúc mã accession của GenBank" src="../assets/images/phan2/s13_p01.png" /></p>
+<p>GenBank là ngân hàng trình tự DNA/RNA công khai, cập nhật liên tục. Mỗi
+trình tự có một <strong>accession number</strong> kèm số phiên bản (ví dụ
+<code>MN908947.3</code> — <code>MN908947</code> là mã accession, <code>.3</code> là phiên bản). Đây là
+nguồn chính để lấy trình tự tham chiếu khi xây dựng bộ dữ liệu.</p>
+<h3 id="blast-vi-sao-can-nguyen-ly">BLAST: vì sao cần &amp; nguyên lý<a class="headerlink" href="#blast-vi-sao-can-nguyen-ly" title="Permanent link">&para;</a></h3>
+<p>Sau khi có consensus, câu hỏi đặt ra là: "trình tự này là loài gì?"
+<strong>BLAST</strong> (Basic Local Alignment Search Tool,
+<a href="https://blast.ncbi.nlm.nih.gov/Blast.cgi">blast.ncbi.nlm.nih.gov</a>) so
+trình tự với hàng triệu trình tự trong cơ sở dữ liệu, tìm các đoạn căn
+chỉnh cục bộ giống nhau — nhanh nhờ thuật toán heuristic — và trả về danh
+sách hits xếp theo mức tương đồng.</p>
+<h2 id="thao-tac-chay-blast-tren-web">Thao tác chạy BLAST trên web<a class="headerlink" href="#thao-tac-chay-blast-tren-web" title="Permanent link">&para;</a></h2>
+<p><em>Đường link đến NCBI BLAST</em>: <a href="https://blast.ncbi.nlm.nih.gov/Blast.cgi">blast.ncbi.nlm.nih.gov</a></p>
+<h3 id="cac-loai-chuong-trinh-blast">Các loại chương trình BLAST<a class="headerlink" href="#cac-loai-chuong-trinh-blast" title="Permanent link">&para;</a></h3>
+<div class="grid">
+<p><img alt="Giao diện chạy BLAST" src="../assets/images/phan2/s14_p01.png" /></p>
+<table>
+<thead>
+<tr>
+<th>Chương trình</th>
+<th>Query</th>
+<th>Database</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>blastn</code></td>
+<td>DNA</td>
+<td>DNA</td>
+</tr>
+<tr>
+<td><code>blastp</code></td>
+<td>Protein</td>
+<td>Protein</td>
+</tr>
+<tr>
+<td><code>blastx</code></td>
+<td>DNA (dịch mã)</td>
+<td>Protein</td>
+</tr>
+<tr>
+<td><code>tblastn</code></td>
+<td>Protein</td>
+<td>DNA (dịch mã)</td>
+</tr>
+<tr>
+<td><code>tblastx</code></td>
+<td>DNA (dịch mã)</td>
+<td>DNA (dịch mã)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Mẹo</p>
+<p>Với trình tự DNA để định danh: dùng <strong>blastn</strong>.</p>
+</div>
+<h3 id="cach-chay-blast-nucleotide">Cách chạy BLAST Nucleotide<a class="headerlink" href="#cach-chay-blast-nucleotide" title="Permanent link">&para;</a></h3>
+<div class="grid">
+<p><img alt="Cách chạy BLAST Nucleotide" src="../assets/images/phan2/s16_p01.png" /></p>
+<ol>
+<li>Vào NCBI BLAST → Nucleotide BLAST.</li>
+<li>Dán FASTA hoặc upload file trình tự.</li>
+<li>Chọn database.</li>
+<li>Chọn Organism nếu đã biết/nghi ngờ loài (thu hẹp tìm kiếm).</li>
+<li>Chọn program (megablast).</li>
+<li>Nhấn BLAST — chờ kết quả.</li>
+</ol>
+</div>
+<h3 id="oc-ket-qua-blast">Đọc kết quả BLAST<a class="headerlink" href="#oc-ket-qua-blast" title="Permanent link">&para;</a></h3>
+<p><img alt="Kết quả BLAST" src="../assets/images/phan2/s17_p01.png" /></p>
+<ul>
+<li><strong>Graphic Summary</strong> — đồ thị phân bố các hits theo query.</li>
+<li><strong>Descriptions</strong> — bảng danh sách hits, nơi ra quyết định.</li>
+<li><strong>Alignments</strong> — chi tiết căn chỉnh từng hit.</li>
+</ul>
+<p><strong>Các chỉ số quan trọng:</strong></p>
+<ul>
+<li><strong>Percent Identity</strong> — tỉ lệ base giống nhau trong vùng căn chỉnh. Định
+  danh loài thường muốn ≳ 97–99%.</li>
+<li><strong>Query Cover</strong> — phần trăm chiều dài query được căn chỉnh. Thấp = chỉ
+  khớp một đoạn ngắn.</li>
+<li><strong>E-value</strong> — số hits ngẫu nhiên kỳ vọng có điểm tương đương. Càng nhỏ
+  (≈ 0) càng đáng tin.</li>
+<li><strong>Bit / Max score</strong> — điểm căn chỉnh đã chuẩn hóa. Càng cao càng mạnh;
+  dùng để so sánh các hits.</li>
+</ul>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Đọc <strong>tất cả</strong> các chỉ số cùng nhau — không nên dựa vào một con số
+duy nhất.</p>
+</div>
+<h3 id="dien-giai-ket-qua-canh-bao">Diễn giải kết quả &amp; cảnh báo<a class="headerlink" href="#dien-giai-ket-qua-canh-bao" title="Permanent link">&para;</a></h3>
+<p>Định danh dựa vào hit tốt nhất + độ phủ cao + nhiều hits nhất quán. Nhiều
+hits cùng loài củng cố độ tin cậy; nếu các hit tốt thuộc nhiều loài khác
+nhau, cần thận trọng và tìm thêm bằng chứng.</p>
+<div class="admonition warning">
+<p class="admonition-title">Lưu ý</p>
+<ul>
+<li>Trình tự trên GenBank có thể bị định danh sai hoặc nhiễm.</li>
+<li>Nhiều trình tự trên GenBank không được cập nhật thông tin theo bài
+  báo, nên cần tra cứu và tìm hiểu thêm trước khi sử dụng.</li>
+<li>Ưu tiên trình tự từ bài báo bình duyệt và mẫu chuẩn (type/voucher).</li>
+<li>Một số trình tự có thể bao gồm nhiều gen, thậm chí cả hệ gen → chỉ
+  lấy đoạn gen mình cần.</li>
+</ul>
+</div>
+<hr />
+<h2 id="iii-genbank-thu-thap-trinh-tu">III. GenBank — Thu thập trình tự<a class="headerlink" href="#iii-genbank-thu-thap-trinh-tu" title="Permanent link">&para;</a></h2>
+<p><em>Xây dựng bộ dữ liệu tham chiếu cho phân tích phát sinh chủng loại.</em></p>
+<h3 id="chien-luoc-xay-dung-bo-du-lieu">Chiến lược xây dựng bộ dữ liệu<a class="headerlink" href="#chien-luoc-xay-dung-bo-du-lieu" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Nhóm nghiên cứu (ingroup):</strong> các taxa cần tìm hiểu quan hệ
+  (thường 12–16 taxa).</li>
+<li><strong>Nhóm ngoài (outgroup):</strong> 1–2 taxa để đặt gốc cho cây.</li>
+<li><strong>Cùng marker:</strong> các trình tự cần trong cùng một gen/vùng (ví dụ COI) để có thể so sánh được.</li>
+<li><strong>Số lượng:</strong> vừa đủ để chạy nhanh nhưng vẫn thể hiện biến thiên.</li>
+</ul>
+<div class="admonition tip">
+<p class="admonition-title">Mẹo</p>
+<p>Thay vì tự chọn trình tự, bạn có thể tham khảo các bài báo khác để lấy
+bảng trình tự mà họ đã dùng để xây cây phát sinh chủng loại, làm nền
+tảng cho bộ dữ liệu của mình.</p>
+</div>
+<h3 id="tim-kiem-tren-ncbi-nucleotide">Tìm kiếm trên NCBI Nucleotide<a class="headerlink" href="#tim-kiem-tren-ncbi-nucleotide" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Chọn cở sở dữ liệu Nucleotide</li>
+<li>Kết hợp trường Organism và Gene, ví dụ:</li>
+</ul>
+<div class="highlight"><pre><span></span><code>Acanthosaura[Organism] AND COI[Gene]
+</code></pre></div>
+<p><img alt="NCBI Nucleotide Search" src="../assets/images/phan2/s26.png" /></p>
+<p><br></p>
+<p>Lọc kết quả bằng bộ lọc (Sort by) theo:</p>
+<ul>
+<li>Độ dài (Sequence length)</li>
+<li>Mã Genbank (Accession)</li>
+<li>Ngày đăng (Date Released)</li>
+</ul>
+<p><img alt="NCBI Nucleotide Search Result" src="../assets/images/phan2/s27.png" /></p>
+<h3 id="oc-mot-ban-ghi-genbank">Đọc một bản ghi GenBank<a class="headerlink" href="#oc-mot-ban-ghi-genbank" title="Permanent link">&para;</a></h3>
+<div class="grid">
+<p><img alt="NCBI Nucleotide Record" src="../assets/images/phan2/s28.png" /></p>
+<table>
+<thead>
+<tr>
+<th>Trường</th>
+<th>Nội dung</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>LOCUS</code></td>
+<td>tên/mã genbank, độ dài, loại phân tử</td>
+</tr>
+<tr>
+<td><code>DEFINITION</code></td>
+<td>mô tả trình tự</td>
+</tr>
+<tr>
+<td><code>ACCESSION</code> / <code>VERSION</code></td>
+<td>mã định danh + phiên bản</td>
+</tr>
+<tr>
+<td><code>SOURCE</code></td>
+<td>nguồn mẫu</td>
+</tr>
+<tr>
+<td><code>ORGANISM</code></td>
+<td>loài sinh vật</td>
+</tr>
+<tr>
+<td><code>AUTHORS</code></td>
+<td>tác giả</td>
+</tr>
+<tr>
+<td><code>TITLE</code></td>
+<td>tên bài báo</td>
+</tr>
+<tr>
+<td><code>JOURNAL</code></td>
+<td>tên tạp chí</td>
+</tr>
+<tr>
+<td><code>FEATURES</code></td>
+<td>thành phần trình tự: gene, CDS, product</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Cần kiểm tra:</strong> đúng gen/vùng mình cần (xem FEATURES); loài trong
+ORGANISM khớp kỳ vọng; độ dài hợp lý, không phải mảnh quá ngắn.</p>
+<h3 id="cach-chon-trinh-tu-tham-chieu-va-thong-tin-ghi-lai">Cách chọn trình tự tham chiếu và thông tin ghi lại<a class="headerlink" href="#cach-chon-trinh-tu-tham-chieu-va-thong-tin-ghi-lai" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Ứng viên từ BLAST: các hit tốt chính là trình tự nên đưa vào bộ dữ liệu.</li>
+<li>Bổ sung từ bài báo: lấy thêm trình tự từ các nghiên cứu đã công bố về nhóm.</li>
+<li>Chọn đại diện: mỗi loài chọn một vài trình tự tốt, tránh dư thừa.</li>
+<li>Ghi nguồn: lưu accession của từng trình tự để tra cứu, trích dẫn.</li>
+<li>Ghi thông tin bổ trợ: địa điểm thu, tọa độ thu, độ cao, mã mẫu thực địa
+ hữu ích cho các phân tích khác về sau. Nên lưu các thông tin này ra Excel.</li>
+</ul>
+<div class="admonition info">
+<p class="admonition-title">Bộ dữ liệu trình tự tham khảo sử dụng trong nghiên cứu</p>
+<p>Tải file Excel trong bài báo sau để sử dụng tham khảo: 
+<a href="https://doi.org/10.3897/zookeys.1117.85787" target="_blank">Bài báo Rhacophorus</a></p>
+</div>
+<h3 id="tai-trinh-tu-on-le">Tải trình tự đơn lẻ<a class="headerlink" href="#tai-trinh-tu-on-le" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Mở bản ghi trình tự cần tải.</li>
+<li><code>Send to</code> → <code>File</code>.</li>
+<li>Chọn định dạng FASTA (hoặc GenBank <code>.gb</code>).</li>
+<li>Lưu file về máy.</li>
+</ol>
+<p>Phù hợp khi chỉ cần vài trình tự.</p>
+<h3 id="batch-entrez-tai-hang-loat-tu-danh-sach-accession">Batch Entrez: tải hàng loạt từ danh sách accession<a class="headerlink" href="#batch-entrez-tai-hang-loat-tu-danh-sach-accession" title="Permanent link">&para;</a></h3>
+<p>Khi cần nhiều trình tự cùng lúc (cả bộ dữ liệu):</p>
+<ol>
+<li>Chuẩn bị một file văn bản, mỗi dòng một mã accession
+   (<code>accessions.txt</code>).</li>
+<li>Vào <a href="https://ncbi.nlm.nih.gov/sites/batchentrez">Batch Entrez</a> →
+   database Nucleotide → Retrieve.</li>
+<li><code>Send to</code> → <code>File</code> → FASTA cho tất cả cùng lúc.</li>
+</ol>
+<p>Ưu điểm: tái tạo đúng bộ dữ liệu từ danh sách accession trong bài báo.</p>
+<div class="admonition tip">
+<p class="admonition-title">Mẹo</p>
+<p>Có thể dán trực tiếp danh sách accession vào ô tìm kiếm Nucleotide;
+nâng cao hơn, dùng EDirect <code>efetch</code> trên dòng lệnh.</p>
+</div>
+<h3 id="quan-ly-at-ten-kiem-tra-bo-du-lieu">Quản lý, đặt tên &amp; kiểm tra bộ dữ liệu<a class="headerlink" href="#quan-ly-at-ten-kiem-tra-bo-du-lieu" title="Permanent link">&para;</a></h3>
+<p>Ví dụ nhãn taxon rõ ràng, kèm accession:</p>
+<div class="highlight"><pre><span></span><code>&gt;Acanthosaura_grismeri_IEBR_R_6353_PV646694
+</code></pre></div>
+<p>(Loài + mã mẫu + accession → nhãn rõ ràng, không dấu, tránh khoảng trắng
+và ký tự đặc biệt để tương thích với IQ-TREE &amp; MrBayes.)</p>
+<p><strong>Danh sách kiểm tra chất lượng bộ dữ liệu:</strong></p>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Cùng một vùng gen.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Độ dài tương đương.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Không trình tự quá ngắn/lỗi.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Không trùng lặp.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Có đủ nhóm ngoài (outgroup).</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Loại trình tự đáng ngờ trước khi căn chỉnh.</li>
+</ul>
+<hr />
+<h2 id="iv-mega-can-chinh-phan-tich-tham-do">IV. MEGA — Căn chỉnh &amp; phân tích thăm dò<a class="headerlink" href="#iv-mega-can-chinh-phan-tich-tham-do" title="Permanent link">&para;</a></h2>
+<p><em>Tạo bản căn chỉnh, xem khoảng cách di truyền và cây thăm dò.</em></p>
+<h3 id="gioi-thieu-mega">Giới thiệu MEGA<a class="headerlink" href="#gioi-thieu-mega" title="Permanent link">&para;</a></h3>
+<p><img alt="MEGA12" src="../assets/images/phan2/s29_p01.jpg" /></p>
+<ul>
+<li><strong>Là gì:</strong> MEGA12 — công cụ căn chỉnh, kiểm định mô hình và dựng cây.</li>
+<li><strong>Ưu điểm:</strong> giao diện thân thiện, phù hợp giảng dạy.</li>
+<li><strong>Bản quyền:</strong> miễn phí cho nghiên cứu &amp; giảng dạy.</li>
+<li><strong>Nền tảng:</strong> Windows và macOS.</li>
+</ul>
+<h3 id="nhap-du-lieu-vao-mega">Nhập dữ liệu vào MEGA<a class="headerlink" href="#nhap-du-lieu-vao-mega" title="Permanent link">&para;</a></h3>
+<div class="grid">
+<p><img alt="Nhập FASTA vào MEGA" src="../assets/images/phan2/s30_p01.png" />
+<img alt="Alignment Explorer" src="../assets/images/phan2/s30_p02.png" /></p>
+</div>
+<ol>
+<li>Mở file FASTA (consensus của bạn + trình tự GenBank).</li>
+<li>Chọn <code>Align</code> → tạo Alignment Explorer.</li>
+<li>Kiểm tra số lượng và nhãn trình tự.</li>
+</ol>
+<h3 id="can-chinh-trinh-tu">Căn chỉnh trình tự<a class="headerlink" href="#can-chinh-trinh-tu" title="Permanent link">&para;</a></h3>
+<p><img alt="Căn chỉnh đa trình tự trong MEGA" src="../assets/images/phan2/s31_p01.png" /></p>
+<p>Chọn thuật toán <strong>MUSCLE</strong> hoặc <strong>ClustalW</strong> để sắp các vị trí tương đồng
+thẳng cột. Khoảng trống (gap) được chèn ở nơi có thêm/mất đoạn. Alignment
+tốt là điều kiện để có một cây đáng tin.</p>
+<h3 id="kiem-tra-chinh-sua-alignment">Kiểm tra &amp; chỉnh sửa alignment<a class="headerlink" href="#kiem-tra-chinh-sua-alignment" title="Permanent link">&para;</a></h3>
+<p><img alt="Kiểm tra alignment" src="../assets/images/phan2/s32_p01.png" /></p>
+<ul>
+<li>Xem gap &amp; vùng sai: kiểm tra bằng mắt các cột lộn xộn.</li>
+<li>Cắt hai đầu: bỏ phần đầu/đuôi không đồng đều giữa các trình tự.</li>
+<li>Gen mã hóa: dịch sang amino acid để phát hiện lỗi khung đọc (frameshift).</li>
+<li>Đảo chiều: DNA gồm hai chiều nên phải reverse-complement những trình tự
+  bị ngược.</li>
+</ul>
+<h3 id="bang-khoang-cach-di-truyen-p-distance">Bảng khoảng cách di truyền (p-distance)<a class="headerlink" href="#bang-khoang-cach-di-truyen-p-distance" title="Permanent link">&para;</a></h3>
+<p><img alt="Bảng p-distance" src="../assets/images/phan2/s33_p01.png" /></p>
+<p><strong>p-distance</strong> là tỉ lệ vị trí khác nhau giữa hai trình tự (số khác /
+tổng vị trí). Trong MEGA: <code>Distance → Compute Pairwise Distances</code> → chọn
+mô hình p-distance.</p>
+<p>Công dụng: phát hiện trình tự trùng, trình tự "lạc loài" (lỗi/định danh
+sai), quan sát khoảng cách giữa các loài.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>p-distance chưa hiệu chỉnh đa lần thay thế → chỉ phù hợp cho nhóm
+quan hệ gần.</p>
+</div>
+<h3 id="xay-dung-cay-trong-mega">Xây dựng cây trong MEGA<a class="headerlink" href="#xay-dung-cay-trong-mega" title="Permanent link">&para;</a></h3>
+<p><img alt="Cây Neighbor-Joining trong MEGA" src="../assets/images/phan2/s34_p01.png" /></p>
+<p>Chạy nhanh một cây <strong>Neighbor-Joining</strong> trong MEGA để "nhìn trước" cấu
+trúc dữ liệu — đây là bước thăm dò trước khi phân tích chặt chẽ hơn bằng
+IQ-TREE/MrBayes.</p>
+<h3 id="xem-cay-duoi-dang-newick">Xem cây dưới dạng Newick<a class="headerlink" href="#xem-cay-duoi-dang-newick" title="Permanent link">&para;</a></h3>
+<p><strong>Newick</strong> là định dạng văn bản mô tả cây bằng dấu ngoặc lồng nhau: ngoặc
+= nhóm/clade; dấu phẩy tách taxa; <code>:số</code> = độ dài nhánh; <code>;</code> kết thúc. Ví
+dụ cây bốn taxa A, B, C, D:</p>
+<div class="highlight"><pre><span></span><code>((A,B),(C,D));
+</code></pre></div>
+<p>MEGA có thể hiển thị/xuất cây ở dạng Newick. Các file <code>.treefile</code>/<code>.nwk</code>
+của IQ-TREE &amp; MrBayes chính là định dạng Newick này.</p>
+<h3 id="luu-xuat-alignment">Lưu &amp; xuất alignment<a class="headerlink" href="#luu-xuat-alignment" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Định dạng</th>
+<th>Đuôi file</th>
+<th>Dùng cho</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MEGA</td>
+<td><code>.meg</code> / <code>.mas</code></td>
+<td>Lưu session trong MEGA</td>
+</tr>
+<tr>
+<td>FASTA</td>
+<td><code>.fasta</code> / <code>.fas</code></td>
+<td>Phổ biến, IQ-TREE</td>
+</tr>
+<tr>
+<td>NEXUS</td>
+<td><code>.nex</code></td>
+<td>MrBayes</td>
+</tr>
+<tr>
+<td>PHYLIP</td>
+<td><code>.phy</code></td>
+<td>Nhiều công cụ ML</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Lưu ý</p>
+<p>Giữ một bản alignment "gốc chuẩn" làm dự phòng.</p>
+</div>
+<hr />
+<h2 id="tong-ket-phan-2">Tổng kết Phần 2<a class="headerlink" href="#tong-ket-phan-2" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>ChromasPro (consensus contig) → BLAST (định danh) → GenBank + Batch Entrez
+  → MEGA (alignment + p-distance) → Sẵn sàng dựng cây
+</code></pre></div>
+<p>Toàn bộ quy trình của Phần 2 đi từ chromatogram thô đến một bản căn chỉnh
+đã được kiểm tra chất lượng. Kết quả: bộ dữ liệu sẵn sàng cho việc dựng
+cây phát sinh chủng loại ở phần sau.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Trở lại mục lục
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.top", "content.code.copy", "toc.integrate"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u0110\u00e3 sao ch\u00e9p", "clipboard.copy": "Sao ch\u00e9p v\u00e0o b\u1ed9 nh\u1edb t\u1ea1m", "search.result.more.one": "1 t\u1eeb kh\u00e1c trong trang", "search.result.more.other": "# t\u1eeb kh\u00e1c trong trang", "search.result.none": "Kh\u00f4ng t\u00ecm th\u1ea5y t\u00e0i li\u1ec7u li\u00ean quan", "search.result.one": "1 t\u00e0i li\u1ec7u li\u00ean quan", "search.result.other": "# t\u00e0i li\u1ec7u li\u00ean quan", "search.result.placeholder": "Nh\u1eadp \u0111\u1ec3 b\u1eaft \u0111\u1ea7u t\u00ecm ki\u1ebfm", "search.result.term.missing": "Kh\u00f4ng", "select.version": "Ch\u1ecdn phi\u00ean b\u1ea3n"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../assets/extra.js"></script>
+      
+    
+  </body>
+</html>

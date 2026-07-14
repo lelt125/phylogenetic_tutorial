@@ -1,0 +1,1194 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Hướng dẫn xây dựng cây phát sinh chủng loại / Guide to Phylogenetic tree construction">
+      
+      
+      
+      
+        <link rel="prev" href="index.html">
+      
+      
+        <link rel="next" href="part2.html">
+      
+      
+        
+          <link rel="alternate" href="part1.html" hreflang="en">
+        
+          <link rel="alternate" href="vi/part1.html" hreflang="vi">
+        
+      
+      
+      <link rel="icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Part 1 — Theoretical Overview - Hướng dẫn xây dựng cây Phát sinh chủng loại</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="assets/extra.css">
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="amber">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#part-1-theoretical-overview" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="index.html" title="Hướng dẫn xây dựng cây Phát sinh chủng loại" class="md-header__button md-logo" aria-label="Hướng dẫn xây dựng cây Phát sinh chủng loại" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Hướng dẫn xây dựng cây Phát sinh chủng loại
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Part 1 — Theoretical Overview
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="amber"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Select language">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="part1.html" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="vi/part1.html" hreflang="vi" class="md-select__link">
+              Tiếng Việt
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="index.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="part1.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Part 1 — Theoretical Overview
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="part2.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Part 2 — ChromasPro, BLAST, GenBank, MEGA
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="part3.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Part 3 — Maximum Likelihood & Bayesian Inference
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="index.html" title="Hướng dẫn xây dựng cây Phát sinh chủng loại" class="md-nav__button md-logo" aria-label="Hướng dẫn xây dựng cây Phát sinh chủng loại" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Hướng dẫn xây dựng cây Phát sinh chủng loại
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 1 — Theoretical Overview
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="part1.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 1 — Theoretical Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-what-is-phylogenetics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. What is phylogenetics?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-structure-of-a-phylogenetic-tree" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Structure of a phylogenetic tree
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-morphology-based-trees" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Morphology-based trees
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-homology-vs-homoplasy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Homology vs. homoplasy
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-molecular-phylogenetics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Molecular phylogenetics
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Molecular phylogenetics">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-brief-history" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        A brief history
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#advantages-of-molecular-phylogenetics" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Advantages of molecular phylogenetics
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-from-dna-to-the-sequences-used-for-tree-building" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. From DNA to the sequences used for tree-building
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. From DNA to the sequences used for tree-building">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-dna-is-usually-chosen-over-protein" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why DNA is usually chosen over protein
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#which-dna-sequence-should-you-choose" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Which DNA sequence should you choose?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-general-workflow-of-a-molecular-phylogenetics-study" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. General workflow of a molecular phylogenetics study
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. General workflow of a molecular phylogenetics study">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#software-used-in-this-workshop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Software used in this workshop
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-four-inference-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Four inference methods
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Four inference methods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#distance-based-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Distance-based methods
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#maximum-parsimony-mp" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Maximum Parsimony (MP)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#maximum-likelihood-ml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Maximum Likelihood (ML)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#bayesian-inference-bi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bayesian Inference (BI)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-evaluating-a-phylogenetic-tree-how-to-read-one" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Evaluating a phylogenetic tree: how to read one
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. Evaluating a phylogenetic tree: how to read one">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#how-bootstrap-and-posterior-probability-differ" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How bootstrap and posterior probability differ
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-example-trees-from-recently-described-new-species" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Example trees from recently described new species
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#next-up" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Next up
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="part2.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 2 — ChromasPro, BLAST, GenBank, MEGA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="part3.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 3 — Maximum Likelihood & Bayesian Inference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="part-1-theoretical-overview">Part 1 — Theoretical Overview<a class="headerlink" href="#part-1-theoretical-overview" title="Permanent link">&para;</a></h1>
+<p><strong>Presenters:</strong> Ninh Thị Hòa &amp; Lê Từ Hoàng Linh</p>
+<p>This lecture introduces the foundational concepts of phylogenetics before
+the class moves on to hands-on work with ChromasPro, MEGA, IQ-TREE, and
+MrBayes in the later parts.</p>
+<hr />
+<h2 id="1-what-is-phylogenetics">1. What is phylogenetics?<a class="headerlink" href="#1-what-is-phylogenetics" title="Permanent link">&para;</a></h2>
+<p><strong>Phylogenetics</strong> is the field that studies and reconstructs the
+evolutionary relationships and common ancestry among organisms (or genes,
+sequences). The result is usually represented as a <strong>phylogenetic tree</strong>,
+showing how groups diverged from a common ancestor over time.</p>
+<p><img alt="A phylogenetic tree" src="assets/images/phan1/s02_p01.png" /></p>
+<p><strong>Why study it?</strong></p>
+<ul>
+<li>Helps classify and identify species.</li>
+<li>Traces the origin and transmission pathways of pathogens (viruses,
+  bacteria).</li>
+<li>Finds close relatives of species that need conservation, or of crops
+  and livestock.</li>
+<li>Infers the function and evolutionary history of genes and traits.</li>
+</ul>
+<hr />
+<h2 id="2-structure-of-a-phylogenetic-tree">2. Structure of a phylogenetic tree<a class="headerlink" href="#2-structure-of-a-phylogenetic-tree" title="Permanent link">&para;</a></h2>
+<p>A phylogenetic tree is a branching diagram representing a hypothesis
+about the evolutionary relationships among taxa, based on genetic or
+morphological evidence. Its main components:</p>
+<ul>
+<li><strong>Tip</strong> — represents a present-day taxon/species, at the very end of a
+  branch.</li>
+<li><strong>Node</strong> — a hypothesized common ancestor; the point where two lineages
+  split.</li>
+<li><strong>Branch</strong> — a line of evolutionary descent; its length can represent
+  the amount of genetic change.</li>
+<li><strong>Root</strong> — the common ancestor of all taxa; sets the direction of
+  evolutionary time.</li>
+<li><strong>Clade</strong> — an ancestor and all of its descendants.</li>
+</ul>
+<hr />
+<h2 id="3-morphology-based-trees">3. Morphology-based trees<a class="headerlink" href="#3-morphology-based-trees" title="Permanent link">&para;</a></h2>
+<p>Before molecular data existed, phylogenetic trees were built mainly from
+morphological characters.</p>
+<p><img alt="Example of a morphology-based phylogenetic tree" src="assets/images/phan1/s04_p01.png" /></p>
+<p><strong>Principle:</strong> organisms that share more similar traits tend to be more
+closely related, having inherited those traits from a common ancestor.
+This approach laid the foundation of taxonomy and is still important
+today, especially for fossil groups with no DNA left to analyze.</p>
+<div class="admonition warning">
+<p class="admonition-title">Weakness</p>
+<p>Not every similarity reflects common ancestry. Two species can look
+alike because of independent evolution rather than inheritance from a
+shared ancestor.</p>
+</div>
+<div class="grid">
+<p><img alt="Bird and bat wings evolved independently" src="assets/images/phan1/s05_p01.png" />
+<img alt="Shark and dolphin" src="assets/images/phan1/s05_p03.png" /></p>
+</div>
+<p>Bird and bat wings evolved independently; sharks and dolphins have a
+similar body shape because both adapted to aquatic life, not because they
+share a recent common ancestor. This is the classic example of
+<strong>homoplasy</strong>.</p>
+<hr />
+<h2 id="4-homology-vs-homoplasy">4. Homology vs. homoplasy<a class="headerlink" href="#4-homology-vs-homoplasy" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Homology</th>
+<th>Homoplasy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Nature</td>
+<td>Real signal</td>
+<td>Signal noise</td>
+</tr>
+<tr>
+<td>Definition</td>
+<td>Similarity due to <strong>common ancestry</strong> — the true evolutionary signal we want to use to build the tree.</td>
+<td>Similarity <strong>not</strong> due to common ancestry: convergent evolution, reversal, parallelism. Looks like homology but misleads about relationships.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Why do we need more rigorous inference methods?</strong> The naked eye cannot
+tell homology from homoplasy. We need explicit statistical models
+(distance, parsimony, likelihood, Bayesian) to separate the true
+evolutionary signal from noise and to quantify confidence.</p>
+<hr />
+<h2 id="5-molecular-phylogenetics">5. Molecular phylogenetics<a class="headerlink" href="#5-molecular-phylogenetics" title="Permanent link">&para;</a></h2>
+<p><strong>Core idea:</strong> at the molecular level, evolution is a process of
+accumulating and selecting mutations over time. So the degree of sequence
+difference between two species reflects the evolutionary distance between
+them.</p>
+<p><strong>Molecular phylogenetics</strong> is a branch of phylogenetics that analyzes
+molecular genetic differences — mainly in DNA sequences — to infer the
+evolutionary relationships of organisms.</p>
+<h3 id="a-brief-history">A brief history<a class="headerlink" href="#a-brief-history" title="Permanent link">&para;</a></h3>
+<p><strong>1960s–1990s</strong></p>
+<ul>
+<li><strong>1965</strong> — Zuckerkandl &amp; Pauling use protein sequences to build trees
+  and propose the molecular clock idea.</li>
+<li><strong>1977</strong> — Sanger sequencing technology is developed.</li>
+<li><strong>1980s</strong> — Camin &amp; Sokal: the Maximum Parsimony method.</li>
+<li><strong>1983</strong> — Mullis invents PCR.</li>
+<li><strong>1987</strong> — Saitou &amp; Nei: the Neighbor-Joining method.</li>
+<li><strong>1990</strong> — Woese, Kandler &amp; Wheelis: the three-domain system (Bacteria,
+  Archaea, Eukarya); Woese &amp; Fox had earlier (1977) used 16S rRNA
+  sequences to identify the Archaea domain.</li>
+<li>Felsenstein: Maximum Likelihood and the bootstrap method.</li>
+</ul>
+<p><strong>1997–2020</strong></p>
+<ul>
+<li><strong>1997</strong> — the term "phylogenomics" is coined.</li>
+<li><strong>2001</strong> — Huelsenbeck &amp; Ronquist: the MrBayes software.</li>
+<li><strong>2003</strong> — Rannala &amp; Yang, Mau &amp; Newton lay the groundwork for Bayesian
+  phylogenetic inference via MCMC.</li>
+<li><strong>&gt;2005</strong> — next-generation sequencing (NGS) technology.</li>
+<li><strong>2015</strong> — Nguyen et al.: the IQ-TREE software.</li>
+<li><strong>2016</strong> — Hug et al.: a genome-scale tree of life.</li>
+<li><strong>2020</strong> — COVID-19: genomic phylogenetic epidemiology becomes a public
+  pandemic-tracking tool.</li>
+</ul>
+<h3 id="advantages-of-molecular-phylogenetics">Advantages of molecular phylogenetics<a class="headerlink" href="#advantages-of-molecular-phylogenetics" title="Permanent link">&para;</a></h3>
+<p><img alt="Advantages of molecular phylogenetics — from morphology to genomes" src="assets/images/phan1/s10_p01.png" /></p>
+<ul>
+<li>Large, objective amount of information (quantifiable).</li>
+<li>Applicable to any group of organisms, including microbes that lack rich
+  morphological traits.</li>
+<li>Resolves many relationships that morphology alone cannot distinguish.</li>
+</ul>
+<p><em>Image source: Hug et al., 2016.</em></p>
+<hr />
+<h2 id="6-from-dna-to-the-sequences-used-for-tree-building">6. From DNA to the sequences used for tree-building<a class="headerlink" href="#6-from-dna-to-the-sequences-used-for-tree-building" title="Permanent link">&para;</a></h2>
+<p><img alt="DNA structure and gene types" src="assets/images/phan1/s11_p01.png" /></p>
+<p><strong>DNA</strong> is the molecule that carries genetic information, made of
+nucleotides built from one of 4 nitrogen-containing nucleobases:
+Cytosine (C), Guanine (G), Adenine (A), Thymine (T) / Uracil (U). A
+<strong>gene</strong> is a DNA/RNA sequence in the genome required for a specific
+function, and falls into 3 main types:</p>
+<ul>
+<li>Protein-coding genes — transcribed into RNA and then translated into
+  protein.</li>
+<li>Specific RNA genes — transcribed only (mRNA, tRNA).</li>
+<li>Non-transcribed genes.</li>
+</ul>
+<h3 id="why-dna-is-usually-chosen-over-protein">Why DNA is usually chosen over protein<a class="headerlink" href="#why-dna-is-usually-chosen-over-protein" title="Permanent link">&para;</a></h3>
+<p>Because amino acids can carry synonymous changes (several codons encode
+the same amino acid), a protein sequence carries less phylogenetic
+information than its corresponding DNA sequence. DNA is therefore usually
+preferred for building phylogenetic trees.</p>
+<h3 id="which-dna-sequence-should-you-choose">Which DNA sequence should you choose?<a class="headerlink" href="#which-dna-sequence-should-you-choose" title="Permanent link">&para;</a></h3>
+<p><img alt="Mitochondrial genome map with commonly analyzed regions" src="assets/images/phan1/s13_p01.png" /></p>
+<p><strong>Mitochondrial DNA</strong> is commonly used for phylogenetic analysis because:</p>
+<ul>
+<li>It is maternally inherited → always present and continuous.</li>
+<li>Low recombination rate → avoids noise from recombination.</li>
+<li>Fast evolutionary rate → allows detection of genetic changes even among
+  closely related groups.</li>
+<li>Ease of use: primers for amplifying DNA fragments are already designed
+  and available.</li>
+</ul>
+<p>Check the literature and prior studies to decide which gene to analyze.
+Commonly used genes include: <strong>16S, COI, Cytb, ND2</strong>.</p>
+<hr />
+<h2 id="7-general-workflow-of-a-molecular-phylogenetics-study">7. General workflow of a molecular phylogenetics study<a class="headerlink" href="#7-general-workflow-of-a-molecular-phylogenetics-study" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Quality control; data collection</li>
+<li>Sequencing</li>
+<li>Alignment</li>
+<li>Model selection</li>
+<li>Inference</li>
+<li>Branch support</li>
+<li>Interpretation</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Why this order matters</p>
+<p>Mistakes made in the early steps (quality, alignment) propagate
+through all downstream results — so preparing and cleaning the data is
+just as important as choosing the right method.</p>
+</div>
+<h3 id="software-used-in-this-workshop">Software used in this workshop<a class="headerlink" href="#software-used-in-this-workshop" title="Permanent link">&para;</a></h3>
+<div class="grid cards">
+<ul>
+<li><strong>ChromasPro</strong> (Steps 1–2) — quality control &amp; assembly of Sanger
+  chromatograms (<code>.ab1</code>) into a consensus sequence.</li>
+<li><strong>MEGA</strong> (Steps 3–4) — multiple sequence alignment, preliminary model
+  testing, and exploratory tree building (NJ/ML).</li>
+<li><strong>IQ-TREE</strong> (Steps 4–6) — ModelFinder + fast, rigorous Maximum
+  Likelihood inference with ultrafast bootstrap.</li>
+<li><strong>MrBayes</strong> (Steps 5–6) — Bayesian inference via MCMC; produces a
+  posterior tree and posterior probabilities.</li>
+</ul>
+</div>
+<hr />
+<h2 id="8-four-inference-methods">8. Four inference methods<a class="headerlink" href="#8-four-inference-methods" title="Permanent link">&para;</a></h2>
+<h3 id="distance-based-methods">Distance-based methods<a class="headerlink" href="#distance-based-methods" title="Permanent link">&para;</a></h3>
+<p>Convert the aligned sequences into a pairwise genetic distance matrix
+across taxa, then build a tree from that matrix (e.g. Neighbor-Joining,
+UPGMA).</p>
+<ul>
+<li><strong>Advantages:</strong> very fast and intuitive, suitable for large datasets or
+  an initial survey.</li>
+<li><strong>Limitations:</strong> collapses per-site information into a single number →
+  loses detail; the result depends on how distance is computed.</li>
+<li><strong>Tools:</strong> MEGA — used as an exploratory step (Neighbor-Joining /
+  UPGMA).</li>
+</ul>
+<h3 id="maximum-parsimony-mp">Maximum Parsimony (MP)<a class="headerlink" href="#maximum-parsimony-mp" title="Permanent link">&para;</a></h3>
+<p>Chooses the tree that requires the <strong>fewest</strong> evolutionary changes to
+explain the data — the "simplest hypothesis" principle.</p>
+<ul>
+<li><strong>Advantages:</strong> intuitive, doesn't require a complex statistical model;
+  easy to explain to beginners.</li>
+<li><strong>Limitations:</strong> prone to error when evolutionary rates are uneven
+  across branches ("long-branch attraction").</li>
+<li><strong>Tools:</strong> MEGA (Maximum Parsimony option); PAUP*.</li>
+</ul>
+<h3 id="maximum-likelihood-ml">Maximum Likelihood (ML)<a class="headerlink" href="#maximum-likelihood-ml" title="Permanent link">&para;</a></h3>
+<p>Searches for the tree <strong>and</strong> substitution model that maximize the
+probability of observing the sequence data (the likelihood).</p>
+<ul>
+<li><strong>Advantages:</strong> rigorous statistical foundation, uses all per-site
+  information, results are consistent and reproducible.</li>
+<li><strong>Limitations:</strong> computationally intensive (IQ-TREE partly addresses
+  this); requires choosing the right substitution model; produces one
+  best tree rather than a distribution of trees.</li>
+<li><strong>Tools:</strong> Treefinder, RAxML, IQ-TREE (ModelFinder + ML + ultrafast
+  bootstrap).</li>
+</ul>
+<h3 id="bayesian-inference-bi">Bayesian Inference (BI)<a class="headerlink" href="#bayesian-inference-bi" title="Permanent link">&para;</a></h3>
+<p>Computes the <strong>posterior</strong> probability of a tree = prior × likelihood,
+and samples tree space via MCMC instead of searching for one optimal
+solution.</p>
+<ul>
+<li><strong>Advantages:</strong> yields a full distribution of trees with posterior
+  probabilities; handles complex models and uncertainty; lets you
+  incorporate prior information from your own hypotheses.</li>
+<li><strong>Limitations:</strong> slow to run, requires checking convergence (burn-in,
+  ESS); results depend on the choice of priors.</li>
+<li><strong>Tools:</strong> MrBayes (MCMC) — check convergence with Tracer.</li>
+</ul>
+<hr />
+<h2 id="9-evaluating-a-phylogenetic-tree-how-to-read-one">9. Evaluating a phylogenetic tree: how to read one<a class="headerlink" href="#9-evaluating-a-phylogenetic-tree-how-to-read-one" title="Permanent link">&para;</a></h2>
+<p>When reading a phylogenetic tree, ask yourself four questions:</p>
+<ol>
+<li><strong>What does the support value mean?</strong> The number at each node shows
+   branch confidence (bootstrap % and/or posterior probability — PP).
+   High (BS ≳ 70–95%, PP ≳ 0.95) → trustworthy; low → the relationship is
+   uncertain.</li>
+<li><strong>Which species are you interested in?</strong> Identify the species/clade
+   you're studying, then find its closest relative (sister group) next to
+   it on the tree.</li>
+<li><strong>Is your clade of interest clearly separated?</strong> Does your clade form
+   its own well-supported monophyletic group, distinct from other
+   species — or is it mixed in among them?</li>
+<li><strong>Where is the outgroup?</strong> Check that the outgroup sits at the root and
+   is separate from the ingroup; it orients the root of the tree and
+   confirms that your study group is monophyletic.</li>
+</ol>
+<p><em>Common convention: the number at a node = bootstrap (%) / posterior
+probability (PP); green = high support, orange = low support.</em></p>
+<h3 id="how-bootstrap-and-posterior-probability-differ">How bootstrap and posterior probability differ<a class="headerlink" href="#how-bootstrap-and-posterior-probability-differ" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Bootstrap (BS)</th>
+<th>Posterior Probability (PP)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Meaning</td>
+<td>Stability of the signal</td>
+<td>Probability under a Bayesian model</td>
+</tr>
+<tr>
+<td>How it's computed</td>
+<td>Resample the alignment columns (with replacement) and rebuild the tree many times. BS% = the proportion of times a clade appears → measures how STABLE the signal in the data is.</td>
+<td>The probability that a clade is correct, computed from the posterior distribution given the model and data. Ranges from 0–1.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="admonition-title">Common misconceptions</p>
+<ul>
+<li>BS is <strong>not</strong> "the % probability that the clade is correct" — it
+  only measures how repeatable the signal is.</li>
+<li>BS usually needs at least 70% to be considered reliable; ultrafast
+  bootstrap (UFB) or PP need at least 95%.</li>
+<li>A high support value can still be <strong>wrong</strong> if the model is
+  misspecified or the data are biased.</li>
+</ul>
+</div>
+<hr />
+<h2 id="10-example-trees-from-recently-described-new-species">10. Example trees from recently described new species<a class="headerlink" href="#10-example-trees-from-recently-described-new-species" title="Permanent link">&para;</a></h2>
+<p>The examples below are newly published species, illustrating how the
+choice of gene (COI, 16S, Cytb, ND2, or a combination of several genes)
+depends on the group of organisms and the research question.</p>
+<table>
+<thead>
+<tr>
+<th>New species</th>
+<th>Publication</th>
+<th>Gene(s) used</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>Acanthosaura grismeri</em> (Le et al., 2025)</td>
+<td>Zootaxa</td>
+<td>COI</td>
+</tr>
+<tr>
+<td><em>Zhangixalus thaoae</em> (Nguyen et al., 2024)</td>
+<td>ZooKeys</td>
+<td>16S</td>
+</tr>
+<tr>
+<td><em>Euroscaptor darwini</em> (Vu et al., 2025)</td>
+<td>ZooKeys</td>
+<td>Cytb &amp; 12S</td>
+</tr>
+<tr>
+<td><em>Uropsilus fansipanensis</em> (Bui et al., 2023)</td>
+<td>Zootaxa</td>
+<td>Cytb, RAG1, RAG2</td>
+</tr>
+<tr>
+<td><em>Tylototriton vietnamirabilis</em> (Ong et al., 2026)</td>
+<td>ZooKeys</td>
+<td>ND2</td>
+</tr>
+</tbody>
+</table>
+<div class="grid">
+<p><img alt="Phylogenetic tree of Acanthosaura grismeri" src="assets/images/phan1/s22_p01.jpg" />
+<img alt="Acanthosaura grismeri — male (left) and female (right)" src="assets/images/phan1/s22_p02.jpg" /></p>
+</div>
+<div class="grid">
+<p><img alt="Phylogenetic tree of Zhangixalus thaoae" src="assets/images/phan1/s23_p01.jpg" />
+<img alt="Zhangixalus thaoae" src="assets/images/phan1/s23_p02.jpg" /></p>
+</div>
+<div class="grid">
+<p><img alt="Phylogenetic tree of Euroscaptor darwini" src="assets/images/phan1/s24_p01.jpg" />
+<img alt="Euroscaptor darwini" src="assets/images/phan1/s24_p02.jpg" /></p>
+</div>
+<div class="grid">
+<p><img alt="Phylogenetic tree of Uropsilus fansipanensis" src="assets/images/phan1/s25_p01.jpg" />
+<img alt="Uropsilus fansipanensis" src="assets/images/phan1/s25_p02.jpg" /></p>
+</div>
+<div class="grid">
+<p><img alt="Phylogenetic tree of Tylototriton vietnamirabilis" src="assets/images/phan1/s26_p01.jpg" />
+<img alt="Tylototriton vietnamirabilis — photo: Phạm Thế Cường" src="assets/images/phan1/s26_p02.jpg" /></p>
+</div>
+<hr />
+<h2 id="next-up">Next up<a class="headerlink" href="#next-up" title="Permanent link">&para;</a></h2>
+<p>Part 2 moves into hands-on work: reading and assembling chromatograms
+with ChromasPro, identifying sequences with BLAST, collecting reference
+sequences from GenBank, and aligning with MEGA.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["navigation.tabs", "navigation.top", "content.code.copy", "toc.integrate"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="assets/extra.js"></script>
+      
+    
+  </body>
+</html>

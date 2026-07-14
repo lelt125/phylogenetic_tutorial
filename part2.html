@@ -1,0 +1,1474 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Hướng dẫn xây dựng cây phát sinh chủng loại / Guide to Phylogenetic tree construction">
+      
+      
+      
+      
+        <link rel="prev" href="part1.html">
+      
+      
+        <link rel="next" href="part3.html">
+      
+      
+        
+          <link rel="alternate" href="part2.html" hreflang="en">
+        
+          <link rel="alternate" href="vi/part2.html" hreflang="vi">
+        
+      
+      
+      <link rel="icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Part 2 — ChromasPro, BLAST, GenBank, MEGA - Hướng dẫn xây dựng cây Phát sinh chủng loại</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="assets/extra.css">
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="amber">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#part-2-reading-collecting-and-aligning-sequences" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="index.html" title="Hướng dẫn xây dựng cây Phát sinh chủng loại" class="md-header__button md-logo" aria-label="Hướng dẫn xây dựng cây Phát sinh chủng loại" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Hướng dẫn xây dựng cây Phát sinh chủng loại
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Part 2 — ChromasPro, BLAST, GenBank, MEGA
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="amber"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Select language">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="part2.html" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="vi/part2.html" hreflang="vi" class="md-select__link">
+              Tiếng Việt
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="index.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="part1.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Part 1 — Theoretical Overview
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="part2.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Part 2 — ChromasPro, BLAST, GenBank, MEGA
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="part3.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Part 3 — Maximum Likelihood & Bayesian Inference
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="index.html" title="Hướng dẫn xây dựng cây Phát sinh chủng loại" class="md-nav__button md-logo" aria-label="Hướng dẫn xây dựng cây Phát sinh chủng loại" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Hướng dẫn xây dựng cây Phát sinh chủng loại
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="part1.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 1 — Theoretical Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 2 — ChromasPro, BLAST, GenBank, MEGA
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="part2.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 2 — ChromasPro, BLAST, GenBank, MEGA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#i-chromaspro-reading-assembling-chromatograms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        I. ChromasPro — Reading &amp; assembling chromatograms
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="I. ChromasPro — Reading &amp; assembling chromatograms">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#how-sanger-sequencing-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How Sanger sequencing works
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-are-ab1-files-and-chromatograms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What are .ab1 files and chromatograms
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-to-read-a-chromatogram" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How to read a chromatogram
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quality-value-phred-score" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Quality Value (Phred score)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#introducing-chromaspro" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Introducing ChromasPro
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#trimming-and-keeping-the-good-quality-region" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Trimming and keeping the good-quality region
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#assembling-the-contig-consensus-exporting-fasta" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Assembling the contig, consensus &amp; exporting FASTA
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ii-ncbi-blast-sequence-identification" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        II. NCBI &amp; BLAST — Sequence identification
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="II. NCBI &amp; BLAST — Sequence identification">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#what-is-ncbi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What is NCBI
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#what-is-genbank" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What is GenBank
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#blast-why-we-need-it-how-it-works" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BLAST: why we need it &amp; how it works
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#running-blast-on-the-web" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Running BLAST on the web
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Running BLAST on the web">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#blast-program-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        BLAST program types
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-to-run-nucleotide-blast" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How to run Nucleotide BLAST
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reading-blast-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reading BLAST results
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#interpreting-results-caveats" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Interpreting results &amp; caveats
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#iii-genbank-collecting-sequences" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        III. GenBank — Collecting sequences
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="III. GenBank — Collecting sequences">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dataset-building-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dataset-building strategy
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#searching-ncbi-nucleotide" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Searching NCBI Nucleotide
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reading-a-genbank-record" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reading a GenBank record
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#from-blast-hits-to-reference-sequences" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        From BLAST hits to reference sequences
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#downloading-a-single-sequence" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Downloading a single sequence
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#batch-entrez-bulk-downloads-from-a-list-of-accessions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Batch Entrez: bulk downloads from a list of accessions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#naming-organizing-checking-your-dataset" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Naming, organizing &amp; checking your dataset
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#iv-mega-alignment-exploratory-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        IV. MEGA — Alignment &amp; exploratory analysis
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="IV. MEGA — Alignment &amp; exploratory analysis">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#introducing-mega" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Introducing MEGA
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#importing-data-into-mega" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Importing data into MEGA
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#aligning-sequences" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Aligning sequences
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#checking-editing-the-alignment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Checking &amp; editing the alignment
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#genetic-distance-table-p-distance" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Genetic distance table (p-distance)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#building-a-tree-in-mega" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Building a tree in MEGA
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#viewing-a-tree-in-newick-format" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Viewing a tree in Newick format
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#saving-exporting-the-alignment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Saving &amp; exporting the alignment
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-2-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part 2 summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="part3.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 3 — Maximum Likelihood & Bayesian Inference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="part-2-reading-collecting-and-aligning-sequences">Part 2 — Reading, Collecting, and Aligning Sequences<a class="headerlink" href="#part-2-reading-collecting-and-aligning-sequences" title="Permanent link">&para;</a></h1>
+<p><strong>ChromasPro · BLAST · GenBank · MEGA</strong></p>
+<p><strong>Presenters:</strong> Ninh Thị Hòa &amp; Lê Từ Hoàng Linh</p>
+<p>This part covers quality control &amp; sequence assembly, identification via
+BLAST, collecting reference sequences from GenBank, and alignment with
+MEGA — producing a dataset that's ready for tree-building. This is steps
+1–4 of the general workflow introduced in Part 1 (quality control →
+sequencing → alignment → model selection).</p>
+<hr />
+<h2 id="i-chromaspro-reading-assembling-chromatograms">I. ChromasPro — Reading &amp; assembling chromatograms<a class="headerlink" href="#i-chromaspro-reading-assembling-chromatograms" title="Permanent link">&para;</a></h2>
+<p><em>From raw <code>.ab1</code> files to a clean consensus sequence in FASTA format.</em></p>
+<h3 id="how-sanger-sequencing-works">How Sanger sequencing works<a class="headerlink" href="#how-sanger-sequencing-works" title="Permanent link">&para;</a></h3>
+<p><img alt="Principle of Sanger sequencing" src="assets/images/phan2/s04_p01.png" /></p>
+<ul>
+<li><strong>Principle:</strong> the dideoxy method randomly terminates DNA synthesis at
+  each base.</li>
+<li><strong>Reading the signal:</strong> the machine detects 4 fluorescent colors
+  corresponding to A, T, G, C.</li>
+<li><strong>Raw output:</strong> a <strong>chromatogram</strong> — a plot of signal peaks along the
+  sequence.</li>
+</ul>
+<h3 id="what-are-ab1-files-and-chromatograms">What are <code>.ab1</code> files and chromatograms<a class="headerlink" href="#what-are-ab1-files-and-chromatograms" title="Permanent link">&para;</a></h3>
+<p><img alt="Example of a chromatogram" src="assets/images/phan2/s05_p01.png" /></p>
+<p><code>.ab1</code> (or <code>.scf</code>) is the raw file from a Sanger sequencer, containing the
+fluorescent trace, the machine's base calls, and a quality score for each
+base. A chromatogram is a 4-color plot of signal peaks along the
+sequence — one color per base (A, C, G, T; color conventions vary by
+software).</p>
+<h3 id="how-to-read-a-chromatogram">How to read a chromatogram<a class="headerlink" href="#how-to-read-a-chromatogram" title="Permanent link">&para;</a></h3>
+<div class="grid">
+<p><img alt="Good signal: tall, clearly separated peaks" src="assets/images/phan2/s06_p01.png" />
+<img alt="Noisy signal: overlapping peaks, N calls" src="assets/images/phan2/s06_p02.png" /></p>
+</div>
+<ul>
+<li><strong>Good signal:</strong> tall, sharp, clearly separated peaks.</li>
+<li><strong>Poor signal:</strong> low, overlapping peaks, background noise.</li>
+<li><strong>"N" base:</strong> the machine couldn't call it — needs visual review.</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Rule of thumb</p>
+<p>Only trust a base call when the trace at that position is clear.</p>
+</div>
+<h3 id="quality-value-phred-score">Quality Value (Phred score)<a class="headerlink" href="#quality-value-phred-score" title="Permanent link">&para;</a></h3>
+<p>Formula: <strong>QV = −10 · log₁₀(probability of a miscall)</strong>. The higher the
+QV, the more trustworthy the base. ChromasPro displays the QV at each
+base — use it as the basis for trimming and for deciding what base is
+really there.</p>
+<table>
+<thead>
+<tr>
+<th>Threshold</th>
+<th>Error probability</th>
+<th>Interpretation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Q20</td>
+<td>1%</td>
+<td>1 error per 100 bases</td>
+</tr>
+<tr>
+<td>Q30</td>
+<td>0.1%</td>
+<td>1 error per 1000 bases</td>
+</tr>
+</tbody>
+</table>
+<h3 id="introducing-chromaspro">Introducing ChromasPro<a class="headerlink" href="#introducing-chromaspro" title="Permanent link">&para;</a></h3>
+<div class="grid">
+<p><img alt="ChromasPro interface" src="assets/images/phan2/s08_p01.png" />
+<img alt="ChromasPro" src="assets/images/phan2/s08_p02.png" /></p>
+</div>
+<ul>
+<li><strong>Role:</strong> view, quality-check, trim, and <strong>assemble</strong> Sanger reads into
+  a contig, then export the consensus.</li>
+<li><strong>Latest version:</strong> 2.x; runs natively on Windows.</li>
+<li><strong>Download:</strong> technelysium.com.au (Technelysium).</li>
+<li><strong>Output:</strong> a clean consensus sequence in FASTA format.</li>
+</ul>
+<h3 id="trimming-and-keeping-the-good-quality-region">Trimming and keeping the good-quality region<a class="headerlink" href="#trimming-and-keeping-the-good-quality-region" title="Permanent link">&para;</a></h3>
+<p><img alt="Trimming low-quality regions" src="assets/images/phan2/s09_p01.png" /></p>
+<p>Both ends of a read are usually low quality (noisy, many Ns). Trim the
+low-QV regions — automatically by threshold (e.g. Q20) or manually — to
+keep only the reliable core.</p>
+<h3 id="assembling-the-contig-consensus-exporting-fasta">Assembling the contig, consensus &amp; exporting FASTA<a class="headerlink" href="#assembling-the-contig-consensus-exporting-fasta" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>Forward  →                      &gt;Species_A_Sample01
+                                 ATGCTAGCTAGCTTAGGCTAACGT
+←  Reverse (reverse-complement)  TAGCCGATCGTAGCTAGGCTA...
+
+↓  assemble into a contig
+CONTIG → CONSENSUS
+</code></pre></div>
+<ul>
+<li><strong>Fixing bases:</strong> correct "N" or miscalled bases where the trace is
+  clear.</li>
+<li><strong>Reverse read:</strong> may need reverse-complementing before assembly.</li>
+<li><strong>Assembly:</strong> align the forward + reverse reads into a contig,
+  compensating for low-quality ends.</li>
+<li><strong>Conflicts:</strong> where the two reads disagree → check the trace to pick
+  the correct base.</li>
+<li><strong>Consensus → FASTA:</strong> export the consensus sequence with a clear name.</li>
+</ul>
+<hr />
+<h2 id="ii-ncbi-blast-sequence-identification">II. NCBI &amp; BLAST — Sequence identification<a class="headerlink" href="#ii-ncbi-blast-sequence-identification" title="Permanent link">&para;</a></h2>
+<p><em>Determine which species your sequence belongs to by comparing it against
+a reference database.</em></p>
+<h3 id="what-is-ncbi">What is NCBI<a class="headerlink" href="#what-is-ncbi" title="Permanent link">&para;</a></h3>
+<p><img alt="NCBI homepage" src="assets/images/phan2/s12_p01.jpg" /></p>
+<p>NCBI (the National Center for Biotechnology Information, USA) is freely
+accessible on the web. It hosts sequence data and analysis tools:</p>
+<ul>
+<li><strong>GenBank / Nucleotide, Protein</strong> — DNA/RNA and protein sequences.</li>
+<li><strong>SRA</strong> — raw sequencing data.</li>
+<li><strong>PubMed</strong> — scientific literature.</li>
+<li><strong>Taxonomy</strong> — organism classification.</li>
+<li><strong>BLAST</strong> — similarity search.</li>
+</ul>
+<h3 id="what-is-genbank">What is GenBank<a class="headerlink" href="#what-is-genbank" title="Permanent link">&para;</a></h3>
+<p><img alt="GenBank accession number structure" src="assets/images/phan2/s13_p01.png" /></p>
+<p>GenBank is a public, continuously updated DNA/RNA sequence repository.
+Each sequence has an <strong>accession number</strong> with a version suffix (e.g.
+<code>MN908947.3</code> — <code>MN908947</code> is the accession, <code>.3</code> is the version). It is
+the main source for reference sequences when building a dataset.</p>
+<h3 id="blast-why-we-need-it-how-it-works">BLAST: why we need it &amp; how it works<a class="headerlink" href="#blast-why-we-need-it-how-it-works" title="Permanent link">&para;</a></h3>
+<p>Once you have a consensus sequence, the question is: "what species is
+this?" <strong>BLAST</strong> (Basic Local Alignment Search Tool,
+<a href="https://blast.ncbi.nlm.nih.gov/Blast.cgi">blast.ncbi.nlm.nih.gov</a>)
+compares your sequence against millions of sequences in the database,
+finds regions of local similarity — quickly, using a heuristic algorithm —
+and returns a ranked list of hits.</p>
+<h2 id="running-blast-on-the-web">Running BLAST on the web<a class="headerlink" href="#running-blast-on-the-web" title="Permanent link">&para;</a></h2>
+<p><em>Link to NCBI BLAST</em>: <a href="https://blast.ncbi.nlm.nih.gov/Blast.cgi">blast.ncbi.nlm.nih.gov</a></p>
+<h3 id="blast-program-types">BLAST program types<a class="headerlink" href="#blast-program-types" title="Permanent link">&para;</a></h3>
+<div class="grid">
+<p><img alt="BLAST search interface" src="assets/images/phan2/s14_p01.png" /></p>
+<table>
+<thead>
+<tr>
+<th>Program</th>
+<th>Query</th>
+<th>Database</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>blastn</code></td>
+<td>DNA</td>
+<td>DNA</td>
+</tr>
+<tr>
+<td><code>blastp</code></td>
+<td>Protein</td>
+<td>Protein</td>
+</tr>
+<tr>
+<td><code>blastx</code></td>
+<td>DNA (translated)</td>
+<td>Protein</td>
+</tr>
+<tr>
+<td><code>tblastn</code></td>
+<td>Protein</td>
+<td>DNA (translated)</td>
+</tr>
+<tr>
+<td><code>tblastx</code></td>
+<td>DNA (translated)</td>
+<td>DNA (translated)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>To identify a DNA sequence: use <strong>blastn</strong>.</p>
+</div>
+<h3 id="how-to-run-nucleotide-blast">How to run Nucleotide BLAST<a class="headerlink" href="#how-to-run-nucleotide-blast" title="Permanent link">&para;</a></h3>
+<div class="grid">
+<p><img alt="How to run Nucleotide BLAST" src="assets/images/phan2/s16_p01.png" /></p>
+<ol>
+<li>Go to NCBI BLAST → Nucleotide BLAST.</li>
+<li>Paste your FASTA or upload the sequence file.</li>
+<li>Choose a database.</li>
+<li>Choose an Organism if you know/suspect the species (narrows the
+   search).</li>
+<li>Choose a program (megablast).</li>
+<li>Click BLAST — wait for results.</li>
+</ol>
+</div>
+<h3 id="reading-blast-results">Reading BLAST results<a class="headerlink" href="#reading-blast-results" title="Permanent link">&para;</a></h3>
+<p><img alt="BLAST results" src="assets/images/phan2/s17_p01.png" /></p>
+<ul>
+<li><strong>Graphic Summary</strong> — distribution of hits along the query.</li>
+<li><strong>Descriptions</strong> — the table of hits, where you make your call.</li>
+<li><strong>Alignments</strong> — detailed alignment for each hit.</li>
+</ul>
+<p><strong>Key metrics:</strong></p>
+<ul>
+<li><strong>Percent Identity</strong> — proportion of matching bases in the aligned
+  region. Species identification usually wants ≳ 97–99%.</li>
+<li><strong>Query Cover</strong> — the percentage of the query length that's aligned.
+  Low = only a short stretch matched.</li>
+<li><strong>E-value</strong> — expected number of random hits with an equivalent score.
+  The smaller (≈ 0), the more trustworthy.</li>
+<li><strong>Bit / Max score</strong> — a normalized alignment score. Higher is stronger;
+  used to compare hits.</li>
+</ul>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Read <strong>all</strong> of the metrics together — don't rely on a single number.</p>
+</div>
+<h3 id="interpreting-results-caveats">Interpreting results &amp; caveats<a class="headerlink" href="#interpreting-results-caveats" title="Permanent link">&para;</a></h3>
+<p>Identify based on the best hit + high coverage + multiple consistent
+hits. Multiple hits to the same species reinforce confidence; if the top
+hits belong to several different species, be cautious and look for more
+evidence.</p>
+<div class="admonition warning">
+<p class="admonition-title">Caveats</p>
+<ul>
+<li>Sequences on GenBank can be misidentified or contaminated.</li>
+<li>Many GenBank sequences aren't updated to match their associated
+  publication, so look them up and investigate further before using
+  them.</li>
+<li>Prefer sequences from peer-reviewed papers and from type/voucher
+  specimens.</li>
+<li>Some sequences may span multiple genes, even whole genomes → extract
+  only the gene region you need.</li>
+</ul>
+</div>
+<hr />
+<h2 id="iii-genbank-collecting-sequences">III. GenBank — Collecting sequences<a class="headerlink" href="#iii-genbank-collecting-sequences" title="Permanent link">&para;</a></h2>
+<p><em>Build a reference dataset for phylogenetic analysis.</em></p>
+<h3 id="dataset-building-strategy">Dataset-building strategy<a class="headerlink" href="#dataset-building-strategy" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Ingroup:</strong> the taxa whose relationships you want to investigate
+  (typically 12–16 taxa).</li>
+<li><strong>Outgroup:</strong> 1–2 taxa to root the tree.</li>
+<li><strong>Same marker:</strong> all sequences need to be from the same gene/region
+  (e.g. COI) so they can be compared.</li>
+<li><strong>Sample size:</strong> enough to run quickly but still show real variation.</li>
+</ul>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Instead of choosing sequences yourself, you can consult other papers
+to obtain the table of sequences they used to build their own
+phylogenetic tree, as a foundation for your dataset.</p>
+</div>
+<h3 id="searching-ncbi-nucleotide">Searching NCBI Nucleotide<a class="headerlink" href="#searching-ncbi-nucleotide" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Select the Nucleotide database.</li>
+<li>Combine the Organism and Gene fields, for example:</li>
+</ul>
+<div class="highlight"><pre><span></span><code>Acanthosaura[Organism] AND COI[Gene]
+</code></pre></div>
+<p><img alt="NCBI Nucleotide Search" src="assets/images/phan2/s26.png" /></p>
+<p><br></p>
+<p>Filter the results (Sort by) using:</p>
+<ul>
+<li>Sequence length</li>
+<li>Accession number</li>
+<li>Date Released</li>
+</ul>
+<p><img alt="NCBI Nucleotide Search Result" src="assets/images/phan2/s27.png" /></p>
+<h3 id="reading-a-genbank-record">Reading a GenBank record<a class="headerlink" href="#reading-a-genbank-record" title="Permanent link">&para;</a></h3>
+<div class="grid">
+<p><img alt="NCBI Nucleotide Record" src="assets/images/phan2/s28.png" /></p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Content</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>LOCUS</code></td>
+<td>name/accession, length, molecule type</td>
+</tr>
+<tr>
+<td><code>DEFINITION</code></td>
+<td>sequence description</td>
+</tr>
+<tr>
+<td><code>ACCESSION</code> / <code>VERSION</code></td>
+<td>identifier + version</td>
+</tr>
+<tr>
+<td><code>SOURCE</code></td>
+<td>specimen source</td>
+</tr>
+<tr>
+<td><code>ORGANISM</code></td>
+<td>species</td>
+</tr>
+<tr>
+<td><code>AUTHORS</code></td>
+<td>authors</td>
+</tr>
+<tr>
+<td><code>TITLE</code></td>
+<td>paper title</td>
+</tr>
+<tr>
+<td><code>JOURNAL</code></td>
+<td>journal name</td>
+</tr>
+<tr>
+<td><code>FEATURES</code></td>
+<td>sequence components: gene, CDS, product</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Check that:</strong> it's the right gene/region (see FEATURES); the species in
+ORGANISM matches your expectation; the length is reasonable, not an
+overly short fragment.</p>
+<h3 id="from-blast-hits-to-reference-sequences">From BLAST hits to reference sequences<a class="headerlink" href="#from-blast-hits-to-reference-sequences" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Candidates from BLAST: strong hits are good candidates to include in
+  your dataset.</li>
+<li>Supplement from the literature: add sequences used in published studies
+  of the same group.</li>
+<li>Choose representatives: pick a few good sequences per species, avoid
+  redundancy.</li>
+<li>Record the source: keep track of each sequence's accession number for
+  lookup and citation.</li>
+<li>Record metadata: collection locality, coordinates, elevation, and field
+  sample code — useful for other analyses later. It's a good idea to keep
+  this information in an Excel spreadsheet.</li>
+</ul>
+<div class="admonition info">
+<p class="admonition-title">A reference sequence dataset used in a real study</p>
+<p>Download the Excel file from the following paper to use as a
+reference:
+<a href="https://doi.org/10.3897/zookeys.1117.85787" target="_blank">Rhacophorus paper</a></p>
+</div>
+<h3 id="downloading-a-single-sequence">Downloading a single sequence<a class="headerlink" href="#downloading-a-single-sequence" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Open the sequence record you want.</li>
+<li><code>Send to</code> → <code>File</code>.</li>
+<li>Choose FASTA format (or GenBank <code>.gb</code>).</li>
+<li>Save the file.</li>
+</ol>
+<p>Suitable when you only need a few sequences.</p>
+<h3 id="batch-entrez-bulk-downloads-from-a-list-of-accessions">Batch Entrez: bulk downloads from a list of accessions<a class="headerlink" href="#batch-entrez-bulk-downloads-from-a-list-of-accessions" title="Permanent link">&para;</a></h3>
+<p>When you need many sequences at once (a whole dataset):</p>
+<ol>
+<li>Prepare a plain text file, one accession per line
+   (<code>accessions.txt</code>).</li>
+<li>Go to <a href="https://ncbi.nlm.nih.gov/sites/batchentrez">Batch Entrez</a> →
+   Nucleotide database → Retrieve.</li>
+<li><code>Send to</code> → <code>File</code> → FASTA for all of them at once.</li>
+</ol>
+<p>Advantage: reproduces exactly the dataset from an accession list in a
+published paper.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>You can also paste the accession list directly into the Nucleotide
+search box; for something more advanced, use EDirect <code>efetch</code> from
+the command line.</p>
+</div>
+<h3 id="naming-organizing-checking-your-dataset">Naming, organizing &amp; checking your dataset<a class="headerlink" href="#naming-organizing-checking-your-dataset" title="Permanent link">&para;</a></h3>
+<p>Example of a clear taxon label with its accession:</p>
+<div class="highlight"><pre><span></span><code>&gt;Acanthosaura_grismeri_IEBR_R_6353_PV646694
+</code></pre></div>
+<p>(Species + sample code + accession → a clear label, no diacritics, no
+spaces or special characters, so it stays compatible with IQ-TREE &amp;
+MrBayes.)</p>
+<p><strong>Dataset quality checklist:</strong></p>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Same gene region.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Comparable lengths.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> No overly short or erroneous sequences.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> No duplicates.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Sufficient outgroup taxa.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Suspicious sequences removed before alignment.</li>
+</ul>
+<hr />
+<h2 id="iv-mega-alignment-exploratory-analysis">IV. MEGA — Alignment &amp; exploratory analysis<a class="headerlink" href="#iv-mega-alignment-exploratory-analysis" title="Permanent link">&para;</a></h2>
+<p><em>Build an alignment, view genetic distances, and produce an exploratory
+tree.</em></p>
+<h3 id="introducing-mega">Introducing MEGA<a class="headerlink" href="#introducing-mega" title="Permanent link">&para;</a></h3>
+<p><img alt="MEGA12" src="assets/images/phan2/s29_p01.jpg" /></p>
+<ul>
+<li><strong>What it is:</strong> MEGA12 — a tool for alignment, model testing, and
+  tree-building.</li>
+<li><strong>Advantage:</strong> friendly interface, well suited for teaching.</li>
+<li><strong>License:</strong> free for research &amp; teaching.</li>
+<li><strong>Platforms:</strong> Windows and macOS.</li>
+</ul>
+<h3 id="importing-data-into-mega">Importing data into MEGA<a class="headerlink" href="#importing-data-into-mega" title="Permanent link">&para;</a></h3>
+<div class="grid">
+<p><img alt="Importing FASTA into MEGA" src="assets/images/phan2/s30_p01.png" />
+<img alt="Alignment Explorer" src="assets/images/phan2/s30_p02.png" /></p>
+</div>
+<ol>
+<li>Open the FASTA file (your consensus + GenBank sequences).</li>
+<li>Choose <code>Align</code> → open the Alignment Explorer.</li>
+<li>Check the number of sequences and their labels.</li>
+</ol>
+<h3 id="aligning-sequences">Aligning sequences<a class="headerlink" href="#aligning-sequences" title="Permanent link">&para;</a></h3>
+<p><img alt="Multiple sequence alignment in MEGA" src="assets/images/phan2/s31_p01.png" /></p>
+<p>Choose the <strong>MUSCLE</strong> or <strong>ClustalW</strong> algorithm to line up homologous
+positions into columns. Gaps are inserted where sequences have insertions
+or deletions. A good alignment is a prerequisite for a trustworthy tree.</p>
+<h3 id="checking-editing-the-alignment">Checking &amp; editing the alignment<a class="headerlink" href="#checking-editing-the-alignment" title="Permanent link">&para;</a></h3>
+<p><img alt="Checking the alignment" src="assets/images/phan2/s32_p01.png" /></p>
+<ul>
+<li>Look at gaps &amp; errors: visually check messy columns.</li>
+<li>Trim both ends: remove uneven leading/trailing regions across
+  sequences.</li>
+<li>Coding genes: translate to amino acids to spot frameshift errors.</li>
+<li>Reverse complement: since DNA is double-stranded, reverse-complement
+  any sequences that are in the wrong orientation.</li>
+</ul>
+<h3 id="genetic-distance-table-p-distance">Genetic distance table (p-distance)<a class="headerlink" href="#genetic-distance-table-p-distance" title="Permanent link">&para;</a></h3>
+<p><img alt="p-distance table" src="assets/images/phan2/s33_p01.png" /></p>
+<p><strong>p-distance</strong> is the proportion of differing sites between two sequences
+(number of differences / total sites). In MEGA: <code>Distance → Compute
+Pairwise Distances</code> → choose the p-distance model.</p>
+<p>Uses: detecting duplicate sequences, "outlier" sequences (errors or
+misidentification), and observing distances between species.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>p-distance doesn't correct for multiple substitutions → only suitable
+for closely related groups.</p>
+</div>
+<h3 id="building-a-tree-in-mega">Building a tree in MEGA<a class="headerlink" href="#building-a-tree-in-mega" title="Permanent link">&para;</a></h3>
+<p><img alt="Neighbor-Joining tree in MEGA" src="assets/images/phan2/s34_p01.png" /></p>
+<p>Quickly run a <strong>Neighbor-Joining</strong> tree in MEGA to get a first look at the
+structure of your data — this is an exploratory step before the more
+rigorous analyses with IQ-TREE/MrBayes.</p>
+<h3 id="viewing-a-tree-in-newick-format">Viewing a tree in Newick format<a class="headerlink" href="#viewing-a-tree-in-newick-format" title="Permanent link">&para;</a></h3>
+<p><strong>Newick</strong> is a text format that describes a tree using nested
+parentheses: parentheses = a group/clade; commas separate taxa; <code>:number</code>
+= branch length; <code>;</code> ends the tree. For example, a four-taxon tree with A,
+B, C, D:</p>
+<div class="highlight"><pre><span></span><code>((A,B),(C,D));
+</code></pre></div>
+<p>MEGA can display/export trees in Newick format. The <code>.treefile</code>/<code>.nwk</code>
+files produced by IQ-TREE &amp; MrBayes are this same Newick format.</p>
+<h3 id="saving-exporting-the-alignment">Saving &amp; exporting the alignment<a class="headerlink" href="#saving-exporting-the-alignment" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Format</th>
+<th>Extension</th>
+<th>Used for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>MEGA</td>
+<td><code>.meg</code> / <code>.mas</code></td>
+<td>Saving a session in MEGA</td>
+</tr>
+<tr>
+<td>FASTA</td>
+<td><code>.fasta</code> / <code>.fas</code></td>
+<td>Widely used, IQ-TREE</td>
+</tr>
+<tr>
+<td>NEXUS</td>
+<td><code>.nex</code></td>
+<td>MrBayes</td>
+</tr>
+<tr>
+<td>PHYLIP</td>
+<td><code>.phy</code></td>
+<td>Many ML tools</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Keep one "master" alignment as a backup.</p>
+</div>
+<hr />
+<h2 id="part-2-summary">Part 2 summary<a class="headerlink" href="#part-2-summary" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>ChromasPro (consensus contig) → BLAST (identification) → GenBank + Batch Entrez
+  → MEGA (alignment + p-distance) → Ready for tree-building
+</code></pre></div>
+<p>The full Part 2 workflow goes from a raw chromatogram to a quality-checked
+alignment. Result: a dataset that's ready for phylogenetic tree-building
+in the next part.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["navigation.tabs", "navigation.top", "content.code.copy", "toc.integrate"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="assets/extra.js"></script>
+      
+    
+  </body>
+</html>

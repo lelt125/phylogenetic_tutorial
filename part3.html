@@ -1,0 +1,1714 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Hướng dẫn xây dựng cây phát sinh chủng loại / Guide to Phylogenetic tree construction">
+      
+      
+      
+      
+        <link rel="prev" href="part2.html">
+      
+      
+      
+        
+          <link rel="alternate" href="part3.html" hreflang="en">
+        
+          <link rel="alternate" href="vi/part3.html" hreflang="vi">
+        
+      
+      
+      <link rel="icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Part 3 — Maximum Likelihood & Bayesian Inference - Hướng dẫn xây dựng cây Phát sinh chủng loại</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="assets/extra.css">
+    
+    <script>__md_scope=new URL(".",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="amber">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#part-3-maximum-likelihood-bayesian-inference" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="index.html" title="Hướng dẫn xây dựng cây Phát sinh chủng loại" class="md-header__button md-logo" aria-label="Hướng dẫn xây dựng cây Phát sinh chủng loại" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Hướng dẫn xây dựng cây Phát sinh chủng loại
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Part 3 — Maximum Likelihood & Bayesian Inference
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="amber"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Select language">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="part3.html" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="vi/part3.html" hreflang="vi" class="md-select__link">
+              Tiếng Việt
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="index.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="part1.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Part 1 — Theoretical Overview
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="part2.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Part 2 — ChromasPro, BLAST, GenBank, MEGA
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="part3.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Part 3 — Maximum Likelihood & Bayesian Inference
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="index.html" title="Hướng dẫn xây dựng cây Phát sinh chủng loại" class="md-nav__button md-logo" aria-label="Hướng dẫn xây dựng cây Phát sinh chủng loại" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Hướng dẫn xây dựng cây Phát sinh chủng loại
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="part1.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 1 — Theoretical Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="part2.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 2 — ChromasPro, BLAST, GenBank, MEGA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 3 — Maximum Likelihood & Bayesian Inference
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="part3.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 3 — Maximum Likelihood & Bayesian Inference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#i-evolutionary-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        I. Evolutionary models
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="I. Evolutionary models">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-do-we-need-a-model-for-this-at-all" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why do we need a "model" for this at all?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#not-every-kind-of-change-happens-at-the-same-rate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Not every kind of change happens at the same rate
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#in-short-an-evolutionary-model-needs-to-answer-3-questions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        In short: an evolutionary model needs to answer 3 questions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#so-how-do-you-know-which-model-to-use" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        So how do you know which model to use?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ii-getting-comfortable-with-the-terminal-powershell-on-windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        II. Getting comfortable with the Terminal (PowerShell) on Windows
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="II. Getting comfortable with the Terminal (PowerShell) on Windows">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#installing-a-terminal-app" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installing a terminal app
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#opening-powershell" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Opening PowerShell
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#basic-commands-you-should-know" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Basic commands you should know
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-tab-to-type-commands-faster" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Using Tab to type commands faster
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#iii-building-a-tree-with-iq-tree-maximum-likelihood" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        III. Building a tree with IQ-TREE (Maximum Likelihood)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="III. Building a tree with IQ-TREE (Maximum Likelihood)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#installing-iq-tree-and-mrbayes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Installing IQ-TREE and MrBayes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adding-programs-to-the-path-environment-variable" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Adding programs to the Path environment variable
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preparation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Preparation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#basic-command-model-selection-ml-tree-bootstrap" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Basic command: model selection + ML tree + bootstrap
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reading-the-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reading the results
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#understanding-the-model-modelfinder-just-chose-for-you" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Understanding the model ModelFinder just chose for you
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#opening-the-tree-in-mega" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Opening the tree in MEGA
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#iv-building-a-tree-with-mrbayes-bayesian-inference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        IV. Building a tree with MrBayes (Bayesian Inference)
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="IV. Building a tree with MrBayes (Bayesian Inference)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#preparing-the-nexus-file" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Preparing the NEXUS file
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#running-mrbayes-from-powershell" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Running MrBayes from PowerShell
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#monitoring-convergence-while-it-runs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Monitoring convergence while it runs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reading-the-results-checking-with-tracer" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reading the results &amp; checking with Tracer
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#converting-contre-to-plain-newick-with-a-website-when-needed" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Converting .con.tre to plain Newick with a website (when needed)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#v-exporting-the-tree-to-powerpointaffinity-to-finish-it-before-publication" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        V. Exporting the tree to PowerPoint/Affinity to finish it before publication
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="V. Exporting the tree to PowerPoint/Affinity to finish it before publication">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-not-take-a-screenshot" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why not take a screenshot?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-1-export-the-tree-as-svg-from-mega" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 1 — Export the tree as SVG from MEGA
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-2-editing-in-powerpoint" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 2 — Editing in PowerPoint
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-3-using-affinity-when-you-need-higher-precision" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step 3 — Using Affinity when you need higher precision
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#part-3-summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Part 3 summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="part-3-maximum-likelihood-bayesian-inference">Part 3 — Maximum Likelihood &amp; Bayesian Inference<a class="headerlink" href="#part-3-maximum-likelihood-bayesian-inference" title="Permanent link">&para;</a></h1>
+<p><strong>Presenters:</strong> Ninh Thị Hòa &amp; Lê Từ Hoàng Linh</p>
+<p>This part has two halves: (1) the theory behind nucleotide substitution
+models and how software chooses an appropriate one, and (2) hands-on
+tree-building from the command line with <strong>IQ-TREE</strong> (Maximum Likelihood)
+and <strong>MrBayes</strong> (Bayesian Inference).</p>
+<hr />
+<h2 id="i-evolutionary-models">I. Evolutionary models<a class="headerlink" href="#i-evolutionary-models" title="Permanent link">&para;</a></h2>
+<h3 id="why-do-we-need-a-model-for-this-at-all">Why do we need a "model" for this at all?<a class="headerlink" href="#why-do-we-need-a-model-for-this-at-all" title="Permanent link">&para;</a></h3>
+<p>Imagine photocopying a page, then photocopying that photocopy, and
+repeating this thousands of times. Each copy has a small chance of an
+error (a smudge, faded ink...) that turns one letter into another. The
+more copies you make (the "further" you get from the original), the more
+errors accumulate.</p>
+<p>DNA works the same way: every time a cell copies its DNA to divide, there
+is a very small chance that one base (A/T/G/C) gets copied incorrectly
+into a different base — this is called a <strong>substitution</strong>. The more
+evolutionarily "distant" two species are (the longer ago they split from
+a common ancestor), the more differences accumulate between their DNA
+sequences.</p>
+<p>An <strong>evolutionary model</strong> is simply a mathematical formula describing:
+<em>"if a nucleotide changes, which nucleotide is it likely to become, and
+at what rate?"</em> — so that software can work backwards: looking at the
+differences that currently exist between sequences, it infers which
+phylogenetic tree is most plausible.</p>
+<h3 id="not-every-kind-of-change-happens-at-the-same-rate">Not every kind of change happens at the same rate<a class="headerlink" href="#not-every-kind-of-change-happens-at-the-same-rate" title="Permanent link">&para;</a></h3>
+<p><img alt="Nucleotide substitution models: JC69, K80, HKY85, GTR" src="assets/images/phan3/s02_p01.png" /></p>
+<p>The four bases fall into two chemical groups: purines (A, G — a
+two-ring structure) and pyrimidines (C, T — a one-ring structure).
+Empirical observation shows:</p>
+<ul>
+<li><strong>Transitions</strong> — changes within the same group (A↔G or C↔T) — happen
+  <strong>more often</strong>, because bases in the same group have a more similar
+  shape and are more easily "miscopied" into one another.</li>
+<li><strong>Transversions</strong> — changes across groups (A↔C, A↔T, G↔C, G↔T) — are
+  <strong>rarer</strong>, because bases in different groups differ more in shape.</li>
+</ul>
+<p>The <strong>JC69 → K80 → HKY85 → … → GTR</strong> models (going left to right in the
+figure) are just increasingly detailed versions of the same idea: each
+later model allows more free parameters than the one before it (e.g.
+allowing transitions and transversions to have different rates, allowing
+the 4 bases to occur at different frequencies...). No model is "absolutely
+correct" — the goal is to pick the simplest model that still describes
+your actual data well (see the ModelFinder section below).</p>
+<p>Besides the <em>type</em> of substitution (A→G vs. A→C...), a model's name
+sometimes also carries a <code>+G</code> or <code>+I</code> tag — describing rate variation
+across positions along the sequence. Don't worry about fitting these two
+parameters by hand: ModelFinder tries them automatically and picks the
+best combination, and the hands-on Section III below will explain exactly
+what these two tags mean right when you see them appear in your own
+results.</p>
+<h3 id="in-short-an-evolutionary-model-needs-to-answer-3-questions">In short: an evolutionary model needs to answer 3 questions<a class="headerlink" href="#in-short-an-evolutionary-model-needs-to-answer-3-questions" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>How does it change?</strong> (the substitution model — e.g. JC69, HKY85,
+   GTR above).</li>
+<li><strong>Does it change equally across positions?</strong> (<code>+G</code>, <code>+I</code> — details in
+   Section III, right after running IQ-TREE).</li>
+<li><strong>Does it change equally over time?</strong> (the molecular clock — only
+   relevant if you want to date the tree; not required for an ordinary
+   ML/Bayesian tree).</li>
+</ol>
+<h3 id="so-how-do-you-know-which-model-to-use">So how do you know which model to use?<a class="headerlink" href="#so-how-do-you-know-which-model-to-use" title="Permanent link">&para;</a></h3>
+<p>Good news: you <strong>don't need to choose by hand</strong>. There are dozens of
+different substitution models, and the <strong>ModelFinder</strong> program
+(Kalyaanamoorthy et al., 2017) — built into <strong>IQ-TREE</strong> — automatically
+tries these models on your own dataset and picks the "just right" one:
+one that fits the data well without unnecessary complexity.</p>
+<p><img alt="ModelFinder: fast model selection for accurate phylogenetic estimates (Nature Methods, 2017)" src="assets/images/phan3/s08_p01.png" /></p>
+<p>This is exactly the first step that happens when you type the IQ-TREE
+command in the hands-on section below — you won't need to type the name
+of any specific model, just tell IQ-TREE "find the best model for me."</p>
+<hr />
+<h2 id="ii-getting-comfortable-with-the-terminal-powershell-on-windows">II. Getting comfortable with the Terminal (PowerShell) on Windows<a class="headerlink" href="#ii-getting-comfortable-with-the-terminal-powershell-on-windows" title="Permanent link">&para;</a></h2>
+<p>Both IQ-TREE and MrBayes run from the command line, with no graphical
+interface like ChromasPro or MEGA. On Windows, the default command line
+is <strong>PowerShell</strong>.</p>
+<h3 id="installing-a-terminal-app">Installing a terminal app<a class="headerlink" href="#installing-a-terminal-app" title="Permanent link">&para;</a></h3>
+<p>Windows 11 already comes with the <strong>Windows Terminal</strong> app — a modern
+command-line window that supports multiple tabs and displays text better
+than the old PowerShell window.</p>
+<div class="admonition note">
+<p class="admonition-title">Windows 10 needs to download Terminal separately</p>
+<p>If your machine runs Windows 10, the <strong>Terminal</strong> app is usually
+<strong>not preinstalled</strong> — download it for free from the <strong>Microsoft
+Store</strong> (search for "Terminal" or "Windows Terminal") and install it
+before following the instructions below. If you don't install it,
+you can still use the built-in <strong>Windows PowerShell</strong> window, just
+with an older-style interface.</p>
+</div>
+<h3 id="opening-powershell">Opening PowerShell<a class="headerlink" href="#opening-powershell" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Press <code>Windows</code> and type <code>Terminal</code> (or <code>PowerShell</code> if you haven't
+   installed Terminal) → choose <strong>Windows PowerShell</strong>.</li>
+<li>Or: hold <code>Shift</code> + right-click an empty area inside a folder in File
+   Explorer → choose <strong>Open PowerShell window here</strong> (or <strong>Open in
+   Terminal</strong>, depending on your Windows version) — this opens PowerShell
+   directly in that folder, so you don't need to <code>cd</code> manually.</li>
+</ol>
+<h3 id="basic-commands-you-should-know">Basic commands you should know<a class="headerlink" href="#basic-commands-you-should-know" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>What you want to do</th>
+<th>PowerShell command</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>See which folder you're in</td>
+<td><code>pwd</code></td>
+<td>short for Print Working Directory</td>
+</tr>
+<tr>
+<td>List files in a folder</td>
+<td><code>ls</code> (or <code>dir</code>)</td>
+<td><code>ls</code> is an alias for <code>Get-ChildItem</code></td>
+</tr>
+<tr>
+<td>Move into a subfolder</td>
+<td><code>cd folder_name</code></td>
+<td>use <code>cd ..</code> to go back up to the parent folder</td>
+</tr>
+<tr>
+<td>Move to a specific path</td>
+<td><code>cd "C:\Users\Name\Documents\workshop"</code></td>
+<td><strong>wrap it in quotes if the path contains spaces</strong></td>
+</tr>
+<tr>
+<td>Create a new folder</td>
+<td><code>mkdir folder_name</code></td>
+<td></td>
+</tr>
+<tr>
+<td>View the contents of a text file</td>
+<td><code>cat file_name.txt</code></td>
+<td>handy for quickly checking a <code>.fasta</code>/<code>.nex</code> file</td>
+</tr>
+<tr>
+<td>View the first N lines of a file (like <code>head</code> on Linux)</td>
+<td><code>Get-Content file_name.txt -TotalCount 10</code></td>
+<td>can be shortened to <code>gc file_name.txt -TotalCount 10</code>; to see the last N lines (like <code>tail</code>) add <code>-Tail 10</code></td>
+</tr>
+<tr>
+<td>Run a program in the current folder</td>
+<td><code>.\program_name.exe</code></td>
+<td>the leading <code>.\</code> is required</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="admonition-title">Common error: paths with spaces or non-ASCII characters</p>
+<p>Folder names like <code>Huong_dan_chay_cay</code> that contain spaces or
+accented characters will cause command errors if not wrapped in
+quotes. Always wrap paths in <code>"..."</code> when typing <code>cd</code> or when passing
+a file name to IQ-TREE/MrBayes. Best practice: put your working
+folder on a short path with no accents or spaces (e.g.
+<code>C:\workshop\</code>) to avoid trouble altogether.</p>
+</div>
+<h3 id="using-tab-to-type-commands-faster">Using Tab to type commands faster<a class="headerlink" href="#using-tab-to-type-commands-faster" title="Permanent link">&para;</a></h3>
+<p>Press <code>Tab</code> while typing a partial file name, folder name, or command
+name to have PowerShell auto-complete the rest — no need to type out long
+paths or worry about mistyping a <code>.fasta</code>/<code>.nex</code> file name. Pressing <code>Tab</code>
+repeatedly cycles through each matching option in turn (unlike
+Linux/bash, which shows the whole list at once — but it still saves a lot
+of typing).</p>
+<hr />
+<h2 id="iii-building-a-tree-with-iq-tree-maximum-likelihood">III. Building a tree with IQ-TREE (Maximum Likelihood)<a class="headerlink" href="#iii-building-a-tree-with-iq-tree-maximum-likelihood" title="Permanent link">&para;</a></h2>
+<h3 id="installing-iq-tree-and-mrbayes">Installing IQ-TREE and MrBayes<a class="headerlink" href="#installing-iq-tree-and-mrbayes" title="Permanent link">&para;</a></h3>
+<p>Neither program needs a "click Next-Next-Finish" style installer like
+ChromasPro or MEGA — you just download a zip file, extract it into a
+folder, and (in a later step) tell Windows where that folder is.</p>
+<p><strong>IQ-TREE</strong></p>
+<ol>
+<li>Go to the download page:
+   <a href="https://iqtree.github.io/#download">iqtree.github.io</a>.</li>
+<li>Choose the <strong>Windows</strong> build (e.g. <code>iqtree-3.1.x-Windows.zip</code>).</li>
+<li>Extract the <code>.zip</code> file into a short folder path with no accented
+   characters — e.g. <code>C:\workshop\iqtree</code>.</li>
+<li>The executable is in the <code>bin\</code> subfolder, named <strong><code>iqtree3.exe</code></strong>.</li>
+</ol>
+<p><strong>MrBayes</strong></p>
+<ol>
+<li>Go to the download page:
+   <a href="https://nbisweden.github.io/MrBayes/download.html">nbisweden.github.io/MrBayes</a>.</li>
+<li>Choose the precompiled Windows build (currently
+   <code>MrBayes-3.2.7-WIN.zip</code>).</li>
+<li>Extract it into a short folder path with no accented characters —
+   e.g. <code>C:\workshop\mrbayes</code>.</li>
+<li>In the bin folder, the executable is named <strong><code>mb.3.2.7-win64.exe</code></strong>.</li>
+<li>Rename that executable to <strong><code>mb.exe</code></strong>.</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">The Windows build of MrBayes runs serially</p>
+<p>The precompiled Windows build <strong>does not include Beagle/MPI</strong> —
+meaning it only runs on a single CPU thread, with no GPU acceleration
+or multi-machine parallelism. For the small dataset used in this
+workshop (12–16 taxa, one gene), this speed is still fast enough to
+finish within a single session. If you later need to analyze much
+larger datasets, consider installing via Homebrew on WSL/macOS/Linux
+to get the MPI-enabled build.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">You don't have to use the exact paths shown above</p>
+<p>The paths <code>C:\workshop\iqtree</code> and <code>C:\workshop\mrbayes</code> are just
+examples. You can place them anywhere, as long as the <strong>path is
+short, with no accented characters or spaces</strong> (see the warning in
+the "Basic commands" section above) — and remember the exact path so
+you can use it in the next step.</p>
+</div>
+<p>Once both programs are extracted, the next step is to add their <code>bin</code>
+folders (or wherever the <code>.exe</code> files live) to the Path environment
+variable, so you can simply type <code>iqtree3</code> or <code>mb</code> from anywhere.</p>
+<h3 id="adding-programs-to-the-path-environment-variable">Adding programs to the Path environment variable<a class="headerlink" href="#adding-programs-to-the-path-environment-variable" title="Permanent link">&para;</a></h3>
+<p>To be able to simply type <code>iqtree3</code> or <code>mb</code> from any folder (instead of
+typing the full path to the <code>.exe</code> file every time), you need to add the
+program's folder to Windows's <strong>Path environment variable</strong>:</p>
+<ol>
+<li>Click the <code>Windows</code> logo button, type <strong>"environment variables"</strong> →
+   choose <strong>Edit the system environment variables</strong> (or <strong>Edit
+   environment variables for your account</strong> if you don't have admin
+   rights on the machine).
+<img alt="Windows Edit Environment Variables" src="assets/images/phan3/s03.png" /></li>
+<li>In the <strong>System Properties</strong> window, click the <strong>Environment
+   Variables...</strong> button.
+<img alt="Windows System Properties" src="assets/images/phan3/s04.png" /></li>
+<li>Under <strong>User variables</strong>, select the <strong>Path</strong> row → <strong>Edit...</strong>
+<img alt="Windows System Variables" src="assets/images/phan3/s05.png" /></li>
+<li>Click <strong>New</strong> → paste in the path to the folder containing IQ-TREE's
+   or MrBayes's <code>.exe</code> file, e.g. <code>C:\workshop\iqtree-3.1\bin</code>.</li>
+<li>Click <strong>OK</strong> on every window to save the changes.</li>
+<li><strong>Close and reopen</strong> your PowerShell/Terminal window for the new
+   environment variable to take effect.</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Checking that the install worked</p>
+<p>Open a <strong>new</strong> PowerShell window and type <code>iqtree3 --version</code> or
+<code>mb --version</code> — if PowerShell reports "not recognized", the
+program's folder wasn't added to the Path variable correctly, or you
+forgot to reopen the PowerShell window after editing it.</p>
+</div>
+<h3 id="preparation">Preparation<a class="headerlink" href="#preparation" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Input file: the alignment you exported from MEGA in Part 2, in FASTA,
+  PHYLIP, or NEXUS format (IQ-TREE can read all three).</li>
+<li>Place the alignment file in its own working folder, on a short path
+  with no accented characters (see the warning above).</li>
+<li>Open PowerShell in that folder (Shift + right-click → <em>Open PowerShell
+  window here</em>).</li>
+</ul>
+<h3 id="basic-command-model-selection-ml-tree-bootstrap">Basic command: model selection + ML tree + bootstrap<a class="headerlink" href="#basic-command-model-selection-ml-tree-bootstrap" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="n">iqtree3</span> <span class="n">-s</span> <span class="n">alignment</span><span class="p">.</span><span class="n">fasta</span> <span class="n">-m</span> <span class="n">MFP</span> <span class="n">-B</span> <span class="n">1000</span> <span class="n">-T</span> <span class="n">AUTO</span> <span class="p">-</span><span class="n">-prefix</span> <span class="n">cayML</span> <span class="n">-seed</span> <span class="n">12345</span>
+</code></pre></div>
+<p>Explaining each option:</p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-s alignment.fasta</code></td>
+<td>the input alignment file (<strong>required</strong>)</td>
+</tr>
+<tr>
+<td><code>-m MFP</code></td>
+<td>run <strong>ModelFinder Plus</strong>: automatically choose the best substitution model, then build the tree using it</td>
+</tr>
+<tr>
+<td><code>-B 1000</code></td>
+<td>run <strong>ultrafast bootstrap</strong> with 1000 replicates (the recommended minimum)</td>
+</tr>
+<tr>
+<td><code>-T AUTO</code></td>
+<td>let IQ-TREE automatically choose the optimal number of CPU threads</td>
+</tr>
+<tr>
+<td><code>--prefix cayML</code></td>
+<td>every output file will start with <code>cayML.*</code> instead of reusing the input file's name</td>
+</tr>
+<tr>
+<td><code>-seed 12345</code></td>
+<td>sets the <strong>seed</strong> for the random number generator — you can replace <code>12345</code> with any integer you like; if omitted, IQ-TREE picks a seed from the system clock</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Computers aren't really \"random\" — why set a seed?</p>
+<p>A computer cannot generate "true" random numbers — it uses a
+deterministic algorithm called a <strong>pseudo-random number generator</strong>,
+which outputs a sequence of numbers that <em>look</em> random but are
+actually computed entirely from a single starting value called a
+<strong>seed</strong>. The same seed → always produces exactly the same sequence
+of numbers, no matter how many times you rerun it or on which
+machine.</p>
+<p>Both IQ-TREE (when searching for the ML tree, running bootstrap) and
+MrBayes (when sampling via MCMC, see Section IV) rely on random
+numbers at many steps. If you don't set a seed yourself, the software
+picks one from the system clock — meaning each run gives a slightly
+different result (though not statistically different). Setting a
+specific seed gives you:</p>
+<ul>
+<li><strong>Reproducibility</strong>: rerun the exact same command with the same
+  seed → get exactly the same tree as before — useful for verifying
+  results or when writing a paper (some journals require you to
+  report the seed used so readers can reproduce the analysis).</li>
+<li><strong>Debugging</strong>: if you hit an error or an odd result, rerun with the
+  same seed to reproduce the issue exactly.</li>
+</ul>
+<p>You do <em>not</em> need to set a seed to get a "more correct" tree — with a
+sufficiently informative dataset, different seeds still converge on
+the same result. Setting a seed is only about being able to
+reproduce that exact run later if needed.</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Starting over</p>
+<p>If a run was interrupted and you want to redo the whole thing
+(overwriting the previous results), add the <code>-redo</code> option at the end
+of the command (this is an option with no accompanying value — just
+being present turns the feature on, so it's also often called a
+"flag"). Otherwise, IQ-TREE will by default resume from where it left
+off, using the <code>.ckp.gz</code> checkpoint file.</p>
+</div>
+<h3 id="reading-the-results">Reading the results<a class="headerlink" href="#reading-the-results" title="Permanent link">&para;</a></h3>
+<p>After it finishes, IQ-TREE produces several files sharing the same prefix
+(<code>cayML.*</code>):</p>
+<ul>
+<li><strong><code>cayML.iqtree</code></strong> — the main report, human-readable: the chosen model,
+  a text rendering of the tree with support values, log-likelihood, etc.</li>
+<li><strong><code>cayML.treefile</code></strong> — the ML tree in Newick format, used to open in
+  MEGA (see below) or other tree viewers like FigTree/iTOL.</li>
+<li><strong><code>cayML.contree</code></strong> — the consensus tree with support values assigned,
+  with branch lengths re-optimized on the original alignment.</li>
+<li><strong><code>cayML.log</code></strong> — the log of the entire run.</li>
+</ul>
+<p>In the <code>.treefile</code>, each branch will have two numbers in the form
+<code>(SH-aLRT/UFBoot)</code>, e.g. <code>(98.2/99)</code> — the higher, the more trustworthy
+(recall the support-value thresholds from Part 1).</p>
+<h3 id="understanding-the-model-modelfinder-just-chose-for-you">Understanding the model ModelFinder just chose for you<a class="headerlink" href="#understanding-the-model-modelfinder-just-chose-for-you" title="Permanent link">&para;</a></h3>
+<p>Open the <code>cayML.iqtree</code> file (see "Reading the results" above) and find
+the line naming the model ModelFinder chose — it usually looks something
+like <code>GTR+F+I+G4</code>. This is where the theory from Section I becomes
+concrete:</p>
+<div class="admonition note">
+<p class="admonition-title">Why do you sometimes see <code>+G</code> or <code>+I</code> after a model name?</p>
+<p>Not every position along a sequence mutates at the same rate. Some
+positions are nearly "frozen" for millions of years (because a
+mutation there would be harmful), while others change constantly.</p>
+<ul>
+<li><code>+G</code> (gamma, usually followed by a number like <code>G4</code> = 4 rate
+  categories) = the model gains an extra parameter describing this
+  rate variation across sites.</li>
+<li><code>+I</code> (invariant) = the model assumes a proportion of sites almost
+  never change at all.</li>
+</ul>
+<p>You don't need to fit these two parameters by hand — ModelFinder
+already tried them automatically and picked the best combination as
+part of the command you just ran.</p>
+</div>
+<p>To get a sense of just how complex this <code>GTR+F+I+G4</code> model is, compare it
+with the <strong>simplest model that can exist</strong>:</p>
+<div class="grid">
+<p><img alt="JC69 model: every substitution rate μ is equal" src="assets/images/phan3/s07_p01.png" /></p>
+<p><strong>JC69</strong> (Jukes &amp; Cantor, 1969) — the simplest possible model, which will
+usually <em>not</em> be the model ModelFinder chooses for your real data, but is
+a good starting point for understanding the idea:</p>
+<ul>
+<li>Assumes the 4 bases A, G, C, T occur at <strong>equal</strong> frequencies (1/4
+  each) — whereas <code>GTR</code> (the model ModelFinder may have just chosen)
+  allows the 4 bases to have different frequencies (this is what the
+  <code>+F</code> in the model name means).</li>
+<li>Assumes <strong>every type of substitution has the same single rate</strong> μ, with
+  no distinction between transitions and transversions — whereas <code>GTR</code>
+  (<code>nst=6</code>) allows all 6 substitution rates to differ.</li>
+</ul>
+</div>
+<p>The two remaining pieces — the <strong>molecular clock</strong> and <strong>codon
+position</strong> — don't directly affect the command you just ran, but are
+worth knowing when reading and interpreting the results:</p>
+<div class="admonition note">
+<p class="admonition-title">The molecular clock: using mutations to estimate time (not required for today)</p>
+<p>If the mutation rate at a given DNA region is relatively stable over
+time, we can use it as a kind of "clock": the more differences that
+have accumulated between two sequences, the longer ago those two
+lineages diverged — quite similar to how paleontologists use
+radioactive isotopes to estimate the age of a fossil. This "clock"
+rate is not the same across every region of the genome (mitochondrial
+DNA mutates about 10 times faster than nuclear DNA — Brown et al.,
+1982), so it should only be compared within the <strong>same gene region</strong>,
+not across different genes. Sections III/IV today don't require
+dating the tree, so you can skip this if you just want to build a
+tree.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">For protein-coding genes: not every codon position is 'equal'</p>
+<p>A codon consists of 3 positions and encodes 1 amino acid. The 3rd
+position changes most freely (~70% of changes here don't alter the
+amino acid — a <strong>synonymous</strong> mutation), while the 1st and 2nd
+positions face much stronger selective pressure and change less,
+since almost every change there does alter the amino acid. This is
+why some analyses split the alignment into 3 separate "partitions" by
+codon position, each with its own model/rate — but for today's small
+dataset, a single shared model for the whole gene (like the <code>-m MFP</code>
+command above) is sufficient.</p>
+</div>
+<h3 id="opening-the-tree-in-mega">Opening the tree in MEGA<a class="headerlink" href="#opening-the-tree-in-mega" title="Permanent link">&para;</a></h3>
+<p>Since the class is already familiar with the MEGA interface from Part 2,
+you can use MEGA directly to view the tree IQ-TREE built, without
+installing any additional software:</p>
+<ol>
+<li>Open <strong>MEGA</strong> → <code>File → Open A File/Session...</code> → select
+   <code>cayML.treefile</code>.</li>
+<li>MEGA will recognize this as a Newick tree and open it directly in the
+   <strong>Tree Explorer</strong>.</li>
+<li>In the Tree Explorer, check the box to display branch support values
+   (usually under <strong>Branch/Options</strong> or a numbers icon on the toolbar) to
+   see both the SH-aLRT/UFBoot values at each node.</li>
+<li>Select the branch containing the outgroup → right-click → choose
+   <strong>Place Root on Branch</strong> to root the tree at the correct biological
+   position.</li>
+</ol>
+<div class="admonition warning">
+<p class="admonition-title">IQ-TREE always outputs an unrooted tree</p>
+<p>IQ-TREE has no biological information about the outgroup, so it
+always draws the tree starting from the first taxon in the alignment.
+You <strong>must</strong> re-root the tree manually using the outgroup when you
+open it in MEGA.</p>
+</div>
+<hr />
+<h2 id="iv-building-a-tree-with-mrbayes-bayesian-inference">IV. Building a tree with MrBayes (Bayesian Inference)<a class="headerlink" href="#iv-building-a-tree-with-mrbayes-bayesian-inference" title="Permanent link">&para;</a></h2>
+<h3 id="preparing-the-nexus-file">Preparing the NEXUS file<a class="headerlink" href="#preparing-the-nexus-file" title="Permanent link">&para;</a></h3>
+<p>MrBayes needs the data file in <strong>NEXUS</strong> format (<code>.nex</code>), unlike the
+FASTA format IQ-TREE uses. Use MEGA to reopen the alignment you built
+earlier and export it as <code>.nex</code>.</p>
+<p>A complete NEXUS file contains a data block (<code>begin data; ... end;</code>)
+followed directly by a MrBayes command block (<code>begin mrbayes; ... end;</code>).</p>
+<div class="admonition example">
+<p class="admonition-title">Example of a small, complete NEXUS file</p>
+<p>Here is the full content of a minimal <code>.nex</code> file with 4 taxa (for
+illustrating the structure only — the class's real dataset will have
+many more taxa and much longer sequences):</p>
+<div class="highlight"><pre><span></span><code>#NEXUS
+
+begin data;
+    dimensions ntax=4 nchar=20;
+    format datatype=dna missing=? gap=-;
+    matrix
+    Species_A         ATGCTAGCTAGCTTAGGCTA
+    Species_B         ATGCTAGCTAGCTTAGGCTG
+    Species_C         ATGCTTGCTAGCTTAGCCTA
+    Outgroup_species  ATCCTAGGTAGATTAGGATA
+    ;
+end;
+
+begin mrbayes;
+    outgroup Outgroup_species;
+    lset nst=6 rates=invgamma;
+    mcmc ngen=100000 samplefreq=100 nchains=4 nruns=2;
+    sump burnin=25;
+    sumt burnin=25;
+end;
+</code></pre></div>
+<p>The <code>#NEXUS</code> line <strong>must</strong> be the very first line of the file. The
+<code>data</code> block declares the number of taxa (<code>ntax</code>) and sequence length
+(<code>nchar</code>), followed by the sequence table (<code>matrix</code>) — each line is a
+taxon name and its sequence, separated by whitespace, with no accents
+or spaces in the taxon name.</p>
+</div>
+<p>Paste the following into the end of the NEXUS file exported from MEGA:</p>
+<div class="highlight"><pre><span></span><code>begin mrbayes;
+    lset applyto=(all) NucModel=4by4 Nst=6 Rates=Invgamma NGammaCat=8;
+    prset applyto=(all) StateFreqPr=Dirichlet(1,1,1,1);
+    set autoclose=no seed=12345 swapseed=12345;
+    mcmcp ngen=10000000 printfreq=1000 samplefreq=100 nchain=4 nrun=2 temp=0.2 savebrlens=yes;
+    mcmc diagnfreq=3000000;
+    sump burnin=25000;
+    sumt burnin=25000 contype=allcompat conformat=simple;
+end;
+</code></pre></div>
+<p>Explaining the main commands:</p>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>outgroup</code></td>
+<td>specifies which taxon is the outgroup, used to root the tree</td>
+</tr>
+<tr>
+<td><code>lset nst=6 rates=invgamma</code></td>
+<td>the GTR model (<code>nst=6</code> = 6 different substitution rates) plus <code>+I+G</code> (<code>invgamma</code>) — equivalent to the model ModelFinder often picks for mitochondrial data</td>
+</tr>
+<tr>
+<td><code>NucModel=4by4</code></td>
+<td>treat the data as standard <strong>4-state</strong> nucleotide data (A/C/G/T) — as opposed to <code>Codon</code> mode if you wanted to analyze by codon triplet</td>
+</tr>
+<tr>
+<td><code>NGammaCat=8</code></td>
+<td>the number of discrete rate categories used to approximate the <code>+G</code> gamma distribution; 8 is a common value — more categories are more accurate but slower</td>
+</tr>
+<tr>
+<td><code>prset</code></td>
+<td>sets the priors for the model's parameters</td>
+</tr>
+<tr>
+<td><code>set autoclose=no</code></td>
+<td>don't automatically close the program once the commands finish — lets you review results/enter more commands in the same window</td>
+</tr>
+<tr>
+<td><code>seed=12345</code></td>
+<td>the seed for the main random number generator, used when sampling via MCMC — the same reason for setting a seed as explained in Section III (see "Computers aren't really 'random'")</td>
+</tr>
+<tr>
+<td><code>swapseed=12345</code></td>
+<td>a <strong>separate</strong> seed for the chain-swapping step between the "heated"/"cold" chains (<code>nchain</code>) — MrBayes uses two independent random number generators, so you need to set both if you want to reproduce an entire run exactly</td>
+</tr>
+<tr>
+<td><code>mcmcp ngen=...</code></td>
+<td><strong>pre-sets</strong> the parameters for the MCMC run without starting it — useful for double-checking the configuration before actually starting</td>
+</tr>
+<tr>
+<td><code>mcmc</code></td>
+<td><strong>starts</strong> the MCMC run using the parameters set in <code>mcmcp</code> (you can override/add parameters directly on the <code>mcmc</code> line, e.g. <code>diagnfreq</code> here)</td>
+</tr>
+<tr>
+<td><code>ngen=...</code></td>
+<td>the number of <strong>generations</strong> the MCMC will run — more generations converge more reliably but take longer</td>
+</tr>
+<tr>
+<td><code>printfreq=1000</code></td>
+<td>how many generations between each progress printout (log-likelihood, standard deviation of split frequencies...) to the screen</td>
+</tr>
+<tr>
+<td><code>samplefreq</code></td>
+<td>how many generations between each sampled tree/parameter</td>
+</tr>
+<tr>
+<td><code>nchain=4</code></td>
+<td>the number of MCMCMC <strong>chains</strong> run in parallel within each run (1 "cold" chain used for sampling + 3 "heated" chains that help explore tree space and avoid getting stuck at a local likelihood peak)</td>
+</tr>
+<tr>
+<td><code>nrun=2</code></td>
+<td>run 2 independent runs at the same time to check convergence</td>
+</tr>
+<tr>
+<td><code>temp=0.2</code></td>
+<td>the temperature difference between the "heated" and "cold" chains — a smaller value makes it easier for chains to swap with each other, improving exploration of tree space</td>
+</tr>
+<tr>
+<td><code>savebrlens=yes</code></td>
+<td>save the branch lengths of each sampled tree (needed if you want to view the consensus tree with branch lengths)</td>
+</tr>
+<tr>
+<td><code>diagnfreq=3000000</code></td>
+<td>how many generations between each recalculation of convergence diagnostics (the standard deviation of split frequencies between runs)</td>
+</tr>
+<tr>
+<td><code>sump</code> / <code>sumt</code></td>
+<td>summarize parameters / summarize the tree after discarding the <strong>burn-in</strong> period</td>
+</tr>
+<tr>
+<td><code>contype=allcompat</code></td>
+<td>the consensus tree type: <code>allcompat</code> keeps <strong>all</strong> compatible groups → a fully resolved tree that does <strong>not</strong> collapse low-support branches into polytomies — unlike the default <code>halfcompat</code> (which keeps only groups with ≥ 50% support)</td>
+</tr>
+<tr>
+<td><code>conformat=simple</code></td>
+<td>export the consensus tree file (<code>.con.tre</code>) in a <strong>simple</strong> Newick/NEXUS format — as opposed to <code>figtree</code> (which adds extra formatting commands for the FigTree program)</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">How to choose the number of generations (ngen)</p>
+<p>For a small dataset (12–16 taxa, one gene) like the one used in this
+workshop, a few hundred thousand to 1 million generations usually
+converges within a single session. For larger datasets or multiple
+genes, tens of millions of generations may be needed — it's a good
+idea to have a longer pre-computed run ready as a backup.</p>
+</div>
+<h3 id="running-mrbayes-from-powershell">Running MrBayes from PowerShell<a class="headerlink" href="#running-mrbayes-from-powershell" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code><span class="n">mb</span> <span class="n">dataset</span><span class="p">.</span><span class="n">nex</span>
+</code></pre></div>
+<p>MrBayes reads and executes the <code>mrbayes</code> command block already in the
+<code>.nex</code> file and automatically starts the MCMC run. You can also open
+MrBayes first (type <code>mb</code>) and then type <code>execute dataset.nex</code> directly in
+its own command-line interface.</p>
+<h3 id="monitoring-convergence-while-it-runs">Monitoring convergence while it runs<a class="headerlink" href="#monitoring-convergence-while-it-runs" title="Permanent link">&para;</a></h3>
+<p>While running, MrBayes continuously prints the <strong>standard deviation of
+split frequencies</strong> between runs — the fastest way to check convergence,
+right while the analysis is in progress:</p>
+<div class="admonition tip">
+<p class="admonition-title">Reading the standard deviation of split frequencies</p>
+<p>The closer this value is to 0, the better. A common rule of thumb:
+<strong>below 0.01</strong> is a good sign that two (or more) independent runs are
+converging on the same region of tree space. If this value is still
+high (&gt; 0.05) once the run finishes, you need to run more generations
+(increase <code>ngen</code>) before trusting the results.</p>
+</div>
+<h3 id="reading-the-results-checking-with-tracer">Reading the results &amp; checking with Tracer<a class="headerlink" href="#reading-the-results-checking-with-tracer" title="Permanent link">&para;</a></h3>
+<p>Download <strong>Tracer</strong> (free) from:
+<a href="https://github.com/beast-dev/tracer/releases/latest" target="_blank">github.com/beast-dev/tracer/releases</a>
+— choose the <code>.zip</code> build for Windows, <code>.dmg</code> for macOS, or <code>.tgz</code> for
+Linux.</p>
+<p>After it finishes, MrBayes produces (with <code>nruns=2</code>) files such as:</p>
+<ul>
+<li><code>dataset.nex.run1.p</code>, <code>.run2.p</code> — parameter values (log-likelihood,
+  substitution rates, etc.) at each sampled generation.</li>
+<li><code>dataset.nex.run1.t</code>, <code>.run2.t</code> — the sampled trees (Newick format, can
+  be opened with MEGA or FigTree).</li>
+<li>
+<p><code>dataset.nex.con.tre</code> — the final consensus tree, with <strong>posterior
+  probabilities (PP)</strong> on each branch.</p>
+</li>
+<li>
+<p>Open <strong>Tracer</strong> → <code>File → Import Trace File</code> → select both <code>.p</code>
+   files.</p>
+</li>
+<li>Check the <strong>ESS</strong> (Effective Sample Size) column for each parameter —
+   it should be <strong>above 200</strong>; if lower, run more generations.</li>
+<li>Look at the trace plot of <code>LnL</code> (log-likelihood) — if it looks like a
+   "hairy caterpillar" oscillating around a stable value, that's a sign
+   the chain has converged; if there's still a clear upward/downward
+   trend, don't trust the results yet.</li>
+<li>Open <code>dataset.nex.con.tre</code> with MEGA (<code>File → Open A File/Session...</code>,
+   the same as opening the IQ-TREE tree above) to view the consensus tree
+   with posterior probabilities at each node.</li>
+</ul>
+<h3 id="converting-contre-to-plain-newick-with-a-website-when-needed">Converting <code>.con.tre</code> to plain Newick with a website (when needed)<a class="headerlink" href="#converting-contre-to-plain-newick-with-a-website-when-needed" title="Permanent link">&para;</a></h3>
+<p>The <code>.con.tre</code> file MrBayes produces is actually a tree in <strong>NEXUS</strong>
+format (with a <code>translate</code> block mapping numbers to taxon names), not
+plain Newick like IQ-TREE's <code>.treefile</code>. MEGA reads this file directly,
+so normally you don't need to convert anything — but some other tools
+(iTOL, R packages like <code>ape</code>/<code>phytools</code>, or certain other online tree
+viewers) only accept plain Newick. In that case, instead of installing
+more software, you can use a free format-conversion website:</p>
+<ol>
+<li>Go to Phylogeny.fr's format conversion page:
+   <a href="http://phylogeny.lirmm.fr/phylo_cgi/data_converter.cgi" target="_blank">phylogeny.lirmm.fr/phylo_cgi/data_converter.cgi</a>.</li>
+<li>Paste the full contents of the <code>.con.tre</code> file into the data box (or
+   upload the file directly with the <strong>Upload</strong> button) — the site
+   automatically recognizes it as a NEXUS tree.</li>
+<li>Under <strong>Output format</strong>, choose <strong>Newick Tree</strong>.</li>
+<li>Click the convert button → download or copy the result: a single
+   plain Newick tree line (in the form <code>(...);</code>), with the original taxon
+   names correctly restored from the <code>translate</code> block.</li>
+</ol>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>You can use this same trick for any NEXUS tree you need to convert to
+Newick, not just MrBayes output — including <code>.nex</code>/<code>.tre</code> files
+exported from MEGA or other software.</p>
+</div>
+<hr />
+<h2 id="v-exporting-the-tree-to-powerpointaffinity-to-finish-it-before-publication">V. Exporting the tree to PowerPoint/Affinity to finish it before publication<a class="headerlink" href="#v-exporting-the-tree-to-powerpointaffinity-to-finish-it-before-publication" title="Permanent link">&para;</a></h2>
+<p>Trees drawn by MEGA/IQ-TREE/MrBayes are great for <strong>viewing and
+interpreting</strong>, but they rarely meet the presentation standards required
+for a figure in a scientific journal (default fonts, species names not
+italicized, no clear scale bar, cluttered support-value labels...). This
+final step is about bringing the tree into a design tool to "polish" it
+into a finished figure.</p>
+<h3 id="why-not-take-a-screenshot">Why not take a screenshot?<a class="headerlink" href="#why-not-take-a-screenshot" title="Permanent link">&para;</a></h3>
+<div class="admonition warning">
+<p class="admonition-title">Don't screenshot the tree to make your journal figure</p>
+<p>A screenshot is a <strong>raster</strong> (bitmap) image — enlarging it will make
+it blurry and pixelated, falling short of the minimum resolution a
+journal requires (typically 300–600 dpi). You should always
+<strong>export the tree in a vector format</strong> (SVG) — this file format
+stores lines and text as mathematical formulas, so it can be scaled
+up freely without degrading, and — most importantly — it stays
+<strong>editable in fine detail</strong> (moving labels, recoloring a branch...)
+when opened in PowerPoint or Affinity.</p>
+</div>
+<h3 id="step-1-export-the-tree-as-svg-from-mega">Step 1 — Export the tree as SVG from MEGA<a class="headerlink" href="#step-1-export-the-tree-as-svg-from-mega" title="Permanent link">&para;</a></h3>
+<ol>
+<li>In the <strong>Tree Explorer</strong> (where you're viewing the tree from
+   IQ-TREE/MrBayes), go to the <code>Image</code> menu → <strong>Save as SVG File...</strong>
+   (some MEGA versions may label it <strong>Export Current View to SVG</strong>).</li>
+<li>Save the <code>.svg</code> file — this is the vector version, preserving every
+   line and character in an editable form.</li>
+</ol>
+<div class="admonition tip">
+<p class="admonition-title">If MEGA can only export PDF</p>
+<p>A few older MEGA versions don't have a direct SVG export option, only
+PDF. In that case, open the <code>.pdf</code> file with <strong>Inkscape</strong> (free) →
+<code>File → Save As</code> → choose the <code>.svg</code> format, then use this SVG file
+for the following steps.</p>
+</div>
+<h3 id="step-2-editing-in-powerpoint">Step 2 — Editing in PowerPoint<a class="headerlink" href="#step-2-editing-in-powerpoint" title="Permanent link">&para;</a></h3>
+<ol>
+<li>Insert the SVG file into a slide: <code>Insert → Pictures → This
+   Device...</code> (recent PowerPoint versions support inserting SVG
+   directly).</li>
+<li>Right-click the image → <strong>Convert to Shape</strong> → confirm. Repeat
+   <strong>Ungroup</strong> once or twice more until each branch line and each taxon
+   label becomes a separate object you can select and edit individually.</li>
+<li>Things you'll typically do at this stage:<ul>
+<li>Italicize species names (<code>Genus species</code> — Newick doesn't store
+    italic formatting automatically, so you have to select the text
+    and press <code>Ctrl+I</code> yourself).</li>
+<li>Remove unnecessary labels/numbers (e.g. keep support values only
+    on the branches that matter).</li>
+<li>Color or outline a clade you want to highlight.</li>
+<li>Add captions, arrows, or specimen photos next to the tree.</li>
+<li>Adjust the scale bar so it's clear, with units labeled (e.g.
+    "0.02 substitutions/site").</li>
+</ul>
+</li>
+<li>Once done, select all the objects → right-click → <strong>Group</strong>, then
+   <code>File → Save As</code> → choose an image format (<code>.png</code>/<code>.tiff</code>) or keep it
+   as <code>.pptx</code> to keep editing later.</li>
+</ol>
+<h3 id="step-3-using-affinity-when-you-need-higher-precision">Step 3 — Using Affinity when you need higher precision<a class="headerlink" href="#step-3-using-affinity-when-you-need-higher-precision" title="Permanent link">&para;</a></h3>
+<p>PowerPoint is enough for most cases, but if the journal requires exact
+figure dimensions in cm/inches, CMYK color mode, or a higher export
+resolution, <strong>Affinity</strong> (a free image-editing and vector-drawing app
+from Canva) is a better fit. Download it at:
+<a href="https://www.affinity.studio/download" target="_blank">affinity.studio/download</a>
+(you'll need to sign in with a free Canva account to download and use it):</p>
+<ol>
+<li>Open the <code>.svg</code> file exported from MEGA in Affinity, and switch to the
+   <strong>Vector</strong> persona — this is the mode used to edit the phylogenetic
+   tree itself (lines, text, shapes).</li>
+<li>Affinity automatically splits the objects into separate layers —
+   select each branch/label to edit it just like in step 2 above
+   (italicize, recolor, remove extra labels...).</li>
+<li>Create an <strong>artboard</strong> at the exact size the journal requires (e.g. a
+   single column ~8.3 cm or a double column ~17.3 cm — check the target
+   journal's "Instructions for Authors").</li>
+<li><code>File → Export</code> → choose the format and resolution required (usually
+   TIFF or PNG at 300–600 dpi for a raster figure; or keep it as vector
+   SVG if the journal accepts that).</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Three modes within Affinity</p>
+<p>Affinity is now <strong>a single app</strong> with three switchable modes
+(personas) that all work within the same file, instead of three
+separate applications like before:</p>
+<ul>
+<li><strong>Pixel</strong> (Image) — the raster mode (similar to Photoshop), used
+  when you need to edit an actual specimen photo (an animal/plant
+  photo) that will accompany the tree figure — e.g. removing the
+  background, adjusting brightness/contrast.</li>
+<li><strong>Vector</strong> — used to edit the phylogenetic tree itself (lines,
+  text, shapes); this is the main mode for the work in this section.</li>
+<li><strong>Layout</strong> — used when you need to lay out multiple
+  figures/sections (e.g. combining the tree figure with a data table
+  and captions) into one finished page before exporting, similar to
+  InDesign.</li>
+</ul>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Checklist before submitting a figure to a journal</p>
+<ul class="task-list">
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Species names (genus, species) are italicized.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Fonts are consistent and large enough to read when the figure
+  is shrunk down.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> There's a scale bar with units labeled.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> The outgroup is clearly marked/labeled.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> Only the necessary support values are shown, not so many that
+  it looks cluttered.</li>
+<li class="task-list-item"><label class="task-list-control"><input type="checkbox" disabled checked/><span class="task-list-indicator"></span></label> File size and format have been double-checked against the
+  target journal's "Instructions for Authors."</li>
+</ul>
+</div>
+<hr />
+<h2 id="part-3-summary">Part 3 summary<a class="headerlink" href="#part-3-summary" title="Permanent link">&para;</a></h2>
+<div class="highlight"><pre><span></span><code>Choose a model (ModelFinder) → IQ-TREE: ML tree + SH-aLRT + UFBoot
+                              → MrBayes: MCMC + convergence check → Bayesian tree + PP
+                              → Compare the ML and Bayesian trees (Part 6)
+                              → Export as vector (MEGA) → finish in
+                                PowerPoint/Affinity → figure for publication
+</code></pre></div>
+<p>At this point you have both a Maximum Likelihood tree (with two kinds of
+support values) and a Bayesian tree (with posterior probabilities) from
+the same alignment. The next step is to compare these two trees side by
+side, correctly interpret what each type of support value means, and once
+you've settled on the final tree you want to publish, use PowerPoint or
+Affinity to finish it into a journal-ready figure.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": ".", "features": ["navigation.tabs", "navigation.top", "content.code.copy", "toc.integrate"], "search": "assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="assets/extra.js"></script>
+      
+    
+  </body>
+</html>

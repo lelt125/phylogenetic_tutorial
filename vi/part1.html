@@ -1,0 +1,1187 @@
+
+<!doctype html>
+<html lang="vi" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Hướng dẫn xây dựng cây phát sinh chủng loại / Guide to Phylogenetic tree construction">
+      
+      
+      
+      
+        <link rel="prev" href="index.html">
+      
+      
+        <link rel="next" href="part2.html">
+      
+      
+        
+          <link rel="alternate" href="../part1.html" hreflang="en">
+        
+          <link rel="alternate" href="part1.html" hreflang="vi">
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Phần 1 — Tổng quan lý thuyết - Hướng dẫn xây dựng cây Phát sinh chủng loại</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="amber">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#phan-1-tong-quan-ly-thuyet" class="md-skip">
+          Bỏ qua
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Đầu trang">
+    <a href="index.html" title="Hướng dẫn xây dựng cây Phát sinh chủng loại" class="md-header__button md-logo" aria-label="Hướng dẫn xây dựng cây Phát sinh chủng loại" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Hướng dẫn xây dựng cây Phát sinh chủng loại
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Phần 1 — Tổng quan lý thuyết
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="amber"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Chọn ngôn ngữ">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="../part1.html" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="part1.html" hreflang="vi" class="md-select__link">
+              Tiếng Việt
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Tìm kiếm" placeholder="Tìm kiếm" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Tìm kiếm">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Xoá" aria-label="Xoá" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="index.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Trang chủ
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    <li class="md-tabs__item md-tabs__item--active">
+      <a href="part1.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Phần 1 — Tổng quan lý thuyết
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="part2.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Phần 2 — ChromasPro, BLAST, GenBank, MEGA
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="part3.html" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Phần 3 — Phương pháp ML & Bayesian Inference
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Thanh điều hướng" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="index.html" title="Hướng dẫn xây dựng cây Phát sinh chủng loại" class="md-nav__button md-logo" aria-label="Hướng dẫn xây dựng cây Phát sinh chủng loại" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Hướng dẫn xây dựng cây Phát sinh chủng loại
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="index.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Trang chủ
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Phần 1 — Tổng quan lý thuyết
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="part1.html" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Phần 1 — Tổng quan lý thuyết
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Mục lục">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Mục lục
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-phat-sinh-chung-loai-la-gi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Phát sinh chủng loại là gì?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-cau-truc-cua-mot-cay-phat-sinh-chung-loai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Cấu trúc của một cây phát sinh chủng loại
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-cay-dua-tren-hinh-thai" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Cây dựa trên hình thái
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-tuong-ong-homology-va-ong-hinh-homoplasy" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Tương đồng (homology) và Đồng hình (homoplasy)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-phat-sinh-chung-loai-phan-tu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Phát sinh chủng loại phân tử
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="5. Phát sinh chủng loại phân tử">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#lich-su-phat-trien" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lịch sử phát triển
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#uu-iem-cua-phat-sinh-chung-loai-phan-tu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ưu điểm của phát sinh chủng loại phân tử
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-tu-dna-en-trinh-tu-dung-e-dung-cay" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Từ DNA đến trình tự dùng để dựng cây
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="6. Từ DNA đến trình tự dùng để dựng cây">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vi-sao-thuong-chon-dna-thay-vi-protein" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vì sao thường chọn DNA thay vì protein?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#nen-chon-trinh-tu-dna-nao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Nên chọn trình tự DNA nào?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-quy-trinh-tong-quat-cua-mot-nghien-cuu-phat-sinh-chung-loai-phan-tu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Quy trình tổng quát của một nghiên cứu phát sinh chủng loại phân tử
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="7. Quy trình tổng quát của một nghiên cứu phát sinh chủng loại phân tử">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#phan-mem-su-dung-trong-hoi-thao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phần mềm sử dụng trong hội thảo
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-bon-phuong-phap-suy-luan-cay" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Bốn phương pháp suy luận cây
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="8. Bốn phương pháp suy luận cây">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#phuong-phap-khoang-cach-distance-based" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phương pháp Khoảng cách (Distance-based)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phuong-phap-tiet-kiem-nhat-maximum-parsimony" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Phương pháp Tiết kiệm nhất (Maximum Parsimony)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hop-ly-cuc-ai-maximum-likelihood-ml" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hợp lý cực đại (Maximum Likelihood — ML)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#suy-luan-bayes-bayesian-inference-bi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Suy luận Bayes (Bayesian Inference — BI)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-anh-gia-cay-phat-sinh-oc-cay-the-nao" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Đánh giá cây phát sinh: đọc cây thế nào?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="9. Đánh giá cây phát sinh: đọc cây thế nào?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bootstrap-va-xac-suat-hau-nghiem-khac-nhau-o-au" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Bootstrap và xác suất hậu nghiệm khác nhau ở đâu?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#10-mot-so-cay-phat-sinh-chung-loai-tu-cac-loai-moi-uoc-mo-ta" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Một số cây phát sinh chủng loại từ các loài mới được mô tả
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tiep-theo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tiếp theo
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="part2.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Phần 2 — ChromasPro, BLAST, GenBank, MEGA
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="part3.html" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Phần 3 — Phương pháp ML & Bayesian Inference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="phan-1-tong-quan-ly-thuyet">Phần 1 — Tổng quan lý thuyết<a class="headerlink" href="#phan-1-tong-quan-ly-thuyet" title="Permanent link">&para;</a></h1>
+<p><strong>Trình bày:</strong> Lê Từ Hoàng Linh &amp; Ninh Thị Hòa</p>
+<p>Bài giảng này giới thiệu các khái niệm nền tảng của phát sinh chủng loại học
+trước khi cả lớp bắt tay vào thực hành với ChromasPro, MEGA, IQ-TREE và
+MrBayes ở các phần sau.</p>
+<hr />
+<h2 id="1-phat-sinh-chung-loai-la-gi">1. Phát sinh chủng loại là gì?<a class="headerlink" href="#1-phat-sinh-chung-loai-la-gi" title="Permanent link">&para;</a></h2>
+<p><strong>Phát sinh chủng loại (phylogenetics)</strong> là lĩnh vực nghiên cứu và tái dựng
+lại quan hệ tiến hóa và nguồn gốc chung giữa các sinh vật (hay các gen,
+trình tự). Kết quả thường được biểu diễn bằng một <strong>cây phát sinh chủng
+loại</strong>, cho thấy các nhóm tách ra từ tổ tiên chung như thế nào theo thời
+gian.</p>
+<p><img alt="Một cây phát sinh chủng loại" src="../assets/images/phan1/s02_p01.png" /></p>
+<p><strong>Tại sao phải nghiên cứu?</strong></p>
+<ul>
+<li>Giúp phân loại và định danh loài.</li>
+<li>Truy nguồn gốc và con đường lây lan của mầm bệnh (virus, vi khuẩn).</li>
+<li>Tìm họ hàng gần của loài cần bảo tồn, hay của cây trồng/vật nuôi.</li>
+<li>Suy ra chức năng cũng như lịch sử tiến hóa của gen và tính trạng.</li>
+</ul>
+<hr />
+<h2 id="2-cau-truc-cua-mot-cay-phat-sinh-chung-loai">2. Cấu trúc của một cây phát sinh chủng loại<a class="headerlink" href="#2-cau-truc-cua-mot-cay-phat-sinh-chung-loai" title="Permanent link">&para;</a></h2>
+<p>Cây phát sinh chủng loại là sơ đồ phân nhánh biểu diễn giả thuyết về quan hệ
+tiến hóa giữa các taxa, dựa trên bằng chứng di truyền hoặc hình thái. Các
+thành phần chính:</p>
+<ul>
+<li><strong>Đầu mút (tip)</strong> — đại diện cho một taxon/loài hiện tại, ở đầu tận cùng
+  của nhánh.</li>
+<li><strong>Nút (node)</strong> — tổ tiên chung giả định, là điểm phân nhánh của hai dòng
+  dõi.</li>
+<li><strong>Nhánh (branch)</strong> — dòng tiến hóa; độ dài nhánh có thể biểu thị mức thay
+  đổi di truyền.</li>
+<li><strong>Gốc (root)</strong> — tổ tiên chung của tất cả taxa; xác định chiều thời gian
+  tiến hóa.</li>
+<li><strong>Nhánh đơn ngành (clade)</strong> — một tổ tiên và toàn bộ hậu duệ của nó.</li>
+</ul>
+<hr />
+<h2 id="3-cay-dua-tren-hinh-thai">3. Cây dựa trên hình thái<a class="headerlink" href="#3-cay-dua-tren-hinh-thai" title="Permanent link">&para;</a></h2>
+<p>Trước khi có dữ liệu phân tử, các cây phát sinh chủng loại được xây dựng
+chủ yếu từ đặc điểm hình thái.</p>
+<p><img alt="Ví dụ cây phát sinh chủng loại dựa trên đặc điểm hình thái" src="../assets/images/phan1/s04_p01.png" /></p>
+<p><strong>Nguyên tắc:</strong> những sinh vật chia sẻ nhiều đặc điểm giống nhau thì có xu
+hướng có quan hệ họ hàng gần, cùng thừa hưởng các đặc điểm đó từ một tổ
+tiên chung. Cách tiếp cận này đã đặt nền móng cho phân loại học và vẫn giữ
+vai trò quan trọng đến nay, đặc biệt với các nhóm hóa thạch không còn DNA
+để phân tích.</p>
+<div class="admonition warning">
+<p class="admonition-title">Điểm yếu</p>
+<p>Không phải mọi sự giống nhau đều phản ánh nguồn gốc chung. Hai loài có
+thể trông giống nhau do tiến hóa độc lập chứ không phải do thừa hưởng
+từ tổ tiên.</p>
+</div>
+<div class="grid">
+<p><img alt="Cánh của chim và dơi tiến hóa độc lập" src="../assets/images/phan1/s05_p01.png" />
+<img alt="Cá mập và cá heo" src="../assets/images/phan1/s05_p03.png" /></p>
+</div>
+<p>Cánh của chim và dơi tiến hóa độc lập; cá mập và cá heo có hình dạng giống
+nhau do thích ứng để sống dưới nước chứ không phải do cùng tổ tiên. Đây là
+ví dụ kinh điển của <strong>đồng hình — homoplasy</strong>.</p>
+<hr />
+<h2 id="4-tuong-ong-homology-va-ong-hinh-homoplasy">4. Tương đồng (homology) và Đồng hình (homoplasy)<a class="headerlink" href="#4-tuong-ong-homology-va-ong-hinh-homoplasy" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Tương đồng — Homology</th>
+<th>Đồng hình — Homoplasy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Bản chất</td>
+<td>Tín hiệu thật</td>
+<td>Nhiễu tín hiệu</td>
+</tr>
+<tr>
+<td>Định nghĩa</td>
+<td>Sự giống nhau do <strong>cùng nguồn gốc</strong> tổ tiên — đây là tín hiệu tiến hóa thực sự mà chúng ta muốn dùng để dựng cây.</td>
+<td>Sự giống nhau <strong>không</strong> do chung tổ tiên: tiến hóa hội tụ, đảo ngược, song song. Trông giống tương đồng nhưng gây hiểu sai về quan hệ.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Vì sao cần phát triển thêm các phương pháp suy luận?</strong> Mắt thường không
+phân biệt được tương đồng với đồng hình. Cần mô hình thống kê rõ ràng
+(khoảng cách, parsimony, likelihood, Bayes) để tách tín hiệu tiến hóa thật
+khỏi tín hiệu nhiễu và để lượng hóa mức độ tin cậy.</p>
+<hr />
+<h2 id="5-phat-sinh-chung-loai-phan-tu">5. Phát sinh chủng loại phân tử<a class="headerlink" href="#5-phat-sinh-chung-loai-phan-tu" title="Permanent link">&para;</a></h2>
+<p><strong>Ý tưởng nền tảng:</strong> ở cấp độ phân tử, tiến hóa là quá trình tích lũy và
+chọn lọc các đột biến theo thời gian. Vì vậy, mức khác biệt về trình tự
+giữa hai loài phản ánh khoảng cách tiến hóa giữa chúng.</p>
+<p><strong>Phát sinh chủng loại phân tử (molecular phylogenetics)</strong> là một nhánh của
+phát sinh chủng loại học, phân tích sự khác biệt di truyền phân tử — chủ
+yếu trên các trình tự DNA — để có được thông tin về quan hệ tiến hóa của
+sinh vật.</p>
+<h3 id="lich-su-phat-trien">Lịch sử phát triển<a class="headerlink" href="#lich-su-phat-trien" title="Permanent link">&para;</a></h3>
+<p><strong>Giai đoạn 1960s–1990s</strong></p>
+<ul>
+<li><strong>1965</strong> — Zuckerkandl &amp; Pauling: sử dụng trình tự protein để xây dựng
+  cây và đề xuất ý tưởng đồng hồ phân tử (molecular clock).</li>
+<li><strong>1977</strong> — công nghệ giải trình tự Sanger ra đời.</li>
+<li><strong>1980s</strong> — Camin &amp; Sokal: phương pháp Maximum Parsimony.</li>
+<li><strong>1983</strong> — Mullis phát minh PCR.</li>
+<li><strong>1987</strong> — Saitou &amp; Nei: phương pháp Neighbor-Joining.</li>
+<li><strong>1990</strong> — Woese, Kandler &amp; Wheelis: hệ thống ba vực (Bacteria, Archaea,
+  Eukarya); Woese &amp; Fox trước đó (1977) đã dùng trình tự rRNA 16S để phát
+  hiện vực Archaea.</li>
+<li>Felsenstein: phương pháp Maximum Likelihood và bootstrap.</li>
+</ul>
+<p><strong>Giai đoạn 1997–2020</strong></p>
+<ul>
+<li><strong>1997</strong> — thuật ngữ "Phylogenomics" ra đời.</li>
+<li><strong>2001</strong> — Huelsenbeck &amp; Ronquist: phần mềm MrBayes.</li>
+<li><strong>2003</strong> — Rannala &amp; Yang, Mau &amp; Newton: đặt nền cho suy luận Bayes trong
+  phát sinh chủng loại bằng MCMC.</li>
+<li><strong>&gt;2005</strong> — công nghệ giải trình tự thế hệ mới (NGS).</li>
+<li><strong>2015</strong> — Nguyen et al.: phần mềm IQ-TREE.</li>
+<li><strong>2016</strong> — Hug et al.: cây sự sống quy mô hệ gen.</li>
+<li><strong>2020</strong> — COVID-19: dịch tễ học hệ gen phát sinh chủng loại trở thành
+  công cụ theo dõi đại dịch trước công chúng.</li>
+</ul>
+<h3 id="uu-iem-cua-phat-sinh-chung-loai-phan-tu">Ưu điểm của phát sinh chủng loại phân tử<a class="headerlink" href="#uu-iem-cua-phat-sinh-chung-loai-phan-tu" title="Permanent link">&para;</a></h3>
+<p><img alt="Ưu điểm của phát sinh chủng loại phân tử — từ hình thái đến hệ gen" src="../assets/images/phan1/s10_p01.png" /></p>
+<ul>
+<li>Lượng thông tin lớn và khách quan (định lượng được).</li>
+<li>Áp dụng cho mọi nhóm sinh vật, kể cả vi sinh vật không có nhiều đặc điểm
+  hình thái.</li>
+<li>Giải quyết được nhiều quan hệ mà chỉ hình thái không phân biệt được.</li>
+</ul>
+<p><em>Nguồn hình: Hug et al., 2016.</em></p>
+<hr />
+<h2 id="6-tu-dna-en-trinh-tu-dung-e-dung-cay">6. Từ DNA đến trình tự dùng để dựng cây<a class="headerlink" href="#6-tu-dna-en-trinh-tu-dung-e-dung-cay" title="Permanent link">&para;</a></h2>
+<p><img alt="Cấu trúc DNA và các loại gen" src="../assets/images/phan1/s11_p01.png" /></p>
+<p><strong>DNA</strong> là phân tử mang thông tin di truyền, gồm các nucleotide được cấu
+tạo từ một trong 4 loại nucleobase chứa nitrogen: Cytosine (C), Guanine
+(G), Adenine (A), Thymine (T) / Uracil (U). <strong>Gen</strong> là một trình tự
+DNA/RNA của hệ gen cần thiết cho một chức năng nhất định, gồm 3 loại chính:</p>
+<ul>
+<li>Gen mã hóa protein — được phiên mã sang RNA rồi dịch mã sang protein.</li>
+<li>Các gen RNA đặc hiệu — chỉ phiên mã (mRNA, tRNA).</li>
+<li>Các gen không phiên mã.</li>
+</ul>
+<h3 id="vi-sao-thuong-chon-dna-thay-vi-protein">Vì sao thường chọn DNA thay vì protein?<a class="headerlink" href="#vi-sao-thuong-chon-dna-thay-vi-protein" title="Permanent link">&para;</a></h3>
+<p>Vì amino acid có thể chứa các thay đổi đồng nghĩa (nhiều codon cùng mã hóa
+một amino acid), nên trình tự protein chứa ít thông tin phát sinh chủng
+loại hơn trình tự DNA tương ứng. Do vậy DNA thường được ưu tiên để xây
+dựng cây phát sinh chủng loại.</p>
+<h3 id="nen-chon-trinh-tu-dna-nao">Nên chọn trình tự DNA nào?<a class="headerlink" href="#nen-chon-trinh-tu-dna-nao" title="Permanent link">&para;</a></h3>
+<p><img alt="Bản đồ hệ gen ty thể với các vùng thường được phân tích" src="../assets/images/phan1/s13_p01.png" /></p>
+<p>Thường sử dụng <strong>DNA ty thể</strong> để phân tích phát sinh chủng loại vì:</p>
+<ul>
+<li>Kế thừa theo dòng mẹ → luôn có và không bị đứt quãng.</li>
+<li>Tỉ lệ tái tổ hợp thấp → tránh bị nhiễu tín hiệu bởi tái tổ hợp.</li>
+<li>Tốc độ tiến hóa nhanh → cho phép phát hiện thay đổi di truyền kể cả với
+  các nhóm có quan hệ gần gũi.</li>
+<li>Dễ sử dụng: đã có sẵn các mồi được thiết kế trước đó để khuếch đại các
+  đoạn DNA.</li>
+</ul>
+<p>Nên xem tài liệu và các nghiên cứu trước để xác định gen phân tích. Một số
+gen thường dùng: <strong>16S, COI, Cytb, ND2</strong>.</p>
+<hr />
+<h2 id="7-quy-trinh-tong-quat-cua-mot-nghien-cuu-phat-sinh-chung-loai-phan-tu">7. Quy trình tổng quát của một nghiên cứu phát sinh chủng loại phân tử<a class="headerlink" href="#7-quy-trinh-tong-quat-cua-mot-nghien-cuu-phat-sinh-chung-loai-phan-tu" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Kiểm tra chất lượng; thu thập dữ liệu</li>
+<li>Giải trình tự</li>
+<li>Căn chỉnh / gióng hàng</li>
+<li>Chọn mô hình</li>
+<li>Suy luận</li>
+<li>Hỗ trợ nhánh</li>
+<li>Diễn giải</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Vì sao thứ tự này quan trọng</p>
+<p>Sai sót ở bước đầu (chất lượng, căn chỉnh) sẽ lan sang toàn bộ kết quả
+về sau — vì vậy chuẩn bị và làm sạch dữ liệu quan trọng không kém việc
+chọn phương pháp suy luận.</p>
+</div>
+<h3 id="phan-mem-su-dung-trong-hoi-thao">Phần mềm sử dụng trong hội thảo<a class="headerlink" href="#phan-mem-su-dung-trong-hoi-thao" title="Permanent link">&para;</a></h3>
+<div class="grid cards">
+<ul>
+<li><strong>ChromasPro</strong> (Bước 1–2) — kiểm tra chất lượng &amp; lắp ráp chromatogram
+  Sanger (<code>.ab1</code>) thành trình tự đồng thuận.</li>
+<li><strong>MEGA</strong> (Bước 3–4) — căn chỉnh đa trình tự, chọn mô hình sơ bộ và dựng
+  cây thăm dò (NJ/ML).</li>
+<li><strong>IQ-TREE</strong> (Bước 4–6) — ModelFinder + suy luận Maximum Likelihood nhanh,
+  chặt chẽ, kèm ultrafast bootstrap.</li>
+<li><strong>MrBayes</strong> (Bước 5–6) — suy luận Bayes bằng MCMC; cho cây hậu nghiệm và
+  xác suất hậu nghiệm.</li>
+</ul>
+</div>
+<hr />
+<h2 id="8-bon-phuong-phap-suy-luan-cay">8. Bốn phương pháp suy luận cây<a class="headerlink" href="#8-bon-phuong-phap-suy-luan-cay" title="Permanent link">&para;</a></h2>
+<h3 id="phuong-phap-khoang-cach-distance-based">Phương pháp Khoảng cách (Distance-based)<a class="headerlink" href="#phuong-phap-khoang-cach-distance-based" title="Permanent link">&para;</a></h3>
+<p>Chuyển các trình tự đã căn chỉnh thành một ma trận khoảng cách di truyền
+giữa từng cặp taxa, rồi dựng cây từ ma trận đó (ví dụ Neighbor-Joining,
+UPGMA).</p>
+<ul>
+<li><strong>Ưu điểm:</strong> rất nhanh, trực quan, phù hợp cho bộ dữ liệu lớn hoặc khảo
+  sát ban đầu.</li>
+<li><strong>Hạn chế:</strong> gộp thông tin từng vị trí thành một con số duy nhất → mất
+  chi tiết; kết quả phụ thuộc cách tính khoảng cách.</li>
+<li><strong>Công cụ:</strong> MEGA — dùng ở bước thăm dò (Neighbor-Joining / UPGMA).</li>
+</ul>
+<h3 id="phuong-phap-tiet-kiem-nhat-maximum-parsimony">Phương pháp Tiết kiệm nhất (Maximum Parsimony)<a class="headerlink" href="#phuong-phap-tiet-kiem-nhat-maximum-parsimony" title="Permanent link">&para;</a></h3>
+<p>Chọn cây yêu cầu số lần thay đổi tiến hóa ít nhất để giải thích dữ liệu —
+theo nguyên tắc "giả thuyết đơn giản nhất".</p>
+<ul>
+<li><strong>Ưu điểm:</strong> trực giác, không cần mô hình thống kê phức tạp; dễ giải
+  thích cho người mới.</li>
+<li><strong>Hạn chế:</strong> dễ sai khi tốc độ tiến hóa không đều giữa các nhánh (hiện
+  tượng "hút nhánh dài" — long-branch attraction).</li>
+<li><strong>Công cụ:</strong> MEGA (tùy chọn Maximum Parsimony); PAUP*.</li>
+</ul>
+<h3 id="hop-ly-cuc-ai-maximum-likelihood-ml">Hợp lý cực đại (Maximum Likelihood — ML)<a class="headerlink" href="#hop-ly-cuc-ai-maximum-likelihood-ml" title="Permanent link">&para;</a></h3>
+<p>Tìm cây <em>và</em> mô hình thay thế làm cực đại xác suất quan sát được dữ liệu
+trình tự (likelihood).</p>
+<ul>
+<li><strong>Ưu điểm:</strong> nền tảng thống kê chặt chẽ, dùng hết thông tin từng vị trí,
+  kết quả nhất quán và có thể lặp lại.</li>
+<li><strong>Hạn chế:</strong> tính toán lâu (IQ-TREE giải quyết một phần vấn đề này); cần
+  chọn đúng mô hình thay thế; cho một cây tốt nhất chứ không phải một
+  phân phối cây.</li>
+<li><strong>Công cụ:</strong> Treefinder, RAxML, IQ-TREE (ModelFinder + ML + ultrafast
+  bootstrap).</li>
+</ul>
+<h3 id="suy-luan-bayes-bayesian-inference-bi">Suy luận Bayes (Bayesian Inference — BI)<a class="headerlink" href="#suy-luan-bayes-bayesian-inference-bi" title="Permanent link">&para;</a></h3>
+<p>Tính xác suất <strong>hậu nghiệm</strong> của cây = tiên nghiệm × hợp lý, và lấy mẫu
+không gian cây bằng MCMC thay vì tìm một nghiệm tối ưu duy nhất.</p>
+<ul>
+<li><strong>Ưu điểm:</strong> cho cả một phân phối cây kèm xác suất hậu nghiệm; xử lý
+  được mô hình phức tạp và độ bất định; cho phép thêm thông tin dựa trên
+  giả thuyết của mình.</li>
+<li><strong>Hạn chế:</strong> chạy chậm, cần kiểm tra sự hội tụ (burn-in, ESS); kết quả
+  phụ thuộc lựa chọn tiên nghiệm.</li>
+<li><strong>Công cụ:</strong> MrBayes (MCMC) — kiểm tra hội tụ bằng Tracer.</li>
+</ul>
+<hr />
+<h2 id="9-anh-gia-cay-phat-sinh-oc-cay-the-nao">9. Đánh giá cây phát sinh: đọc cây thế nào?<a class="headerlink" href="#9-anh-gia-cay-phat-sinh-oc-cay-the-nao" title="Permanent link">&para;</a></h2>
+<p>Khi đọc một cây phát sinh chủng loại, hãy tự hỏi bốn câu:</p>
+<ol>
+<li><strong>Giá trị hỗ trợ là gì?</strong> Con số ở mỗi nút thể hiện độ tin cậy của nhánh
+   (bootstrap % và/hoặc xác suất hậu nghiệm — PP). Cao (BS ≳ 70–95%, PP ≳
+   0.95) → đáng tin; thấp → quan hệ chưa chắc chắn.</li>
+<li><strong>Quan tâm loài nào?</strong> Xác định loài/nhánh bạn nghiên cứu, rồi tìm họ
+   hàng gần nhất (nhóm chị em — sister group) nằm cạnh nó trên cây.</li>
+<li><strong>Nhánh quan tâm có tách biệt rõ ràng không?</strong> Nhánh của bạn có tạo
+   thành nhóm đơn ngành riêng với hỗ trợ cao, tách khỏi các loài khác — hay
+   bị chen lẫn vào giữa chúng?</li>
+<li><strong>Nhóm ngoài (outgroup) ở đâu?</strong> Kiểm tra nhóm ngoài nằm ở gốc và tách
+   biệt với nhóm trong; nó định hướng gốc cho cây và xác nhận nhóm nghiên
+   cứu là đơn ngành.</li>
+</ol>
+<p><em>Quy ước thường gặp: số tại nút = bootstrap (%) / xác suất hậu nghiệm
+(PP); màu xanh = hỗ trợ cao, màu cam = hỗ trợ thấp.</em></p>
+<h3 id="bootstrap-va-xac-suat-hau-nghiem-khac-nhau-o-au">Bootstrap và xác suất hậu nghiệm khác nhau ở đâu?<a class="headerlink" href="#bootstrap-va-xac-suat-hau-nghiem-khac-nhau-o-au" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Bootstrap (BS)</th>
+<th>Posterior Probability (PP)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ý nghĩa</td>
+<td>Độ ổn định của tín hiệu</td>
+<td>Xác suất theo mô hình Bayes</td>
+</tr>
+<tr>
+<td>Cách tính</td>
+<td>Lấy mẫu lại các vị trí (có hoàn lại) và dựng lại cây nhiều lần. BS% = tỉ lệ số lần một nhánh xuất hiện → đo mức độ ổn định của tín hiệu trong dữ liệu.</td>
+<td>Xác suất một nhánh là đúng, tính từ phân phối hậu nghiệm với mô hình và dữ liệu đã cho. Nhận giá trị 0–1.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="admonition-title">Những cách hiểu sai thường gặp</p>
+<ul>
+<li>BS <strong>không phải</strong> là "% xác suất nhánh đúng" — nó chỉ đo độ lặp lại
+  của tín hiệu.</li>
+<li>BS thường cần tối thiểu 70% để đáng tin cậy; ultrafast bootstrap
+  (UFB) hoặc PP thì cần từ 95%.</li>
+<li>Giá trị hỗ trợ cao vẫn có thể <strong>sai</strong> nếu mô hình sai hoặc dữ liệu bị
+  lệch.</li>
+</ul>
+</div>
+<hr />
+<h2 id="10-mot-so-cay-phat-sinh-chung-loai-tu-cac-loai-moi-uoc-mo-ta">10. Một số cây phát sinh chủng loại từ các loài mới được mô tả<a class="headerlink" href="#10-mot-so-cay-phat-sinh-chung-loai-tu-cac-loai-moi-uoc-mo-ta" title="Permanent link">&para;</a></h2>
+<p>Các ví dụ dưới đây là các loài mới công bố gần đây, minh họa cách gen
+được chọn (COI, 16S, Cytb, ND2, hay tổ hợp nhiều gen) tùy vào nhóm sinh
+vật và câu hỏi nghiên cứu.</p>
+<table>
+<thead>
+<tr>
+<th>Loài mới</th>
+<th>Nguồn công bố</th>
+<th>Gen sử dụng</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><em>Acanthosaura grismeri</em> (Le et al., 2025)</td>
+<td>Zootaxa</td>
+<td>COI</td>
+</tr>
+<tr>
+<td><em>Zhangixalus thaoae</em> (Nguyen et al., 2024)</td>
+<td>ZooKeys</td>
+<td>16S</td>
+</tr>
+<tr>
+<td><em>Euroscaptor darwini</em> (Vu et al., 2025)</td>
+<td>ZooKeys</td>
+<td>Cytb &amp; 12S</td>
+</tr>
+<tr>
+<td><em>Uropsilus fansipanensis</em> (Bui et al., 2023)</td>
+<td>Zootaxa</td>
+<td>Cytb, RAG1, RAG2</td>
+</tr>
+<tr>
+<td><em>Tylototriton vietnamirabilis</em> (Ong et al., 2026)</td>
+<td>ZooKeys</td>
+<td>ND2</td>
+</tr>
+</tbody>
+</table>
+<div class="grid">
+<p><img alt="Cây phát sinh chủng loại của Acanthosaura grismeri" src="../assets/images/phan1/s22_p01.jpg" />
+<img alt="Acanthosaura grismeri — cá thể đực (trái) và cái (phải)" src="../assets/images/phan1/s22_p02.jpg" /></p>
+</div>
+<div class="grid">
+<p><img alt="Cây phát sinh chủng loại của Zhangixalus thaoae" src="../assets/images/phan1/s23_p01.jpg" />
+<img alt="Zhangixalus thaoae" src="../assets/images/phan1/s23_p02.jpg" /></p>
+</div>
+<div class="grid">
+<p><img alt="Cây phát sinh chủng loại của Euroscaptor darwini" src="../assets/images/phan1/s24_p01.jpg" />
+<img alt="Euroscaptor darwini" src="../assets/images/phan1/s24_p02.jpg" /></p>
+</div>
+<div class="grid">
+<p><img alt="Cây phát sinh chủng loại của Uropsilus fansipanensis" src="../assets/images/phan1/s25_p01.jpg" />
+<img alt="Uropsilus fansipanensis" src="../assets/images/phan1/s25_p02.jpg" /></p>
+</div>
+<div class="grid">
+<p><img alt="Cây phát sinh chủng loại của Tylototriton vietnamirabilis" src="../assets/images/phan1/s26_p01.jpg" />
+<img alt="Tylototriton vietnamirabilis — ảnh: Phạm Thế Cường" src="../assets/images/phan1/s26_p02.jpg" /></p>
+</div>
+<hr />
+<h2 id="tiep-theo">Tiếp theo<a class="headerlink" href="#tiep-theo" title="Permanent link">&para;</a></h2>
+<p>Phần 2 sẽ đi vào thực hành: đọc và lắp ráp chromatogram bằng ChromasPro,
+định danh trình tự bằng BLAST, thu thập trình tự tham chiếu từ GenBank, và
+căn chỉnh bằng MEGA.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Trở lại mục lục
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.tabs", "navigation.top", "content.code.copy", "toc.integrate"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "\u0110\u00e3 sao ch\u00e9p", "clipboard.copy": "Sao ch\u00e9p v\u00e0o b\u1ed9 nh\u1edb t\u1ea1m", "search.result.more.one": "1 t\u1eeb kh\u00e1c trong trang", "search.result.more.other": "# t\u1eeb kh\u00e1c trong trang", "search.result.none": "Kh\u00f4ng t\u00ecm th\u1ea5y t\u00e0i li\u1ec7u li\u00ean quan", "search.result.one": "1 t\u00e0i li\u1ec7u li\u00ean quan", "search.result.other": "# t\u00e0i li\u1ec7u li\u00ean quan", "search.result.placeholder": "Nh\u1eadp \u0111\u1ec3 b\u1eaft \u0111\u1ea7u t\u00ecm ki\u1ebfm", "search.result.term.missing": "Kh\u00f4ng", "select.version": "Ch\u1ecdn phi\u00ean b\u1ea3n"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../assets/extra.js"></script>
+      
+    
+  </body>
+</html>
