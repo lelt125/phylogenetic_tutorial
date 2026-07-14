@@ -1,0 +1,64 @@
+site_name: "Hướng dẫn xây dựng cây Phát sinh chủng loại"
+site_description: "Hướng dẫn xây dựng cây phát sinh chủng loại / Guide to Phylogenetic tree construction"
+
+# Plain .html links (not /page/ folders) so files open correctly
+# straight off a USB drive via file:// with no local server needed.
+use_directory_urls: false
+
+theme:
+  name: material
+  language: en
+  palette:
+    - scheme: default
+      primary: teal
+      accent: amber
+  features:
+    - navigation.tabs
+    - navigation.top
+    - content.code.copy
+    - toc.integrate
+
+plugins:
+  - search
+  - i18n:
+      docs_structure: folder
+      fallback_to_default: true
+      languages:
+        - locale: en
+          default: true
+          name: English
+          build: true
+        - locale: vi
+          name: Tiếng Việt
+          build: true
+          nav_translations:
+            Home: Trang chủ
+            "Part 1 — Theoretical Overview": "Phần 1 — Tổng quan lý thuyết"
+            "Part 2 — ChromasPro, BLAST, GenBank, MEGA": "Phần 2 — ChromasPro, BLAST, GenBank, MEGA"
+            "Part 3 — Maximum Likelihood & Bayesian Inference": "Phần 3 — Phương pháp ML & Bayesian Inference"
+
+markdown_extensions:
+  - admonition          # !!! note / !!! warning callout boxes
+  - pymdownx.details     # collapsible callouts
+  - pymdownx.superfences # nested code blocks
+  - pymdownx.tabbed:
+      alternate_style: true
+  - tables               # pipe tables
+  - pymdownx.tasklist:    # - [x] checklists
+      custom_checkbox: true
+  - attr_list
+  - md_in_html
+  - toc:
+      permalink: true
+
+nav:
+  - Home: index.md
+  - "Part 1 — Theoretical Overview": part1.md
+  - "Part 2 — ChromasPro, BLAST, GenBank, MEGA": part2.md
+  - "Part 3 — Maximum Likelihood & Bayesian Inference": part3.md
+
+extra_css:
+  - assets/extra.css
+
+extra_javascript:
+  - assets/extra.js

@@ -1,0 +1,5 @@
+.md-content h2 {
+  border-bottom: 2px solid var(--md-primary-fg-color);
+  padding-bottom: 0.3rem;
+  margin-top: 2rem;
+}
